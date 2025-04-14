@@ -19,6 +19,8 @@
   }
 }
 
+/* elements */
+
 * {
   box-sizing: border-box;
 }
@@ -39,6 +41,13 @@ main {
   justify-content: center;
   padding-bottom: 5rem;
 }
+
+h2 {
+  color: white;
+  margin: 1rem 0 0 0;
+}
+
+/* classes */
 
 .App__Main {
   width: 100%;
@@ -111,4 +120,107 @@ main {
 
 .auth__topbuttonactive {
   box-shadow: 0 -0.2rem 0 white inset;
+}
+
+.auth__sectionform,
+.auth__sectionform__signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 0;
+  width: 100%;
+  border-radius: 0 0 1rem 1rem;
+  margin-top: 6rem;
+}
+
+.auth__form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0 1rem 0;
+  position: relative;
+}
+
+.auth__label {
+  background-color: white;
+  min-height: 6.5rem;
+  width: 90%;
+  border-radius: 1rem;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: hsl(0, 0%, 30%);
+  position: relative;
+  font-size: 1.1rem;
+}
+
+.auth__input {
+  display: block;
+  width: 100%;
+  height: 1.8rem;
+  border-radius: 1rem;
+  border: 2.5px solid hsl(0, 0%, 90%);
+  font-size: 1rem;
+  padding: 0 2.4rem 0 0.5rem;
+}
+
+.auth__inputwrapper {
+  position: relative;
+  width: 100%;
+}
+
+.auth__formbuttondiv {
+  position: relative;
+  z-index: 0;
+  width: 90%;
+  height: 3rem;
+}
+
+.auth__formbutton,
+.auth__formbuttonback,
+.auth__formbuttonback__signup {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.auth__formbutton:disabled {
+  color: hsl(265, 50%, 80%);
+  background-color: hsl(265, 30%, 60%);
+}
+
+.auth__formbuttonback,
+.auth__formbuttonback__signup {
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0;
+  background-color: hsl(272, 25%, 55%);
+  z-index: -1;
+}
+
+.auth__formbuttonback__signup {
+  background-color: hsl(300, 25%, 55%);
+}
+
+.warning {
+  font-size: 1rem;
+  font-weight: 500;
+  color: hsl(0, 0%, 40%);
+  padding-bottom: 0.5rem;
 }
