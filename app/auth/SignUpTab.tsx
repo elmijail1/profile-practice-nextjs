@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react"
+import ValidationIndicator from "./ValidationIndicator";
 
 export default function SignUpTab() {
     const [inputData, setInputData] = useState({ email: "", password: "", passwordRepeat: "" })
@@ -79,12 +80,12 @@ export default function SignUpTab() {
                                 onChange={handleInput}
                                 onFocus={(event: any) => registerFocus(event.target.name)}
                             />
-                            {/* 
+
                             {
                                 firstFocus.email
                                 && <ValidationIndicator validatedData={validatedData} dataField="email" />
                             }
-                            */}
+
                         </div>
                         {
                             lastFocus === "email" && !validatedData.email &&
@@ -105,12 +106,10 @@ export default function SignUpTab() {
                                 onChange={handleInput}
                                 onFocus={(event: any) => registerFocus(event.target.name)}
                             />
-                            {/* 
                             {
                                 firstFocus.password
-                                && <ValidationIndicator validatedData={validatedData} dataField="email" />
+                                && <ValidationIndicator validatedData={validatedData} dataField="password" />
                             }
-                            */}
                         </div>
                         {
                             lastFocus === "password" && !validatedData.password &&
@@ -135,12 +134,10 @@ export default function SignUpTab() {
                                 onChange={handleInput}
                                 onFocus={(event: any) => registerFocus(event.target.name)}
                             />
-                            {/* 
                             {
                                 firstFocus.passwordRepeat
-                                && <ValidationIndicator validatedData={validatedData} dataField="email" />
+                                && <ValidationIndicator validatedData={validatedData} dataField="passwordRepeat" />
                             }
-                            */}
                         </div>
                         {
                             lastFocus === "passwordRepeat" && !validatedData.passwordRepeat &&
