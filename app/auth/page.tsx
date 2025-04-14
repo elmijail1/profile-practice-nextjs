@@ -1,19 +1,12 @@
 "use client";
-// import LogInTab from "../components/Auth/LogInTab"
-// import SignUpTab from "../components/Auth/SignUpTab"
+import LogInTab from "./LogInTab"
+import SignUpTab from "./SignUpTab"
 import { useState } from "react"
 
 export default function Auth() {
     const [activeTab, setActiveTab] = useState("login")
 
     return (
-        // ADD THIS BELOW AS A SIBLING TO THE SECTION
-        //         {
-        //             activeTab === "login"
-        //                 ? <LogInTab />
-        //                 : <SignUpTab />
-        //         }
-
         <main className="App_Main">
             <div className={`screen ${activeTab === "login" ? "screen__purple" : "screen__pink"}`}>
                 <section className={`auth__sectionbuttons ${activeTab === "login" ? "screen__purple" : "screen__pink"}`}>
@@ -30,6 +23,11 @@ export default function Auth() {
                         Sign up
                     </button>
                 </section>
+                {
+                    activeTab === "login"
+                        ? <LogInTab />
+                        : <SignUpTab />
+                }
             </div>
         </main>
     )
