@@ -1,8 +1,8 @@
 "use client";
 import { useState, useRef } from "react"
 import { nanoid } from "nanoid";
-import { changeSorting, determineSortingButtonName } from "../utilities/sorting";
-import useHandleElsewhereClick from "../utilities/useHandleElsewhereClick";
+import { changeSorting, determineSortingButtonName } from "../../utilities/sorting";
+import useHandleElsewhereClick from "../../utilities/useHandleElsewhereClick";
 
 type PeopleProps = {
     activeSorting: "joinedIn" | "username" | "name",
