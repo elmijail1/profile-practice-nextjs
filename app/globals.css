@@ -69,6 +69,11 @@ h2 {
   padding-bottom: 5rem;
 }
 
+.screen__Main {
+  background-color: hsl(130, 70%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+
 @media (min-width: 500px) {
 
   .screen,
@@ -393,6 +398,32 @@ h2 {
 /* * * */
 /* * */
 
+/* profile */
+/* component: Profile/TopSection */
+.ProfTop__Section {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  margin-top: 1rem;
+}
+
+/* 1. Initially visible H1 & Gear Button */
+.ProfTop__GearButton {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 2.3rem;
+}
+
+/* * */
+/* * * */
+/* * * */
+/* * */
+
 /* global */
 .Global__H1__Centered {
   padding-left: 40%;
@@ -442,4 +473,107 @@ h2 {
   box-sizing: border-box;
   font-weight: 600;
   border-bottom: 2px solid;
+}
+
+/* component: Profile/PopupWindow */
+.ProfPUW__Blurer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 6.5rem;
+  backdrop-filter: blur(2px);
+  background-color: hsla(130, 50%, 40%, 0.2);
+}
+
+.ProfPUW__DivGen {
+  width: 18rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 2rem;
+}
+
+/* component: Profile/TextEditForm */
+.ProfTEF__DivGen {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  margin-top: 1rem;
+}
+
+.ProfPUW__DivGen h2 {
+  color: black;
+  font-size: 1.4rem;
+  margin-top: 0.7rem;
+}
+
+.ProfTEF__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 0;
+}
+
+/* component: Profile/FormInput */
+.ProfFI__DivGen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.ProfFI__Label {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: hsl(0, 0%, 70%);
+}
+
+.ProfFI__Input {
+  width: 100%;
+  height: 2.2rem;
+  color: hsl(0, 0%, 40%);
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  padding: 0 0.4rem;
+}
+
+.ProfFI__Textarea {
+  width: 100%;
+  height: 8rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  margin: 0;
+  color: hsl(0, 0%, 40%);
+}
+
+.ProfFI__CharCounter {
+  font-size: 0.9rem;
+}
+
+.ProfFI__CharCounterLimitReached {
+  color: hsl(0, 100%, 50%);
+  font-weight: 600;
 }
