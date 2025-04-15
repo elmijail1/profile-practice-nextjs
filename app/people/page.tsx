@@ -4,9 +4,9 @@ import { useState } from "react";
 import { nanoid } from "nanoid";
 import SortByButton from "./SortByButton";
 import ListRow from "./ListRow";
-import { sortingOptionsData } from "@/app/data/sortingOptionsData";
-import { usersData } from "../data/usersData";
-import { sortBy } from "../utilities/sorting";
+import { sortingOptionsData } from "@/data/sortingOptionsData";
+import { usersData } from "../../data/usersData";
+import { sortBy } from "../../utilities/sorting";
 
 export default function People() {
     const [activeSorting, setActiveSorting] = useState("joinedIn")
