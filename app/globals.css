@@ -70,6 +70,7 @@ h2 {
 }
 
 @media (min-width: 500px) {
+
   .screen,
   .screen__Main {
     width: 360px;
@@ -261,4 +262,183 @@ h2 {
 .auth__inputindicator__cross {
   color: white;
   font-size: 1.8rem;
+}
+
+/* * */
+/* * * */
+/* * * */
+/* * */
+
+/* people */
+.Global__Screen {
+  width: 100%;
+  min-height: 45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 500px) {
+  .Global__Screen {
+    width: 360px;
+    height: 600px;
+  }
+}
+
+.Global__Screen__Blue {
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(200, 80%, 60%);
+}
+
+/* page: People */
+/* 1. Header Section */
+.Peop__HeaderDiv {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  margin-top: 1rem;
+}
+
+/* 3. List of Profiles */
+.Peop__LOP__List {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+/* component: ListRow */
+.LR__Gen,
+.LR__GenSelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 3rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  /* background-color: blue; */
+}
+
+.LR__GenSelf {
+  font-weight: 700;
+  color: hsl(50, 90%, 70%);
+}
+
+.LR__Link,
+.LR__LinkClipped {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.LR__LinkClipped {
+  justify-content: flex-start;
+  width: 85%;
+}
+
+.LR__ListOrder {
+  margin-right: -0.3rem;
+}
+
+.LR__ProfileImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: hsl(0, 0%, 90%);
+  border-radius: 50%;
+  display: flex;
+  padding: 0 0.5rem;
+  align-items: center;
+  font-size: 1.2rem;
+  line-height: 1.3rem;
+}
+
+.LR__ProfileName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.LR__DeleteButton {
+  background-color: hsl(0, 50%, 80%);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0.5rem;
+  rotate: 45deg;
+  font-size: 2.1rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.55rem;
+  padding-bottom: 0.65rem;
+}
+
+/* * */
+/* * * */
+/* * * */
+/* * */
+
+/* global */
+.Global__H1__Centered {
+  padding-left: 40%;
+}
+
+/* component: SortByButton */
+.SBB__DivGen {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.SBB__Button {
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 700;
+}
+
+.SBB__ButtonArrow {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+}
+
+.SBB__OptionsList {
+  background-color: white;
+  font-weight: 500;
+  list-style: none;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
+  position: absolute;
+  z-index: 1;
+  top: 1.8rem;
+  left: 4rem;
+}
+
+.SBB__OptionItemActive {
+  box-sizing: border-box;
+  font-weight: 600;
+  border-bottom: 2px solid;
 }
