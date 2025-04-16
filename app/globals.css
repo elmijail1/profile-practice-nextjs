@@ -577,3 +577,200 @@ h2 {
   color: hsl(0, 100%, 50%);
   font-weight: 600;
 }
+
+/* component: Profile/ImageSection/ImageSection */
+.ProfImg__Section {
+  width: 80%;
+  height: 10rem;
+  margin-top: 1.5rem;
+  background-color: white;
+  border-radius: 1.5rem;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.ProfImg__Avatar {
+  width: 50%;
+  height: 70%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ProfImg__AvatarHead {
+  font-size: 6rem;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 17%;
+  z-index: 1;
+}
+
+.ProfImg__AvatarBody {
+  position: relative;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.ProfImg__AvatarNeck {
+  width: 4rem;
+  height: 100%;
+  background-color: hsl(0, 0%, 85%);
+}
+
+.ProfImg__AvatarShoulders {
+  position: absolute;
+  width: 80%;
+  height: 1.5rem;
+  background-color: hsl(0, 0%, 85%);
+  bottom: 0;
+}
+
+.ProfImg__PencilButton {
+  position: absolute;
+  right: 5%;
+  top: 9%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 0.1rem solid hsl(0, 0%, 85%);
+  border-radius: 0.8rem;
+  color: hsl(0, 0%, 60%);
+  background-color: white;
+  rotate: 90deg;
+  z-index: 1;
+}
+
+.ProfImg__PencilButtonBottom {
+  position: absolute;
+  right: 5%;
+  top: 10.5%;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.8rem;
+  background-color: hsl(0, 0%, 85%);
+  z-index: 0;
+}
+
+/* component: Profile/ImageSection/ImageInput */
+.ProfImIn__Section {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(0, 0%, 80%);
+}
+
+.ProfImIn__H3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ProfImIn__OptionRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.ProfImIn__CheckboxInput {
+  display: none;
+}
+
+.ProfImIn__OptionSingle {
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  border: 2px solid hsl(0, 0%, 85%);
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.ProfImIn__OptionSingleHighlighted {
+  border: 4px solid hsl(50, 90%, 70%);
+  background-color: hsla(50, 90%, 70%, 0.1);
+}
+
+/* component: Profile/CrossButton */
+.ProfCross__Button {
+  color: hsl(0, 0%, 70%);
+  font-size: 3rem;
+  background: none;
+  border: none;
+  rotate: 45deg;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* background-color: yellow; */
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* component: WideButton */
+.WButton__Button {
+  width: 100%;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 85%);
+  border-radius: 1.5rem;
+  height: 2.3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: -1rem;
+}
+
+.WButton__Button::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  position: absolute;
+  bottom: -13%;
+  left: 0;
+  z-index: -1;
+}
+
+.WButton__BehindGreen::after {
+  background-color: hsl(130, 70%, 80%);
+}
+
+.WButton__BehindRed::after {
+  background-color: hsl(0, 80%, 90%);
+}
+
+/* component: Profile/ImageSection/ImageEditForm */
+.ProfIEF__DivGen {
+  width: 18rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  gap: 2rem;
+}
+
+.ProfIEF__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
