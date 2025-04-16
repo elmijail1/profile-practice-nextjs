@@ -4,7 +4,7 @@ import { useState, useEffect, use } from "react"
 import { usersData } from "../../../data/usersData"
 // components
 import TopSection from "./TopSection"
-// import ImageSection from "../components/Profile/ImageSection/ImageSection"
+import ImageSection from "./ImageSection"
 // import DataSection from "../components/Profile/DataSection/DataSection"
 
 export default function Profile({ params }: { params: Promise<{ id: string }> }) {
@@ -44,13 +44,13 @@ export default function Profile({ params }: { params: Promise<{ id: string }> })
                     setProfileData={setProfileData}
                 />
 
-                {/* CONTINUE HERE !!! */}
                 {/* 2. Image Section: Image + Image Editor */}
-                {/* <ImageSection
+                <ImageSection
                     profileData={profileData}
                     setProfileData={setProfileData}
-                /> */}
+                />
 
+                {/* CONTINUE HERE */}
                 {/* 3. Data Section: Name, Username, Joined In, Friends – all's dynamic */}
                 {/* <DataSection
                     profileData={profileData}
