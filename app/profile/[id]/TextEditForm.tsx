@@ -3,12 +3,12 @@
 // misc
 import { useState, useRef } from "react"
 // components
-// import CrossButton from "../CrossButton"
+import CrossButton from "./CrossButton"
 import FormInput from "./FormInput"
 import PopupWindow from "./PopupWindow"
-// import WideButton from "../../WideButton"
+import WideButton from "./WideButton"
 // utilities & data
-// import { wideButtonColorsData, extractColorObject } from "../../../data/wideButtonColorsData"
+import { wideButtonColorsData, extractColorObject } from "../../../data/wideButtonColorsData"
 import useHandleElsewhereClick from "../../../utilities/useHandleElsewhereClick"
 
 
@@ -91,7 +91,21 @@ export default function TextEditForm({
                     handleInput={handleInput}
                     inputCounter={inputCounter}
                 />
+
+                <WideButton
+                    colors={extractColorObject(wideButtonColorsData, "GreenFill")}
+                    onClickAction={handleSubmission}
+                    buttonText="Save changes"
+                />
+
+                <WideButton
+                    colors={extractColorObject(wideButtonColorsData, "RedText")}
+                    onClickAction={discardChanges}
+                    buttonText="Discard changes"
+                />
             </form>
+
+            <CrossButton onClickAction={discardChanges} />
         </PopupWindow>
     )
 }
