@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { nanoid } from "nanoid";
-import SortByButton from "./SortByButton";
+import SortByButton from "../components/SortByButton";
 import ListRow from "./ListRow";
 import { sortingOptionsData } from "@/data/sortingOptionsData";
 import { usersData } from "../../data/usersData";
