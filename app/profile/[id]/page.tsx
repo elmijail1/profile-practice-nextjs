@@ -5,7 +5,7 @@ import { usersData } from "../../../data/usersData"
 // components
 import TopSection from "./TopSection"
 import ImageSection from "./ImageSection"
-// import DataSection from "../components/Profile/DataSection/DataSection"
+import DataSection from "./DataSection"
 
 export default function Profile({ params }: { params: Promise<{ id: string }> }) {
     const currentId = use(params).id // write this and the line above down
@@ -52,12 +52,12 @@ export default function Profile({ params }: { params: Promise<{ id: string }> })
 
                 {/* CONTINUE HERE */}
                 {/* 3. Data Section: Name, Username, Joined In, Friends – all's dynamic */}
-                {/* <DataSection
+                <DataSection
                     profileData={profileData}
                     setProfileData={setProfileData}
                     usersData={usersData}
-                    currentId={currentId}
-                /> */}
+                    currentId={Number(currentId)}
+                />
 
             </div>
         </main >
