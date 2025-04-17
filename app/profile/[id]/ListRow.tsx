@@ -3,11 +3,11 @@ import Link from "next/link";
 
 type LOFProps = {
     user: any,
-    listOrder: number,
-    self: boolean,
-    deleteOnClick: any,
-    extraActionOnClick: any,
-    textColor: string
+    listOrder?: number,
+    self?: boolean,
+    deleteOnClick?: any,
+    extraActionOnClick?: any,
+    textColor?: string
 }
 
 export default function ListRow({
