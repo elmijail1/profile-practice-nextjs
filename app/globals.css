@@ -23,15 +23,8 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Nunito";
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  /* INSTALL NUNITO!!! */
-}
-
 
 main {
   width: 100%;
@@ -42,13 +35,65 @@ main {
   padding-bottom: 5rem;
 }
 
-h2 {
-  color: white;
-  margin: 1rem 0 0 0;
+h1 {
+  font-size: 1.3rem;
 }
 
-/* classes */
+/* do I really need this? */
+/* @media (min-width: 500px) {
+  main {
+    height: 50rem;
+  }
+} */
 
+/* .Profile__TextEditWindow__InputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+} */
+
+/* .Profile__TextEditWindow__InputDiv label {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: hsl(0, 0%, 70%);
+} */
+
+/* .Profile__TextEditor__InputName {
+  font-size: 1.1rem;
+  font-weight: 600;
+} */
+
+/* .Profile__TextEditor__CharCounter {
+  font-size: 0.9rem;
+} */
+
+/* .Profile__TextEditor__CharCounterError {
+  color: hsl(0, 100%, 50%);
+  font-weight: 600;
+} */
+
+/* .Profile__TextEditWindow__InputDiv input {
+  width: 100%;
+  height: 2.2rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  padding: 0 0.4rem;
+} */
+
+/* .Profile__TextEditWindow__InputDiv textarea {
+  width: 100%;
+  height: 8rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  margin: 0;
+} */
+
+/* to remove */
 .App__Main {
   width: 100%;
   display: flex;
@@ -58,6 +103,14 @@ h2 {
   padding-bottom: 5rem;
 }
 
+/* to remove */
+@media (min-width: 500px) {
+  .App__Main {
+    height: 50rem;
+  }
+}
+
+/* to remove */
 .screen,
 .screen__Main {
   width: 100%;
@@ -69,9 +122,40 @@ h2 {
   padding-bottom: 5rem;
 }
 
+/* to remove */
 .screen__Main {
   background-color: hsl(130, 70%, 50%);
   color: hsl(0, 0%, 100%);
+}
+
+.Global__Screen {
+  width: 100%;
+  min-height: 45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 500px) {
+  .Global__Screen {
+    width: 360px;
+    height: 600px;
+  }
+}
+
+.Global__Screen__Blue {
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(200, 80%, 60%);
+}
+
+.screen__purple {
+  background-color: hsl(260, 70%, 35%);
+}
+
+.screen__pink {
+  background-color: hsl(320, 70%, 70%);
 }
 
 @media (min-width: 500px) {
@@ -81,14 +165,6 @@ h2 {
     width: 360px;
     height: 600px;
   }
-}
-
-.screen__purple {
-  background-color: hsl(260, 70%, 35%);
-}
-
-.screen__pink {
-  background-color: hsl(320, 70%, 70%);
 }
 
 .auth__sectionbuttons {
@@ -128,6 +204,50 @@ h2 {
   box-shadow: 0 -0.2rem 0 white inset;
 }
 
+.App__MainAbsolute {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.footer {
+  height: 5rem;
+  width: 100%;
+  background-color: white;
+  border-style: solid;
+  border-width: 0.1rem 0 0 0;
+  border-color: hsl(0, 0%, 90%);
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 500px) {
+  .footer {
+    width: 360px;
+    position: absolute;
+  }
+}
+
+.footer__navlink {
+  height: 100%;
+  width: 50%;
+  border: none;
+  background-color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
 .auth__sectionform,
 .auth__sectionform__signup {
   display: flex;
@@ -138,6 +258,11 @@ h2 {
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   margin-top: 6rem;
+}
+
+h2 {
+  color: white;
+  margin: 1rem 0 0 0;
 }
 
 .auth__form {
@@ -169,6 +294,11 @@ h2 {
   font-size: 1.1rem;
 }
 
+.auth__inputwrapper {
+  position: relative;
+  width: 100%;
+}
+
 .auth__input {
   display: block;
   width: 100%;
@@ -177,58 +307,6 @@ h2 {
   border: 2.5px solid hsl(0, 0%, 90%);
   font-size: 1rem;
   padding: 0 2.4rem 0 0.5rem;
-}
-
-.auth__inputwrapper {
-  position: relative;
-  width: 100%;
-}
-
-.auth__formbuttondiv {
-  position: relative;
-  z-index: 0;
-  width: 90%;
-  height: 3rem;
-}
-
-.auth__formbutton,
-.auth__formbuttonback,
-.auth__formbuttonback__signup {
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  background-color: white;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.auth__formbutton:disabled {
-  color: hsl(265, 50%, 80%);
-  background-color: hsl(265, 30%, 60%);
-}
-
-.auth__formbuttonback,
-.auth__formbuttonback__signup {
-  position: absolute;
-  bottom: -0.3rem;
-  left: 0;
-  background-color: hsl(272, 25%, 55%);
-  z-index: -1;
-}
-
-.auth__formbuttonback__signup {
-  background-color: hsl(300, 25%, 55%);
-}
-
-.warning {
-  font-size: 1rem;
-  font-weight: 500;
-  color: hsl(0, 0%, 40%);
-  padding-bottom: 0.5rem;
 }
 
 .auth__inputindicator {
@@ -269,33 +347,255 @@ h2 {
   font-size: 1.8rem;
 }
 
-/* * */
-/* * * */
-/* * * */
-/* * */
+.auth__formbuttondiv {
+  position: relative;
+  z-index: 0;
+  width: 90%;
+  height: 3rem;
+}
 
-/* people */
-.Global__Screen {
+.auth__formbutton,
+.auth__formbuttonback,
+.auth__formbuttonback__signup {
   width: 100%;
-  min-height: 45rem;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  z-index: 1;
+}
+
+.auth__formbutton:disabled {
+  color: hsl(265, 50%, 80%);
+  background-color: hsl(265, 30%, 60%);
+}
+
+.auth__formbuttonback,
+.auth__formbuttonback__signup {
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0;
+  background-color: hsl(272, 25%, 55%);
+  z-index: -1;
+}
+
+.auth__formbuttonback__signup {
+  background-color: hsl(300, 25%, 55%);
+}
+
+.warning {
+  font-size: 1rem;
+  font-weight: 500;
+  color: hsl(0, 0%, 40%);
+  padding-bottom: 0.5rem;
+}
+
+/*  */
+/* * */
+/* * * */
+/* * * * */
+/* * * */
+/* * */
+/*  */
+
+/* page: Profile */
+.Global__H1__Centered {
+  padding-left: 40%;
+}
+
+/*  */
+
+.Profile__TextEditWindow {
+  width: 18rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  z-index: 0;
+  gap: 2rem;
+}
+
+.Profile__TextEditWindow h2 {
+  color: black;
+  font-size: 1.4rem;
+  margin-top: 0.7rem;
+}
+
+.Profile__TextEditWindow form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background-color: yellow;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.Profile__TextEditWindow__InputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.Profile__TextEditWindow__InputDiv label {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: hsl(0, 0%, 70%);
+}
+
+.Profile__TextEditor__InputName {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.Profile__TextEditor__CharCounter {
+  font-size: 0.9rem;
+}
+
+.Profile__TextEditor__CharCounterError {
+  color: hsl(0, 100%, 50%);
+  font-weight: 600;
+}
+
+.Profile__TextEditWindow__InputDiv input {
+  width: 100%;
+  height: 2.2rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  padding: 0 0.4rem;
+}
+
+.Profile__TextEditWindow__InputDiv textarea {
+  width: 100%;
+  height: 8rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid hsl(0, 0%, 85%);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.ButtonStereo {
+  width: 100%;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 85%);
+  border-radius: 1.5rem;
+  height: 2.3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
   position: relative;
-  padding-bottom: 5rem;
+  margin-bottom: -1rem;
 }
 
-@media (min-width: 500px) {
-  .Global__Screen {
-    width: 360px;
-    height: 600px;
-  }
+.ButtonStereo::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: hsl(0, 0%, 85%);
+  border-radius: 1.5rem;
+  position: absolute;
+  bottom: -13%;
+  left: 0;
+  z-index: -1;
 }
 
-.Global__Screen__Blue {
-  color: hsl(0, 0%, 100%);
-  background-color: hsl(200, 80%, 60%);
+/* BS Texts (black is default) */
+.BSText__White {
+  color: white;
 }
+
+.BSText__Red {
+  color: hsl(0, 70%, 80%);
+}
+
+/* BS Fills (white is default) */
+.BSFill__Green {
+  background-color: hsl(130, 70%, 50%);
+}
+
+/* BS Strokes (gray is default) */
+.BSStroke__Green {
+  border-color: hsl(130, 70%, 50%);
+}
+
+.BSStroke__Green::after {
+  background-color: hsl(130, 70%, 90%);
+}
+
+.BSStroke__Red {
+  border-color: hsl(0, 70%, 80%);
+}
+
+.BSStroke__Red::after {
+  background-color: hsl(0, 80%, 90%);
+}
+
+/* 8. Friends List */
+
+.profile_friends_sortingelement {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.profile_friends_sortingbutton {
+  color: hsl(130, 70%, 50%);
+  padding: 0.2rem 0.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  border: 2px solid hsl(130, 70%, 50%);
+  font-weight: 700;
+}
+
+.profile_friends_sortingoptionswindow {
+  color: hsl(0, 0%, 100%, 0.9);
+  background-color: hsl(130, 70%, 50%);
+  font-weight: 500;
+  list-style: none;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
+  position: absolute;
+  z-index: 1;
+  top: 1.8rem;
+  left: 4rem;
+}
+
+.profile_friends_sortingoptionactive {
+  box-sizing: border-box;
+  font-weight: 600;
+  color: hsl(0, 0%, 100%, 1);
+  border-bottom: 2px solid hsla(200, 0%, 100%, 1);
+}
+
+.profile_friends_sortingbuttonsymbol {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+}
+
+/* BELOW ARE FINISHED */
+
+/*  */
+/* * */
+/* * * */
+/* * */
+/*  */
 
 /* page: People */
 /* 1. Header Section */
@@ -320,6 +620,20 @@ h2 {
   gap: 0.8rem;
   width: 100%;
 }
+
+/*  */
+/* * */
+/* * * */
+/* * */
+/*  */
+
+/* ↓ C O M P O N E N T S */
+
+/*  */
+/* * */
+/* * * */
+/* * */
+/*  */
 
 /* component: ListRow */
 .LR__Gen,
@@ -394,144 +708,30 @@ h2 {
 }
 
 /* * */
-/* * * */
-/* * * */
+/*  */
 /* * */
 
-/* profile */
-/* component: Profile/TopSection */
-.ProfTop__Section {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  margin-top: 1rem;
-}
-
-/* 1. Initially visible H1 & Gear Button */
-.ProfTop__GearButton {
-  background-color: transparent;
-  color: white;
+/* component: Profile/CrossButton */
+.ProfCross__Button {
+  color: hsl(0, 0%, 70%);
+  font-size: 3rem;
+  background: none;
   border: none;
-  font-size: 2.3rem;
-}
-
-/* * */
-/* * * */
-/* * * */
-/* * */
-
-/* global */
-.Global__H1__Centered {
-  padding-left: 40%;
-}
-
-/* component: SortByButton */
-.SBB__DivGen {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  position: relative;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-top: 0.5rem;
-}
-
-.SBB__Button {
-  padding: 0.2rem 0.5rem;
-  border-radius: 1rem;
-  border: none;
-  font-weight: 700;
-}
-
-.SBB__ButtonArrow {
-  font-size: 0.6rem;
-  margin-left: 0.3rem;
-}
-
-.SBB__OptionsList {
-  background-color: white;
-  font-weight: 500;
-  list-style: none;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.8rem;
-  position: absolute;
-  z-index: 1;
-  top: 1.8rem;
-  left: 4rem;
-}
-
-.SBB__OptionItemActive {
-  box-sizing: border-box;
-  font-weight: 600;
-  border-bottom: 2px solid;
-}
-
-/* component: Profile/PopupWindow */
-.ProfPUW__Blurer {
-  height: 100%;
-  width: 100%;
+  rotate: 45deg;
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 2;
+  right: 0;
+  /* background-color: yellow; */
+  width: 3rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 6.5rem;
-  backdrop-filter: blur(2px);
-  background-color: hsla(130, 50%, 40%, 0.2);
-}
-
-.ProfPUW__DivGen {
-  width: 18rem;
-  padding: 1rem 0 1rem 0;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  gap: 2rem;
 }
 
-/* component: Profile/TextEditForm */
-.ProfTEF__DivGen {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  margin-top: 1rem;
-}
-
-.ProfPUW__DivGen h2 {
-  color: black;
-  font-size: 1.4rem;
-  margin-top: 0.7rem;
-}
-
-.ProfTEF__Form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  gap: 2rem;
-  padding-bottom: 1rem;
-  position: relative;
-  z-index: 0;
-}
+/* * */
+/*  */
+/* * */
 
 /* component: Profile/FormInput */
 .ProfFI__DivGen {
@@ -551,7 +751,6 @@ h2 {
 .ProfFI__Input {
   width: 100%;
   height: 2.2rem;
-  color: hsl(0, 0%, 40%);
   border-radius: 0.5rem;
   border: 0.15rem solid hsl(0, 0%, 85%);
   font-size: 1rem;
@@ -566,7 +765,6 @@ h2 {
   border: 0.15rem solid hsl(0, 0%, 85%);
   font-size: 1rem;
   margin: 0;
-  color: hsl(0, 0%, 40%);
 }
 
 .ProfFI__CharCounter {
@@ -577,6 +775,190 @@ h2 {
   color: hsl(0, 100%, 50%);
   font-weight: 600;
 }
+
+/* * */
+/*  */
+/* * */
+
+/* * */
+/*  */
+/* * */
+
+/* component section: Profile/DataSection */
+/* component: Profile/DataSection/AboutSection */
+.ProfAS__Section {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.3rem;
+}
+
+.ProfAS__Section * {
+  margin: 0;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/DataSection/DataSection */
+.ProfDS__Section {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  margin-top: 1.1rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  padding-bottom: 0.5rem;
+  position: relative;
+  z-index: 0;
+}
+
+.ProfDS__Section * {
+  margin: 0;
+}
+
+.ProfDS__LowerMargin {
+  padding-bottom: 2rem;
+}
+
+.ProfDS__Hyperlink {
+  color: hsl(50, 90%, 70%);
+  font-weight: 700;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.ProfDS__Hyperlink:disabled {
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/DataSection/FriendListWindow */
+.ProfFLW__Section {
+  top: 6rem;
+  width: 18rem;
+  min-height: 20.5rem;
+  max-height: 22.5rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ProfFLW__H2 {
+  color: black;
+  font-size: 1.4rem;
+  margin-top: 0.7rem;
+  text-align: center;
+}
+
+/* component: Profile/DataSection/ListOfFriends */
+.ProfLOF__ListWrapper {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 80%;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* * */
+/*  */
+/* * */
+
+/* component section: Profile/ImageSection */
+/* component: Profile/ImageSection/BGColorInput */
+/* component: Profile/ImageSection/ImageInput */
+.ProfImIn__Section {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(0, 0%, 80%);
+}
+
+.ProfImIn__H3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ProfImIn__OptionRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.ProfImIn__CheckboxInput {
+  display: none;
+}
+
+.ProfImIn__OptionSingle {
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  border: 2px solid hsl(0, 0%, 85%);
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.ProfImIn__OptionSingleHighlighted {
+  border: 4px solid hsl(50, 90%, 70%);
+  background-color: hsla(50, 90%, 70%, 0.1);
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/ImageSection/ImageEditForm */
+.ProfIEF__DivGen {
+  width: 18rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  gap: 2rem;
+}
+
+.ProfIEF__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* * */
+/*  */
+/* * */
 
 /* component: Profile/ImageSection/ImageSection */
 .ProfImg__Section {
@@ -659,66 +1041,152 @@ h2 {
   z-index: 0;
 }
 
-/* component: Profile/ImageSection/ImageInput */
-.ProfImIn__Section {
+/* * */
+/*  */
+/* * */
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/PopupWindow */
+.ProfPUW__Blurer {
+  height: 100%;
   width: 100%;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: hsl(0, 0%, 80%);
-}
-
-.ProfImIn__H3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.ProfImIn__OptionRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-}
-
-.ProfImIn__CheckboxInput {
-  display: none;
-}
-
-.ProfImIn__OptionSingle {
-  font-size: 1.4rem;
-  line-height: 1.5rem;
-  border: 2px solid hsl(0, 0%, 85%);
-  border-radius: 0.5rem;
-  padding: 0.1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-}
-
-.ProfImIn__OptionSingleHighlighted {
-  border: 4px solid hsl(50, 90%, 70%);
-  background-color: hsla(50, 90%, 70%, 0.1);
-}
-
-/* component: Profile/CrossButton */
-.ProfCross__Button {
-  color: hsl(0, 0%, 70%);
-  font-size: 3rem;
-  background: none;
-  border: none;
-  rotate: 45deg;
   position: absolute;
   top: 0;
-  right: 0;
-  /* background-color: yellow; */
-  width: 3rem;
-  height: 3rem;
+  left: 0;
+  z-index: 2;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 6.5rem;
+  backdrop-filter: blur(2px);
+  background-color: hsla(130, 50%, 40%, 0.2);
 }
+
+.ProfPUW__DivGen {
+  width: 18rem;
+  padding: 1rem 0 1rem 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 2rem;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/TextEditForm */
+.ProfTEF__DivGen {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  margin-top: 1rem;
+}
+
+.ProfPUW__DivGen h2 {
+  color: black;
+  font-size: 1.4rem;
+  margin-top: 0.7rem;
+}
+
+.ProfTEF__Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 0;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: Profile/TopSection */
+.ProfTop__Section {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  border: solid white;
+  border-width: 0 0 1px 0;
+  margin-top: 1rem;
+}
+
+/* 1. Initially visible H1 & Gear Button */
+.ProfTop__GearButton {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 2.3rem;
+}
+
+/* * */
+/*  */
+/* * */
+
+/* component: SortByButton */
+.SBB__DivGen {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.SBB__Button {
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 700;
+}
+
+.SBB__ButtonArrow {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+}
+
+.SBB__OptionsList {
+  background-color: white;
+  font-weight: 500;
+  list-style: none;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
+  position: absolute;
+  z-index: 1;
+  top: 1.8rem;
+  left: 4rem;
+}
+
+.SBB__OptionItemActive {
+  box-sizing: border-box;
+  font-weight: 600;
+  border-bottom: 2px solid;
+}
+
+/* * */
+/*  */
+/* * */
 
 /* component: WideButton */
 .WButton__Button {
@@ -750,27 +1218,4 @@ h2 {
 
 .WButton__BehindRed::after {
   background-color: hsl(0, 80%, 90%);
-}
-
-/* component: Profile/ImageSection/ImageEditForm */
-.ProfIEF__DivGen {
-  width: 18rem;
-  padding: 1rem 0 1rem 0;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-  gap: 2rem;
-}
-
-.ProfIEF__Form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  gap: 2rem;
-  padding-bottom: 1rem;
 }
