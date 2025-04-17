@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect, use } from "react"
 // import { useParams, Navigate } from "react-router-dom"
-import { usersData } from "../../../data/usersData"
+import { usersData } from "@/data/usersData"
 // components
-import TopSection from "./TopSection"
-import ImageSection from "./ImageSection"
-import DataSection from "./DataSection"
+import TopSection from "./TopSection/TopSection"
+import ImageSection from "./ImageSection/ImageSection"
+import DataSection from "./DataSection/DataSection"
 
 export default function Profile({ params }: { params: Promise<{ id: string }> }) {
     const currentId = use(params).id // write this and the line above down
@@ -18,13 +18,6 @@ export default function Profile({ params }: { params: Promise<{ id: string }> })
             }
         }
     }, [currentId])
-
-    // if (currentId > usersData.length) {
-    //     return (
-    //         <Navigate to="/" />
-    //         // somehow we need to change the url too for it to be "/", not, say, "profile/5"
-    //     )
-    // }
 
     if (!profileData) {
         return (
