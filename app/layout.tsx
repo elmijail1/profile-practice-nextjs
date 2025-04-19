@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import LoggedUserProvider from "./context/LoggedUserProvider";
+import LayoutFooter from "./components/LayoutFooter";
+import { Nunito } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  display: "swap",
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900", "1000"],
+  variable: "--font-nunito"
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <LoggedUserProvider>
+        <body
+          className={`${nunito.className} antialiased`}
+        >
+          {children}
+          <LayoutFooter />
+        </body>
+      </LoggedUserProvider>
     </html>
   );
 }
