@@ -22,9 +22,6 @@ export default function SortByButton({
     let sortingMenuRef = useRef<any>(null)
     useHandleElsewhereClick(sortingMenuRef, "SBB__Button", setSortByMenuOpen)
 
-    console.log(sortingMenuRef)
-    console.log(typeof (sortingMenuRef.current))
-
     return (
         <div className="SBB__DivGen">
 
