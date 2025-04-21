@@ -9,7 +9,7 @@ import { usersData } from "../../data/usersData";
 import { sortBy } from "../../utilities/sorting";
 
 export default function People() {
-    const [activeSorting, setActiveSorting] = useState("joinedIn")
+    const [activeSorting, setActiveSorting] = useState<"joinedIn" | "username" | "name">("joinedIn")
     const pageColors = {
         sortByText: "200, 80%, 60%",
         sortByBackground: "0, 0%, 100%",
