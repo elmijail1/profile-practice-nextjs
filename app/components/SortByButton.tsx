@@ -19,8 +19,11 @@ export default function SortByButton({
 }: PeopleProps) {
 
     const [sortByMenuOpen, setSortByMenuOpen] = useState(false)
-    let sortingMenuRef = useRef() // wth does it want?
+    let sortingMenuRef = useRef<any>(null)
     useHandleElsewhereClick(sortingMenuRef, "SBB__Button", setSortByMenuOpen)
+
+    console.log(sortingMenuRef)
+    console.log(typeof (sortingMenuRef.current))
 
     return (
         <div className="SBB__DivGen">
@@ -48,7 +51,7 @@ export default function SortByButton({
                 <ul
                     className="SBB__OptionsList"
                     style={{ color: `hsla(${colors.text}, 0.7)`, backgroundColor: `hsl(${colors.background})` }}
-                    ref={sortingMenuRef} // what to do about it?
+                    ref={sortingMenuRef}
                 >
                     {
                         sortingOptionsData.map((sortingOption) => {
