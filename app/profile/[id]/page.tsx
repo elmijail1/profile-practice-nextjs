@@ -6,18 +6,20 @@ import { usersData } from "@/data/usersData"
 import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
+import type { User } from "@/app/types/user";
 
 export default function Profile({ params }: { params: Promise<{ id: string }> }) {
-    const currentId = use(params).id // write this and the line above down
-    const [profileData, setProfileData] = useState({})
+    const currentId = use(params).id
+    const [profileData, setProfileData] = useState<User | undefined>()
 
     useEffect(() => {
-        for (let i = 0; i <= usersData.length; i++) {
-            if (usersData[i]?.id === Number(currentId)) {
-                return setProfileData(usersData[i])
-            }
+        async function fetchUser() {
+            const res = await fetch(`/api/users/${currentId}`)
+            const user = await res.json()
+            setProfileData(user)
         }
-    }, [currentId])
+        fetchUser()
+    }, [])
 
     if (!profileData) {
         return (
