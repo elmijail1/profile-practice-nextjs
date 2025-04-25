@@ -26,12 +26,11 @@ export default function DataSection({
         "August", "September", "October", "November", "December"
     ]
 
-    const joinedInMonth = months[profileData.joinedIn?.getMonth()]
-    const joinedInYear = profileData.joinedIn?.getFullYear()
+
+    const joinedInMonth = months[new Date(profileData.joinedIn).getMonth()]
+    const joinedInYear = new Date(profileData.joinedIn).getFullYear()
 
     const friendListButtonText = `${profileData.friends?.length} ${profileData.friends?.length !== 1 ? "Friends" : "Friend"}`
-
-    console.log(profileData)
 
 
     // *0.4 Functions
