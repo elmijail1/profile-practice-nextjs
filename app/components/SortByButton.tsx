@@ -8,7 +8,7 @@ type PeopleProps = {
     activeSorting: "joinedIn" | "username" | "name",
     setActiveSorting: any, // how do you annotate a state setter?
     sortingOptionsData: { name: string, displayName: string }[],
-    colors: { text: string, background: string }
+    colors: { text: number[], background: number[] }
 }
 
 export default function SortByButton({
@@ -27,7 +27,7 @@ export default function SortByButton({
 
             <p
                 style={{
-                    color: colors.background === "0, 0%, 100%"
+                    color: colors.background[0] === 0 && colors.background[1] === 0 && colors.background[2] === 100
                         ? "white"
                         : "black"
                 }}
@@ -37,7 +37,7 @@ export default function SortByButton({
 
             <button
                 className="SBB__Button"
-                style={{ color: `hsl(${colors.text})`, backgroundColor: `hsl(${colors.background})` }}
+                style={{ color: `hsl(${colors.text[0]}, ${colors.text[1]}%, ${colors.text[2]}%)`, backgroundColor: `hsl(${colors.background[0]}, ${colors.background[1]}%, ${colors.background[2]}%)` }}
                 onClick={() => setSortByMenuOpen(prevMenu => !prevMenu)}
             >
                 {determineSortingButtonName(sortingOptionsData, activeSorting)}
@@ -47,7 +47,7 @@ export default function SortByButton({
             {sortByMenuOpen &&
                 <ul
                     className="SBB__OptionsList"
-                    style={{ color: `hsla(${colors.text}, 0.7)`, backgroundColor: `hsl(${colors.background})` }}
+                    style={{ color: `hsla(${colors.text[0]}, ${colors.text[1]}%, ${colors.text[2]}%, 0.7)`, backgroundColor: `hsl(${colors.background[0]}, ${colors.background[1]}%, ${colors.background[2]}%)` }}
                     ref={sortingMenuRef}
                 >
                     {
@@ -57,7 +57,7 @@ export default function SortByButton({
                                     onClick={() => changeSorting(sortingOption.name, setActiveSorting, setSortByMenuOpen(false))}
                                     key={nanoid()}
                                     className={activeSorting === sortingOption.name ? "SBB__OptionItemActive" : ""}
-                                    style={activeSorting === sortingOption.name ? { color: `hsl(${colors.text})`, borderColor: `hsl(${colors.text})` } : undefined}
+                                    style={activeSorting === sortingOption.name ? { color: `hsl(${colors.text[0]}, ${colors.text[1]}%, ${colors.text[2]}%)`, borderColor: `hsl(${colors.text[0]}, ${colors.text[1]}%, ${colors.text[2]}%)` } : undefined}
                                 >
                                     {sortingOption.displayName}
                                 </li>
