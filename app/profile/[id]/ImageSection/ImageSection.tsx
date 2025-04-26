@@ -21,7 +21,7 @@ export default function ImageSection({
         <>
             <section
                 className="ProfImg__Section"
-                style={{ backgroundColor: profileData.bgColor }}
+                style={{ backgroundColor: `hsl(${profileData.bgColor[0]}, ${profileData.bgColor[1]}%, ${profileData.bgColor[2]}%)` }}
             >
 
                 {/* 1. Initially visible part: Image + Pencil Button */}
