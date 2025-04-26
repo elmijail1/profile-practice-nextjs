@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect, use } from "react"
-// import { useParams, Navigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useParams } from "next/navigation";
 import { usersData } from "@/data/usersData"
 // components
 import TopSection from "./TopSection/TopSection"
@@ -8,8 +8,8 @@ import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
 
-export default function Profile({ params }: { params: Promise<{ id: string }> }) {
-    const currentId = use(params).id
+export default function Profile() {
+    const currentId = useParams().id
     const [profileData, setProfileData] = useState<User | undefined>()
 
     useEffect(() => {
