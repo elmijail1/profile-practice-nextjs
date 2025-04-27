@@ -9,19 +9,19 @@ export default function LayoutFooter() {
     const { loggedUser, setLoggedUser } = useLoggedUser()
     const currentRoute = usePathname()
 
-    function AuthLink() {
+    function LoginLink() {
         return (
             <Link
-                href="/auth"
+                href="/login"
                 className="footer__link"
-                style={currentRoute === "/auth"
+                style={currentRoute === "/login"
                     ? {
                         backgroundColor: "hsl(200,50%,90%)"
                     }
                     : undefined
                 }
             >
-                Auth
+                Login
             </Link>
         )
     }
@@ -64,7 +64,7 @@ export default function LayoutFooter() {
         // setLoggedInUser(null) ?? add it outside this element
         return (
             <Link
-                href="/auth"
+                href="/login"
                 onClick={() => setLoggedUser(false)}
                 className="footer__link"
             >
@@ -75,10 +75,10 @@ export default function LayoutFooter() {
 
 
     function DetermineButtons() {
-        if (currentRoute === "/auth" || currentRoute === "/") {
-            return (<><AuthLink /><PeopleLink /></>)
+        if (currentRoute === "/login" || currentRoute === "/") {
+            return (<><LoginLink /><PeopleLink /></>)
         } else if (currentRoute === "/people" && !loggedUser) {
-            return (<><AuthLink /><PeopleLink /></>)
+            return (<><LoginLink /><PeopleLink /></>)
         } else if (currentRoute === "/people" && loggedUser) {
             return (<><LogOutLink /><ProfileLink /></>)
         } else if (currentRoute.includes("/profile")) {
