@@ -1,7 +1,8 @@
 "use client";
 // *0.1
 // misc
-import { useState, useRef } from "react"
+import React, { useState, useRef } from "react"
+import { useParams } from "next/navigation";
 // components
 import CrossButton from "../CrossButton"
 import FormInput from "./FormInput"
@@ -39,15 +40,34 @@ export default function TextEditForm({
         setOpenTextEditor(false)
     }
 
-    function handleSubmission(event: any) { //*0.4
-        event.preventDefault()
-        setProfileData((prevProfileData: any) => ({
-            ...prevProfileData,
-            name: inputData.name,
-            username: inputData.username,
-            aboutMe: inputData.aboutMe,
-        }))
-        setOpenTextEditor(false)
+    const id = useParams().id
+
+    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+        const updatedProfileData = { ...profileData, ...inputData }
+
+        try {
+            const response = await fetch(`/api/users/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedProfileData)
+            })
+
+            if (!response.ok) {
+                console.error("Failed to update user")
+                return
+            }
+
+            const updatedUser = await response.json()
+
+            setProfileData(updatedUser.user)
+
+            setOpenTextEditor(false)
+
+        } catch (error) {
+            console.error("Error updating the profile's texts: ", error)
+        }
     }
 
     function handleInput(event: any) { //*0.4

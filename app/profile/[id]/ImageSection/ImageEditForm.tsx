@@ -2,6 +2,7 @@
 // *0.1
 // general
 import { useState, useRef } from "react"
+import { useParams } from "next/navigation";
 // components
 import BGColorInput from "./BGColorInput"
 import CrossButton from "../CrossButton"
@@ -23,6 +24,7 @@ export default function ImageEditForm({
     profileData, setProfileData, setOpenImageEditor // *0.2
 }: ImageSectionProps) {
 
+    const { id } = useParams()
 
     const [inputData, setInputData] = useState({ // *0.3
         emoji: profileData.emoji,
@@ -37,15 +39,32 @@ export default function ImageEditForm({
         setOpenImageEditor(false)
     }
 
-    function handleSubmission(event: any) { // *0.4
-        event.preventDefault()
-        setProfileData((prevProfileData: any) => ({
-            ...prevProfileData,
-            emoji: inputData.emoji,
-            bgColor: inputData.bgColor,
-        }))
-        setOpenImageEditor(false)
+    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+        const updatedProfileData = { ...profileData, ...inputData }
+
+        try {
+            const response = await fetch(`/api/users/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedProfileData)
+            })
+
+            if (!response.ok) {
+                console.error("Failed to update user")
+                return
+            }
+
+            const updatedUser = await response.json()
+            setProfileData(updatedUser.user)
+            setOpenImageEditor(false)
+
+        } catch (error) {
+            console.error("Error updating the profile's images: ", error)
+        }
     }
+
 
     let popupWindowRef = useRef() // *0.5
     useHandleElsewhereClick(popupWindowRef, "ProfPUW__DivGen", () => setOpenImageEditor(false))
