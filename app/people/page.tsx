@@ -42,7 +42,7 @@ export default function People() {
                 </div>
 
                 <SortByButton
-                    activeSorting={activeSorting} // wth do I do about it?
+                    activeSorting={activeSorting}
                     setActiveSorting={setActiveSorting}
                     sortingOptionsData={sortingOptionsData}
                     colors={{ text: pageColors.sortByText, background: pageColors.sortByBackground }}
