@@ -6,7 +6,6 @@ export default function BGColorInput({
     inputData, setInputData // *0.2
 }: { inputData: any, setInputData: any }) {
 
-
     return (
         <section className="ProfImIn__Section">
             {/* 1.1. Header */}
@@ -16,7 +15,6 @@ export default function BGColorInput({
             <div className="ProfImIn__OptionRow">
                 {backgroundColorData.map((option) => {
                     return (
-
                         // *1.2.1. Label
                         <label
                             key={nanoid()}
@@ -24,13 +22,13 @@ export default function BGColorInput({
                             htmlFor={`checkbox${option.color}`}
                             className=
                             {`
-                                    ProfImIn__OptionSingle
-                                    ${inputData.bgColor === option.color
+                                ProfImIn__OptionSingle
+                                ${inputData.bgColor[0] === option.color[0] && inputData.bgColor[1] === option.color[1] && inputData.bgColor[2] === option.color[2]
                                     ? "ProfImIn__OptionSingleHighlighted"
                                     : ""
                                 }
-                                `}
-                            style={{ backgroundColor: option.color }}
+                            `}
+                            style={{ backgroundColor: `hsl(${option.color[0]}, ${option.color[1]}%, ${option.color[2]}%)` }}
                         >
 
                             {/* 1.2.1.1. Checkbox Input */}
