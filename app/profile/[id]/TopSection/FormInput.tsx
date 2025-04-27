@@ -48,7 +48,7 @@ export default function FormInput({
                     onChange={() => handleInput(event)}
                     maxLength={inputCounter[fieldName]}
                     autoComplete="off"
-                    className="ProfFI__Input"
+                    className="ProfFI__Input text-black"
                 />
             }
 
@@ -60,7 +60,7 @@ export default function FormInput({
                     onChange={() => handleInput(event)}
                     maxLength={inputCounter[fieldName]}
                     autoComplete="off"
-                    className="ProfFI__Textarea"
+                    className="ProfFI__Textarea text-black"
                 >
                 </textarea>
             }
