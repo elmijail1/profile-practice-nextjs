@@ -5,7 +5,20 @@ import userSchema from "../schema";
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
         const { id } = params
-        const user = await prisma.user.findUnique({ where: { id: Number(id) } })
+        const user = await prisma.user.findUnique({
+            where: { id: Number(id) },
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                aboutMe: true,
+                joinedIn: true,
+                emoji: true,
+                bgColor: true,
+                friends: true,
+                email: true
+            }
+        })
         return NextResponse.json(user)
     } catch (error) {
         console.error(`Error fetching the user: ${error}`)
