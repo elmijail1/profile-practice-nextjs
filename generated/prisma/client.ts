@@ -65,8 +65,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String   @unique\n  name     String   @db.VarChar(20)\n  username String   @db.VarChar(20)\n  emoji    String   @default(\"🎃\") @db.VarChar(1)\n  bgColor  Int[]    @default([0, 0, 95])\n  joinedIn DateTime @default(now())\n  aboutMe  String?  @db.VarChar(100)\n  friends  Int[]    @default([])\n}\n",
-  "inlineSchemaHash": "1f5d7bc555e78c507e20e305b020be9431d2329b9f4a7c1fb5f9a4bb1e4597a1",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique\n  hashedPassword String\n  name           String   @db.VarChar(20)\n  username       String   @unique @db.VarChar(20)\n  emoji          String   @default(\"🎃\") @db.VarChar(1)\n  bgColor        Int[]    @default([0, 0, 95])\n  joinedIn       DateTime @default(now())\n  aboutMe        String?  @db.VarChar(100)\n  friends        Int[]    @default([])\n}\n",
+  "inlineSchemaHash": "bc07cb7095f86a5af2995713e00a280f445ebeb413864d4b805528c50f924aa0",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
@@ -77,7 +77,7 @@ const config: runtime.GetPrismaClientConfig = {
 }
 config.dirname = __dirname
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emoji\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"1\"]],\"default\":\"🎃\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bgColor\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[0,0,95],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"joinedIn\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"aboutMe\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"friends\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"hashedPassword\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emoji\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"1\"]],\"default\":\"🎃\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bgColor\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[0,0,95],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"joinedIn\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"aboutMe\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"friends\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
 config.engineWasm = undefined
 config.compilerWasm = undefined
 
@@ -909,6 +909,7 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: number | null
     email: string | null
+    hashedPassword: string | null
     name: string | null
     username: string | null
     emoji: string | null
@@ -919,6 +920,7 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: number | null
     email: string | null
+    hashedPassword: string | null
     name: string | null
     username: string | null
     emoji: string | null
@@ -929,6 +931,7 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     email: number
+    hashedPassword: number
     name: number
     username: number
     emoji: number
@@ -955,6 +958,7 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
+    hashedPassword?: true
     name?: true
     username?: true
     emoji?: true
@@ -965,6 +969,7 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
+    hashedPassword?: true
     name?: true
     username?: true
     emoji?: true
@@ -975,6 +980,7 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
+    hashedPassword?: true
     name?: true
     username?: true
     emoji?: true
@@ -1074,6 +1080,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     email: string
+    hashedPassword: string
     name: string
     username: string
     emoji: string
@@ -1105,6 +1112,7 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    hashedPassword?: boolean
     name?: boolean
     username?: boolean
     emoji?: boolean
@@ -1117,6 +1125,7 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    hashedPassword?: boolean
     name?: boolean
     username?: boolean
     emoji?: boolean
@@ -1129,6 +1138,7 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    hashedPassword?: boolean
     name?: boolean
     username?: boolean
     emoji?: boolean
@@ -1141,6 +1151,7 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
+    hashedPassword?: boolean
     name?: boolean
     username?: boolean
     emoji?: boolean
@@ -1150,7 +1161,7 @@ export namespace Prisma {
     friends?: boolean
   }
 
-  export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "username" | "emoji" | "bgColor" | "joinedIn" | "aboutMe" | "friends", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "name" | "username" | "emoji" | "bgColor" | "joinedIn" | "aboutMe" | "friends", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "User"
@@ -1158,6 +1169,7 @@ export namespace Prisma {
     scalars: runtime.Types.Extensions.GetPayloadResult<{
       id: number
       email: string
+      hashedPassword: string
       name: string
       username: string
       emoji: string
@@ -1590,6 +1602,7 @@ export namespace Prisma {
   export interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
     readonly email: FieldRef<"User", 'String'>
+    readonly hashedPassword: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly emoji: FieldRef<"User", 'String'>
@@ -1980,6 +1993,7 @@ export namespace Prisma {
   export const UserScalarFieldEnum = {
     id: 'id',
     email: 'email',
+    hashedPassword: 'hashedPassword',
     name: 'name',
     username: 'username',
     emoji: 'emoji',
@@ -2086,6 +2100,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     email?: StringFilter<"User"> | string
+    hashedPassword?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
     emoji?: StringFilter<"User"> | string
@@ -2098,6 +2113,7 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
+    hashedPassword?: SortOrder
     name?: SortOrder
     username?: SortOrder
     emoji?: SortOrder
@@ -2110,21 +2126,23 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
+    username?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    hashedPassword?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    username?: StringFilter<"User"> | string
     emoji?: StringFilter<"User"> | string
     bgColor?: IntNullableListFilter<"User">
     joinedIn?: DateTimeFilter<"User"> | Date | string
     aboutMe?: StringNullableFilter<"User"> | string | null
     friends?: IntNullableListFilter<"User">
-  }, "id" | "email">
+  }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
+    hashedPassword?: SortOrder
     name?: SortOrder
     username?: SortOrder
     emoji?: SortOrder
@@ -2145,6 +2163,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     email?: StringWithAggregatesFilter<"User"> | string
+    hashedPassword?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
     emoji?: StringWithAggregatesFilter<"User"> | string
@@ -2156,6 +2175,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     email: string
+    hashedPassword: string
     name: string
     username: string
     emoji?: string
@@ -2168,6 +2188,7 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: number
     email: string
+    hashedPassword: string
     name: string
     username: string
     emoji?: string
@@ -2179,6 +2200,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
+    hashedPassword?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
@@ -2191,6 +2213,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
+    hashedPassword?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
@@ -2203,6 +2226,7 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: number
     email: string
+    hashedPassword: string
     name: string
     username: string
     emoji?: string
@@ -2214,6 +2238,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
+    hashedPassword?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
@@ -2226,6 +2251,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
+    hashedPassword?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
@@ -2303,6 +2329,7 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    hashedPassword?: SortOrder
     name?: SortOrder
     username?: SortOrder
     emoji?: SortOrder
@@ -2321,6 +2348,7 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    hashedPassword?: SortOrder
     name?: SortOrder
     username?: SortOrder
     emoji?: SortOrder
@@ -2331,6 +2359,7 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    hashedPassword?: SortOrder
     name?: SortOrder
     username?: SortOrder
     emoji?: SortOrder

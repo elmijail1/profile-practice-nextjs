@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  name     String   @db.VarChar(20)
-  username String   @unique @db.VarChar(20)
-  emoji    String   @default("🎃") @db.VarChar(1)
-  bgColor  Int[]    @default([0, 0, 95])
-  joinedIn DateTime @default(now())
-  aboutMe  String?  @db.VarChar(100)
-  friends  Int[]    @default([])
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  hashedPassword String
+  name           String   @db.VarChar(20)
+  username       String   @unique @db.VarChar(20)
+  emoji          String   @default("🎃") @db.VarChar(1)
+  bgColor        Int[]    @default([0, 0, 95])
+  joinedIn       DateTime @default(now())
+  aboutMe        String?  @db.VarChar(100)
+  friends        Int[]    @default([])
 }
