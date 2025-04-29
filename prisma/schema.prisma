@@ -12,8 +12,8 @@ model User {
   id             Int      @id @default(autoincrement())
   email          String   @unique
   hashedPassword String
-  name           String   @db.VarChar(20)
-  username       String   @unique @db.VarChar(20)
+  username       String   @default("newuser") @db.VarChar(20)
+  name           String   @default("New User") @db.VarChar(20)
   emoji          String   @default("🎃") @db.VarChar(1)
   bgColor        Int[]    @default([0, 0, 95])
   joinedIn       DateTime @default(now())

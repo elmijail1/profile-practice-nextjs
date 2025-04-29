@@ -65,8 +65,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique\n  hashedPassword String\n  name           String   @db.VarChar(20)\n  username       String   @unique @db.VarChar(20)\n  emoji          String   @default(\"🎃\") @db.VarChar(1)\n  bgColor        Int[]    @default([0, 0, 95])\n  joinedIn       DateTime @default(now())\n  aboutMe        String?  @db.VarChar(100)\n  friends        Int[]    @default([])\n}\n",
-  "inlineSchemaHash": "bc07cb7095f86a5af2995713e00a280f445ebeb413864d4b805528c50f924aa0",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique\n  hashedPassword String\n  username       String   @default(\"newuser\") @db.VarChar(20)\n  name           String   @default(\"New User\") @db.VarChar(20)\n  emoji          String   @default(\"🎃\") @db.VarChar(1)\n  bgColor        Int[]    @default([0, 0, 95])\n  joinedIn       DateTime @default(now())\n  aboutMe        String?  @db.VarChar(100)\n  friends        Int[]    @default([])\n}\n",
+  "inlineSchemaHash": "e0f93046666820a7b008e557d709d7eb82f18565521ed4bc3f671143bba0296c",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
@@ -77,7 +77,7 @@ const config: runtime.GetPrismaClientConfig = {
 }
 config.dirname = __dirname
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"hashedPassword\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emoji\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"1\"]],\"default\":\"🎃\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bgColor\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[0,0,95],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"joinedIn\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"aboutMe\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"friends\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"hashedPassword\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"default\":\"newuser\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"20\"]],\"default\":\"New User\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emoji\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"1\"]],\"default\":\"🎃\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bgColor\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[0,0,95],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"joinedIn\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"aboutMe\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"friends\",\"kind\":\"scalar\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
 config.engineWasm = undefined
 config.compilerWasm = undefined
 
@@ -910,8 +910,8 @@ export namespace Prisma {
     id: number | null
     email: string | null
     hashedPassword: string | null
-    name: string | null
     username: string | null
+    name: string | null
     emoji: string | null
     joinedIn: Date | null
     aboutMe: string | null
@@ -921,8 +921,8 @@ export namespace Prisma {
     id: number | null
     email: string | null
     hashedPassword: string | null
-    name: string | null
     username: string | null
+    name: string | null
     emoji: string | null
     joinedIn: Date | null
     aboutMe: string | null
@@ -932,8 +932,8 @@ export namespace Prisma {
     id: number
     email: number
     hashedPassword: number
-    name: number
     username: number
+    name: number
     emoji: number
     bgColor: number
     joinedIn: number
@@ -959,8 +959,8 @@ export namespace Prisma {
     id?: true
     email?: true
     hashedPassword?: true
-    name?: true
     username?: true
+    name?: true
     emoji?: true
     joinedIn?: true
     aboutMe?: true
@@ -970,8 +970,8 @@ export namespace Prisma {
     id?: true
     email?: true
     hashedPassword?: true
-    name?: true
     username?: true
+    name?: true
     emoji?: true
     joinedIn?: true
     aboutMe?: true
@@ -981,8 +981,8 @@ export namespace Prisma {
     id?: true
     email?: true
     hashedPassword?: true
-    name?: true
     username?: true
+    name?: true
     emoji?: true
     bgColor?: true
     joinedIn?: true
@@ -1081,8 +1081,8 @@ export namespace Prisma {
     id: number
     email: string
     hashedPassword: string
-    name: string
     username: string
+    name: string
     emoji: string
     bgColor: number[]
     joinedIn: Date
@@ -1113,8 +1113,8 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     hashedPassword?: boolean
-    name?: boolean
     username?: boolean
+    name?: boolean
     emoji?: boolean
     bgColor?: boolean
     joinedIn?: boolean
@@ -1126,8 +1126,8 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     hashedPassword?: boolean
-    name?: boolean
     username?: boolean
+    name?: boolean
     emoji?: boolean
     bgColor?: boolean
     joinedIn?: boolean
@@ -1139,8 +1139,8 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     hashedPassword?: boolean
-    name?: boolean
     username?: boolean
+    name?: boolean
     emoji?: boolean
     bgColor?: boolean
     joinedIn?: boolean
@@ -1152,8 +1152,8 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     hashedPassword?: boolean
-    name?: boolean
     username?: boolean
+    name?: boolean
     emoji?: boolean
     bgColor?: boolean
     joinedIn?: boolean
@@ -1161,7 +1161,7 @@ export namespace Prisma {
     friends?: boolean
   }
 
-  export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "name" | "username" | "emoji" | "bgColor" | "joinedIn" | "aboutMe" | "friends", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "username" | "name" | "emoji" | "bgColor" | "joinedIn" | "aboutMe" | "friends", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "User"
@@ -1170,8 +1170,8 @@ export namespace Prisma {
       id: number
       email: string
       hashedPassword: string
-      name: string
       username: string
+      name: string
       emoji: string
       bgColor: number[]
       joinedIn: Date
@@ -1603,8 +1603,8 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly email: FieldRef<"User", 'String'>
     readonly hashedPassword: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
     readonly emoji: FieldRef<"User", 'String'>
     readonly bgColor: FieldRef<"User", 'Int[]'>
     readonly joinedIn: FieldRef<"User", 'DateTime'>
@@ -1994,8 +1994,8 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     hashedPassword: 'hashedPassword',
-    name: 'name',
     username: 'username',
+    name: 'name',
     emoji: 'emoji',
     bgColor: 'bgColor',
     joinedIn: 'joinedIn',
@@ -2101,8 +2101,8 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     email?: StringFilter<"User"> | string
     hashedPassword?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
+    name?: StringFilter<"User"> | string
     emoji?: StringFilter<"User"> | string
     bgColor?: IntNullableListFilter<"User">
     joinedIn?: DateTimeFilter<"User"> | Date | string
@@ -2114,8 +2114,8 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     hashedPassword?: SortOrder
-    name?: SortOrder
     username?: SortOrder
+    name?: SortOrder
     emoji?: SortOrder
     bgColor?: SortOrder
     joinedIn?: SortOrder
@@ -2126,25 +2126,25 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
-    username?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     hashedPassword?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     emoji?: StringFilter<"User"> | string
     bgColor?: IntNullableListFilter<"User">
     joinedIn?: DateTimeFilter<"User"> | Date | string
     aboutMe?: StringNullableFilter<"User"> | string | null
     friends?: IntNullableListFilter<"User">
-  }, "id" | "email" | "username">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     hashedPassword?: SortOrder
-    name?: SortOrder
     username?: SortOrder
+    name?: SortOrder
     emoji?: SortOrder
     bgColor?: SortOrder
     joinedIn?: SortOrder
@@ -2164,8 +2164,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     email?: StringWithAggregatesFilter<"User"> | string
     hashedPassword?: StringWithAggregatesFilter<"User"> | string
-    name?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
+    name?: StringWithAggregatesFilter<"User"> | string
     emoji?: StringWithAggregatesFilter<"User"> | string
     bgColor?: IntNullableListFilter<"User">
     joinedIn?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -2176,8 +2176,8 @@ export namespace Prisma {
   export type UserCreateInput = {
     email: string
     hashedPassword: string
-    name: string
-    username: string
+    username?: string
+    name?: string
     emoji?: string
     bgColor?: UserCreatebgColorInput | number[]
     joinedIn?: Date | string
@@ -2189,8 +2189,8 @@ export namespace Prisma {
     id?: number
     email: string
     hashedPassword: string
-    name: string
-    username: string
+    username?: string
+    name?: string
     emoji?: string
     bgColor?: UserCreatebgColorInput | number[]
     joinedIn?: Date | string
@@ -2201,8 +2201,8 @@ export namespace Prisma {
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     hashedPassword?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
     bgColor?: UserUpdatebgColorInput | number[]
     joinedIn?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2214,8 +2214,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     hashedPassword?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
     bgColor?: UserUpdatebgColorInput | number[]
     joinedIn?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2227,8 +2227,8 @@ export namespace Prisma {
     id?: number
     email: string
     hashedPassword: string
-    name: string
-    username: string
+    username?: string
+    name?: string
     emoji?: string
     bgColor?: UserCreatebgColorInput | number[]
     joinedIn?: Date | string
@@ -2239,8 +2239,8 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     hashedPassword?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
     bgColor?: UserUpdatebgColorInput | number[]
     joinedIn?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2252,8 +2252,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     hashedPassword?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     emoji?: StringFieldUpdateOperationsInput | string
     bgColor?: UserUpdatebgColorInput | number[]
     joinedIn?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2330,8 +2330,8 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     hashedPassword?: SortOrder
-    name?: SortOrder
     username?: SortOrder
+    name?: SortOrder
     emoji?: SortOrder
     bgColor?: SortOrder
     joinedIn?: SortOrder
@@ -2349,8 +2349,8 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     hashedPassword?: SortOrder
-    name?: SortOrder
     username?: SortOrder
+    name?: SortOrder
     emoji?: SortOrder
     joinedIn?: SortOrder
     aboutMe?: SortOrder
@@ -2360,8 +2360,8 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     hashedPassword?: SortOrder
-    name?: SortOrder
     username?: SortOrder
+    name?: SortOrder
     emoji?: SortOrder
     joinedIn?: SortOrder
     aboutMe?: SortOrder
