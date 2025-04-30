@@ -64,11 +64,41 @@ export default function SignUpTab() {
         }
     }
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        setIsSubmitting(true)
+
+        try {
+            const response = await fetch(`/api/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(inputData)
+            })
+
+            if (!response.ok) {
+                const errorData = await response.json()
+                console.error("Failed to create a user: ", errorData)
+                return
+            }
+
+            const createdUser: { email: string } = await response.json()
+            console.log(createdUser)
+        } catch (error) {
+            console.error("Error while creating a user: ", error)
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
     return (
         <>
             <div className="auth__sectionform__signup">
                 <h2>Welcome!</h2>
-                <form className="auth__form">
+                <form className="auth__form" onSubmit={handleSubmission}>
                     <label className="auth__label">
                         Email
                         <div className="auth__inputwrapper">
@@ -150,7 +180,7 @@ export default function SignUpTab() {
                     <div className="auth__formbuttondiv">
                         <button
                             className="auth__formbutton"
-                            disabled={!validatedFull && true}
+                            disabled={!validatedFull || isSubmitting}
                         >
                             Sign up
                         </button>
