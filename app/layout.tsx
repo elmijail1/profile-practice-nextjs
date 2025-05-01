@@ -3,6 +3,7 @@ import "./globals.css";
 import LoggedUserProvider from "./context/LoggedUserProvider";
 import LayoutFooter from "./components/LayoutFooter";
 import { Nunito } from "next/font/google";
+import AuthProvider from "./auth/AuthProvider";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -27,8 +28,10 @@ export default function RootLayout({
         <body
           className={`${nunito.className} antialiased`}
         >
-          {children}
-          <LayoutFooter />
+          <AuthProvider>
+            {children}
+            <LayoutFooter />
+          </AuthProvider>
         </body>
       </LoggedUserProvider>
     </html>
