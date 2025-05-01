@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LogInTab() {
 
@@ -9,11 +11,31 @@ export default function LogInTab() {
         setInputData(prevData => ({ ...prevData, [name]: value }))
     }
 
+    const [error, setError] = useState("")
+
+    const router = useRouter()
+
+    async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const response = await signIn("credentials", {
+            redirect: false,
+            email: inputData.email,
+            password: inputData.password
+        })
+
+        if (!response?.ok) {
+            setError("Invalid email or password")
+        } else {
+            console.log(response)
+            router.push(`/people`)
+        }
+    }
+
     return (
         <>
             <div className="auth__sectionform">
                 <h2>Welcome back!</h2>
-                <form className="auth__form">
+                <form className="auth__form" onSubmit={handleLogin}>
                     <label className="auth__label">
                         Email
                         <input
