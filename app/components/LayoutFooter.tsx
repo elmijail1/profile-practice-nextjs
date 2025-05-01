@@ -3,11 +3,15 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { useLoggedUser } from "../context/LoggedUserProvider";
+import { useSession } from "next-auth/react";
 
 export default function LayoutFooter() {
 
     const { loggedUser, setLoggedUser } = useLoggedUser()
     const currentRoute = usePathname()
+    // const { status, data: session } = useSession()
+    // console.log(`Status: ${status}`)
+    // console.log(`Session: ${session}`)
 
     function LoginLink() {
         return (
