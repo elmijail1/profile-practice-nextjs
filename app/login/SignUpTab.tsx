@@ -15,44 +15,46 @@ export default function SignUpTab() {
         password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/, // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
     }
 
-    useEffect(() => {
-        let resultEmail = regex.email.test(inputData.email)
-        if (resultEmail) {
-            setValidatedData(prevData => ({ ...prevData, email: true }))
-        } else {
-            setValidatedData(prevData => ({ ...prevData, email: false }))
-        }
-    }, [inputData])
+    // useEffect(() => {
+    //     let resultEmail = regex.email.test(inputData.email)
+    //     if (resultEmail) {
+    //         setValidatedData(prevData => ({ ...prevData, email: true }))
+    //     } else {
+    //         setValidatedData(prevData => ({ ...prevData, email: false }))
+    //     }
+    // }, [inputData])
 
-    useEffect(() => {
-        let resultPassword = regex.password.test(inputData.password)
-        if (resultPassword) {
-            setValidatedData(prevData => ({ ...prevData, password: true }))
-        } else {
-            setValidatedData(prevData => ({ ...prevData, password: false }))
-        }
-    }, [inputData])
+    // useEffect(() => {
+    //     let resultPassword = regex.password.test(inputData.password)
+    //     if (resultPassword) {
+    //         setValidatedData(prevData => ({ ...prevData, password: true }))
+    //     } else {
+    //         setValidatedData(prevData => ({ ...prevData, password: false }))
+    //     }
+    // }, [inputData])
 
-    useEffect(() => {
-        if (inputData.passwordRepeat.length > 0 && inputData.password === inputData.passwordRepeat) {
-            setValidatedData(prevData => ({ ...prevData, passwordRepeat: true }))
-        } else {
-            setValidatedData(prevData => ({ ...prevData, passwordRepeat: false }))
-        }
-    }, [inputData])
+    // useEffect(() => {
+    //     if (inputData.passwordRepeat.length > 0 && inputData.password === inputData.passwordRepeat) {
+    //         setValidatedData(prevData => ({ ...prevData, passwordRepeat: true }))
+    //     } else {
+    //         setValidatedData(prevData => ({ ...prevData, passwordRepeat: false }))
+    //     }
+    // }, [inputData])
 
 
-    const [validatedData, setValidatedData] = useState({ email: false, password: false, passwordRepeat: false })
+    const [validatedData, setValidatedData] = useState({ email: true, password: true, passwordRepeat: true })
+    // const [validatedData, setValidatedData] = useState({ email: false, password: false, passwordRepeat: false })
 
-    const [validatedFull, setValidatedFull] = useState(false)
-    useEffect(() => {
-        if (validatedData.email === true && validatedData.password === true && validatedData.passwordRepeat === true) {
-            setValidatedFull(true)
-        }
-        if (validatedData.email === false || validatedData.password === false || validatedData.passwordRepeat === false) {
-            setValidatedFull(false)
-        }
-    })
+    const [validatedFull, setValidatedFull] = useState(true)
+    // const [validatedFull, setValidatedFull] = useState(false)
+    // useEffect(() => {
+    //     if (validatedData.email === true && validatedData.password === true && validatedData.passwordRepeat === true) {
+    //         setValidatedFull(true)
+    //     }
+    //     if (validatedData.email === false || validatedData.password === false || validatedData.passwordRepeat === false) {
+    //         setValidatedFull(false)
+    //     }
+    // })
 
     const [lastFocus, setLastFocus] = useState("")
     const [firstFocus, setFirstFocus] = useState({ email: false, password: false, passwordRepeat: false })
