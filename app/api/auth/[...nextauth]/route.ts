@@ -26,7 +26,7 @@ export const authOptions = {
                 const passwordsMatch = await bcrypt.compare(credentials.password, user.hashedPassword!)
                 if (!passwordsMatch) {
                     console.warn("Invalid password attempt.")
-                    throw new Error("Invalid email of password.")
+                    throw new Error("Invalid email or password.")
                 }
 
                 const { hashedPassword, ...safeUser } = user
