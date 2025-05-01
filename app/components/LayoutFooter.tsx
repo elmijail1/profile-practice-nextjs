@@ -11,7 +11,7 @@ export default function LayoutFooter() {
     const currentRoute = usePathname()
     // const { status, data: session } = useSession()
     // console.log(`Status: ${status}`)
-    // console.log(`Session: ${session}`)
+    // console.log(`Session: ${JSON.stringify(session)}`)
 
     function LoginLink() {
         return (
