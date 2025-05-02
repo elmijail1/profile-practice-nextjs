@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LogInTab() {
@@ -24,11 +24,20 @@ export default function LogInTab() {
         })
 
         if (!response?.ok) {
+            console.error("Login failed")
             setError("Invalid email or password")
-        } else {
-            console.log(response)
-            router.push(`/people`)
+            return
         }
+
+        const session = await getSession()
+
+        if (!session?.user.id) {
+            console.error("Session missing user ID")
+            setError("Session missing user ID")
+            return
+        }
+
+        router.push(`/profile/${session.user.id}`)
     }
 
     return (
