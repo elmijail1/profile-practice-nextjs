@@ -7,6 +7,7 @@ import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
+import Link from "next/link";
 
 export default function Profile() {
     const currentId = useParams().id
@@ -53,6 +54,13 @@ export default function Profile() {
                     usersData={usersData}
                     currentId={Number(currentId)}
                 />
+
+                <Link
+                    href="/api/auth/signout"
+                    className="bg-amber-600 w-1/2 flex justify-center py-1 rounded-full"
+                >
+                    Sign out
+                </Link>
 
             </div>
         </main >
