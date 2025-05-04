@@ -15,29 +15,39 @@ export default function LogInTab() {
 
     const router = useRouter()
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        const response = await signIn("credentials", {
-            redirect: false,
-            email: inputData.email,
-            password: inputData.password
-        })
+        setIsSubmitting(true)
 
-        if (!response?.ok) {
-            console.error("Login failed")
-            setError("Invalid email or password")
-            return
+        try {
+            const response = await signIn("credentials", {
+                redirect: false,
+                email: inputData.email,
+                password: inputData.password
+            })
+
+            if (!response?.ok) {
+                console.error("Login failed")
+                setError("Invalid email or password")
+                return
+            }
+
+            const session = await getSession()
+
+            if (!session?.user.id) {
+                console.error("Session missing user ID")
+                setError("Session missing user ID")
+                return
+            }
+
+            router.push(`/profile/${session.user.id}`)
+        } catch (error) {
+            console.error("Error while logging in a user: ", error)
+        } finally {
+            setIsSubmitting(false)
         }
-
-        const session = await getSession()
-
-        if (!session?.user.id) {
-            console.error("Session missing user ID")
-            setError("Session missing user ID")
-            return
-        }
-
-        router.push(`/profile/${session.user.id}`)
     }
 
     return (
@@ -66,7 +76,7 @@ export default function LogInTab() {
                         />
                     </label>
                     <div className="auth__formbuttondiv">
-                        <button className="auth__formbutton">
+                        <button className="auth__formbutton" disabled={isSubmitting}>
                             Log in
                         </button>
                         <button className="auth__formbuttonback" disabled></button>
