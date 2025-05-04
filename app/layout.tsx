@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import LoggedUserProvider from "./context/LoggedUserProvider";
 import LayoutFooter from "./components/LayoutFooter";
 import { Nunito } from "next/font/google";
 import AuthProvider from "./auth/AuthProvider";
@@ -24,16 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <LoggedUserProvider>
-        <body
-          className={`${nunito.className} antialiased`}
-        >
-          <AuthProvider>
-            {children}
-            <LayoutFooter />
-          </AuthProvider>
-        </body>
-      </LoggedUserProvider>
+      <body
+        className={`${nunito.className} antialiased`}
+      >
+        <AuthProvider>
+          {children}
+          <LayoutFooter />
+        </AuthProvider>
+      </body>
     </html>
   );
 }
