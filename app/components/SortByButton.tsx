@@ -5,7 +5,7 @@ import { changeSorting, determineSortingButtonName } from "../../utilities/sorti
 import useHandleElsewhereClick from "../../utilities/useHandleElsewhereClick";
 
 type PeopleProps = {
-    activeSorting: "joinedIn" | "username" | "name",
+    activeSorting: "joinedIn" | "name",
     setActiveSorting: any, // how do you annotate a state setter?
     sortingOptionsData: { name: string, displayName: string }[],
     colors: { text: number[], background: number[] }

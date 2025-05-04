@@ -7,7 +7,6 @@ export async function GET() {
             select: {
                 id: true,
                 name: true,
-                username: true,
                 joinedIn: true,
                 emoji: true,
                 bgColor: true

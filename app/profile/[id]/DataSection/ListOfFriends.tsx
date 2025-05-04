@@ -12,7 +12,7 @@ type FLWProps = {
     setProfileData: any,
     setOpenFriendList: any,
     friendsList: any[],
-    activeSorting: "name" | "username" | "joinedIn"
+    activeSorting: "name" | "joinedIn"
 }
 
 export default function ListOfFriends({

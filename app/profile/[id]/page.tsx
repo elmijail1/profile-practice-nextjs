@@ -7,7 +7,6 @@ import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
-import Link from "next/link";
 import PopupWindow from "./PopupWindow";
 import { signOut } from "next-auth/react";
 
@@ -62,7 +61,7 @@ export default function Profile() {
                 />
 
                 {/* CONTINUE HERE */}
-                {/* 3. Data Section: Name, Username, Joined In, Friends – all's dynamic */}
+                {/* 3. Data Section: Name, Joined In, Friends – all's dynamic */}
                 <DataSection
                     profileData={profileData}
                     setProfileData={setProfileData}

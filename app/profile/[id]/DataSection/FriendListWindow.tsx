@@ -23,7 +23,7 @@ export default function FriendListWindow({
 
 
     // *0.3 States & variables
-    const [activeSorting, setActiveSorting] = useState<"name" | "username" | "joinedIn">("joinedIn")
+    const [activeSorting, setActiveSorting] = useState<"name" | "joinedIn">("joinedIn")
     // this is a questionable arrangement
 
     const [friendsList, setFriendsList] = useState([""])

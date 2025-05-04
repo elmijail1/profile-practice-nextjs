@@ -1,7 +1,6 @@
 type user = {
     id: number,
     name: string,
-    username: string,
     emoji: string,
     bgColor: string,
     joinedIn: Date,
@@ -13,7 +12,6 @@ export const usersData: user[] = [
     {
         id: 1,
         name: "Jack O'Lantern",
-        username: "jackolantern15",
         emoji: "🎃",
         bgColor: "hsl(0, 0%, 95%)",
         joinedIn: new Date(2013, 11),
@@ -24,7 +22,6 @@ export const usersData: user[] = [
     {
         id: 2,
         name: "Gina Machina",
-        username: "ginamachina16",
         emoji: "🤖",
         bgColor: "hsl(50, 90%, 90%)",
         joinedIn: new Date(2015, 10),
@@ -34,7 +31,6 @@ export const usersData: user[] = [
     {
         id: 3,
         name: "1C3K0LD",
-        username: "icecold17",
         emoji: "🥶",
         bgColor: "hsl(300, 90%, 80%)",
         joinedIn: new Date(2017, 9),
@@ -44,7 +40,6 @@ export const usersData: user[] = [
     {
         id: 4,
         name: "AdNauseum",
-        username: "adnauseum18",
         emoji: "🤢",
         bgColor: "hsl(100, 90%, 80%)",
         joinedIn: new Date(2020, 0),

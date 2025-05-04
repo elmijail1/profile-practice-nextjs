@@ -76,9 +76,6 @@ export default function DataSection({
                 {/* 1.1. Header */}
                 <h2>{profileData.name}</h2>
 
-                {/* 1.2. Username */}
-                <p>{profileData.username}</p>
-
                 {/* 1.3. Joined in */}
                 <p>
                     {`Joined in ${joinedInMonth} ${joinedInYear}`}
@@ -129,27 +126,25 @@ export default function DataSection({
 
 ## Idea
 
-It's a general section for the 3rd and the last (lowest position-wise) section of the Profile page. Not only it contains the section with the user profile's main data like the name, username, registration date, and the number of friends (+ conditionally an Add / Remove friend button), but also it contains the Friend List window activated with the special Friend List button, as well as the About section containing another chunk of the user profile's data.
+It's a general section for the 3rd and the last (lowest position-wise) section of the Profile page. Not only it contains the section with the user profile's main data like the name, registration date, and the number of friends (+ conditionally an Add / Remove friend button), but also it contains the Friend List window activated with the special Friend List button, as well as the About section containing another chunk of the user profile's data.
 
 ## Structure
 
 - 1. Section
 - 1.1. Header
-- 1.2. Username
-- 1.3. Joined in
-- 1.4. Friend List button
-- 1.5. Manage Friend button
+- 1.2. Joined in
+- 1.3. Friend List button
+- 1.4. Manage Friend button
 - 2. Friend List window
 - 3. About Section
 ,
 - 1. Section: the initially visible container with the display of lots of user profile data.
 - 1.1. Header: the user profile's name.
-- 1.2. Username: the user profile's username.
-- 1.3. Joined in: the user profile's registration date (month + year). In the user profile objects it's stored as a Data value.
-- 1.4. Friend List button: it's a button with the style of a hyperlink that does 2 things:
+- 1.2. Joined in: the user profile's registration date (month + year). In the user profile objects it's stored as a Data value.
+- 1.3. Friend List button: it's a button with the style of a hyperlink that does 2 things:
     - 1. It displays the current number of the user's friends;
     - 2. It opens the Friend List pop-up window with the list of friends where you can remove friends or view their profiles (learn more in 2.).
-- 1.5. Manage Friend button: it's a button that lets you add or remove the current user as a friend. It's only present on profile pages other than that of the logged in user's own.
+- 1.4. Manage Friend button: it's a button that lets you add or remove the current user as a friend. It's only present on profile pages other than that of the logged in user's own.
 - 2. Friend List window: a popup window with the list of friends. You can view their profiles there and remove them from your list as well as sort the list in different ways.
 - 3. About section: the user profile's aboutMe value. A short description that you can edit.
 
@@ -163,7 +158,7 @@ It's a general section for the 3rd and the last (lowest position-wise) section o
   - useState, useEffect – React basic hooks.
   - AboutSection, FriendLitsWindow, ManageFriendButton – custom components used in this section's structure.    
 - 0.2. Props (from pages/Profile)
-    - profileData, setProfileData – a state with the current user profile's data and its setter. We need it to display values of these properties: name, username, joinedIn, friends, aboutMe;
+    - profileData, setProfileData – a state with the current user profile's data and its setter. We need it to display values of these properties: name, joinedIn, friends, aboutMe;
     - usersData – the general data array containing all the database's user profiles. We need it here for 2 things:
         - 1. [temporary, before the database support has been added] To check if the current logged-in user's friend list includes this profile;
         - 2. To pass as a prop to the FriendListWindow component for it to further take data from the database to populate the friend list. It requires more data than just IDs which are stored as a user's friend property value, that's why we need to access other data of those friend objects (learn more in the FriendListWindow component).

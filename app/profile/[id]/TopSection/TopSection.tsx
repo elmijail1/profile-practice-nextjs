@@ -87,7 +87,7 @@ The gear button is only visible if it's your profile.
 ,
 2. TextEditForm
 It contains a form in a popup window that a part of the user data is displayed in and can
-be changed in: namely, the values of the properties name, username, and aboutMe. It appears
+be changed in: namely, the values of the properties name and aboutMe. It appears
 only when the gear button is clicked and the state openTextEditor is changed to true. Learn
 more about its contents in components/Profile/TextEditForm.
 */}

@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 
 export default function People() {
 
-    const [activeSorting, setActiveSorting] = useState<"joinedIn" | "username" | "name">("joinedIn")
+    const [activeSorting, setActiveSorting] = useState<"joinedIn" | "name">("joinedIn")
     const [usersLoading, setUsersLoading] = useState(true)
     const [users, setUsers] = useState<User[]>([])
 

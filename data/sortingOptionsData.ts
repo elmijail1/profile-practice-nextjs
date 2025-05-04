@@ -4,10 +4,6 @@ export const sortingOptionsData: { name: string, displayName: string }[] = [
         displayName: "Joined In",
     },
     {
-        name: "username",
-        displayName: "Username",
-    },
-    {
         name: "name",
         displayName: "Name",
     },
