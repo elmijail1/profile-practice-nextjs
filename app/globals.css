@@ -636,8 +636,7 @@ h2 {
 /*  */
 
 /* component: ListRow */
-.LR__Gen,
-.LR__GenSelf {
+.LR__Gen {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -646,11 +645,6 @@ h2 {
   font-size: 1.3rem;
   font-weight: 600;
   /* background-color: blue; */
-}
-
-.LR__GenSelf {
-  font-weight: 700;
-  color: hsl(50, 90%, 70%);
 }
 
 .LR__Link,
