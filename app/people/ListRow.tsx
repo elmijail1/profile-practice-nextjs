@@ -14,13 +14,16 @@ export default function ListRow(
     { user, listOrder = 0, self = false, deleteOnClick = false, extraActionOnClick = false, textColor = [0, 0, 100] }: PeopleProps
 ) {
     return (
-        <li className={self ? "LR__GenSelf" : "LR__Gen"}>
+        <li className="LR__Gen">
 
             <Link
                 href={`/profile/${user.id}`}
                 className={deleteOnClick ? "LR__LinkClipped" : "LR__Link"}
                 onClick={extraActionOnClick ? extraActionOnClick : undefined}
-                style={{ color: `hsl(${textColor[0]}, ${textColor[1]}%, ${textColor[2]}%)` }}
+                style={
+                    self
+                        ? { color: "hsl(50, 90%, 70%)", fontWeight: 800 }
+                        : { color: `hsl(${textColor[0]}, ${textColor[1]}%, ${textColor[2]}%)` }}
             >
                 <div className="LR__ListOrder">{listOrder}</div>
                 <div
