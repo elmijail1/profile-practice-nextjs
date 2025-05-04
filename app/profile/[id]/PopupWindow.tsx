@@ -1,6 +1,6 @@
 type TEFormProps = {
     children: any,
-    windowReference: any
+    windowReference?: any
 }
 
 export default function PopupWindow({ children, windowReference = null }: TEFormProps) { //*0.1
