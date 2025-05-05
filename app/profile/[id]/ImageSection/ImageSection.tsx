@@ -4,6 +4,7 @@
 import { useState } from "react"
 // components
 import ImageEditForm from "./ImageEditForm"
+import { useSession } from "next-auth/react";
 
 type ProfileProps = {
     profileData: any,
@@ -16,6 +17,8 @@ export default function ImageSection({
 
     // *0.3
     const [openImageEditor, setOpenImageEditor] = useState(false)
+    const { data: session } = useSession()
+
 
     return (
         <>
@@ -34,7 +37,7 @@ export default function ImageSection({
                 </div>
 
                 {
-                    profileData.id === 1 &&
+                    session && Number(session.user.id) === profileData.id &&
                     <>
                         <button
                             className="ProfImg__PencilButton"
