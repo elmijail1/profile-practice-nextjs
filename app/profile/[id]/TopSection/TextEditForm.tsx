@@ -25,16 +25,16 @@ export default function TextEditForm({
 
     const [inputData, setInputData] = useState({ // *0.3
         name: profileData?.name,
-        username: profileData?.username,
+        email: profileData?.email,
         aboutMe: profileData?.aboutMe
     })
-    const inputCounter = { name: 20, username: 20, aboutMe: 100 } //*0.3
+    const inputCounter = { name: 20, aboutMe: 100 } //*0.3
 
 
     function discardChanges() { //*0.4
         setInputData({
             name: profileData?.name,
-            username: profileData?.username,
+            email: profileData?.email,
             aboutMe: profileData?.aboutMe
         })
         setOpenTextEditor(false)
@@ -98,7 +98,7 @@ export default function TextEditForm({
 
                 <FormInput
                     inputData={inputData}
-                    fieldName={"username"}
+                    fieldName={"email"}
                     fieldType={"input"}
                     handleInput={handleInput}
                     inputCounter={inputCounter}
@@ -148,7 +148,7 @@ popup window is active. Also places the form in the middle of the screen and add
 paddings.
 1.1. Contains main input elements: fields and buttons.
 1.1.1. FormInput: allows writing text for further submission and change of the user's values
-like name, username, and aboutMe. Learn more in components/Profile/FormInput.
+like name, and aboutMe. Learn more in components/Profile/FormInput.
 1.1.2. WideButton: a stylized button. Learn more in components/WideButton.
 1.2. CrossButton: a stylized button used to close the popup window. Has an absolute position
 relative to the PopupWindow, not the form. Learn more in components/Profile/CrossButton.
