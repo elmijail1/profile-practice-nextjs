@@ -7,14 +7,10 @@ import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
-import PopupWindow from "./PopupWindow";
-import { signOut } from "next-auth/react";
 
 export default function Profile() {
     const currentId = useParams().id
     const [profileData, setProfileData] = useState<User | undefined>()
-    const [logoutPrompt, setLogoutPrompt] = useState(false)
-    const [isLoggingOut, setIsLoggingOut] = useState(false)
 
     useEffect(() => {
         async function fetchUser() {
@@ -24,17 +20,6 @@ export default function Profile() {
         }
         fetchUser()
     }, [])
-
-
-    async function signoutUser() {
-        try {
-            setLogoutPrompt(false)
-            setIsLoggingOut(true)
-            await signOut({ callbackUrl: "/login" })
-        } catch (error) {
-            console.error("Error signing out: ", error)
-        }
-    }
 
     if (!profileData) {
         return (
@@ -68,48 +53,6 @@ export default function Profile() {
                     usersData={usersData}
                     currentId={Number(currentId)}
                 />
-
-                <button
-                    className="bg-amber-600 w-1/2 flex justify-center py-1 rounded-full"
-                    onClick={() => setLogoutPrompt(true)}
-                >
-                    Sign out
-                </button>
-
-                {logoutPrompt &&
-                    <PopupWindow>
-                        <div
-                            className="flex flex-col gap-3 text-black"
-                        >
-                            <p>You sure you want to log out?</p>
-                            <div className="flex gap-3 text-white font-bold">
-                                <button
-                                    onClick={signoutUser}
-                                    className="bg-green-600 w-1/2 flex justify-center py-1 rounded-full"
-                                >
-                                    Yes
-                                </button>
-                                <button
-                                    onClick={() => setLogoutPrompt(false)}
-                                    className="bg-red-600 w-1/2 flex justify-center py-1 rounded-full"
-                                >
-                                    No
-                                </button>
-                            </div>
-                        </div>
-                    </PopupWindow>
-                }
-
-                {isLoggingOut &&
-                    <PopupWindow>
-                        <div
-                            className="flex flex-col gap-3 text-black"
-                        >
-                            <p>Goodbye!</p>
-                            <p>Logging out...</p>
-                        </div>
-                    </PopupWindow>
-                }
 
             </div>
         </main >
