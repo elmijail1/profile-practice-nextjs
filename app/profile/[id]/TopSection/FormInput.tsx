@@ -4,7 +4,7 @@ type TEFormProps = {
     fieldName: any,
     fieldType: any,
     handleInput: any,
-    inputCounter: any
+    inputCounter?: any
 }
 
 export default function FormInput({
@@ -27,16 +27,19 @@ export default function FormInput({
                     {capitalizeFieldName()}
                 </span>
 
-                <span
-                    className={
-                        `ProfFI__CharCounter
-                        ${inputData[fieldName].length >= inputCounter[fieldName]
-                            ? "ProfFI__CharCounterLimitReached"
-                            : ""}
+                {
+                    inputCounter[fieldName] &&
+                    <span
+                        className={
+                            `ProfFI__CharCounter
+                        ${inputData[fieldName]?.length >= inputCounter[fieldName]
+                                ? "ProfFI__CharCounterLimitReached"
+                                : ""}
                         `}
-                >
-                    {inputData[fieldName].length}/{inputCounter[fieldName]}
-                </span>
+                    >
+                        {inputData[fieldName]?.length}/{inputCounter[fieldName]}
+                    </span>
+                }
             </label>
 
             {fieldType === "input" &&
@@ -108,7 +111,7 @@ inputCounter: an object containing maximum allowed lengths for various fields.
 .
 0.2. capitalizeFieldName
 A fieldName by default starts with a small letter to be equal to the property name of inputData
-and userData: e.g. "name", "username", "aboutMe", etc. But in labels they must be capitalized
+and userData: e.g. "name", "aboutMe", etc. But in labels they must be capitalized
 for stylistic reasons. So we change the first letter. In the only known case of a several-word
 field name (aboutMe => About Me) a space between the words is also added.
 */}
