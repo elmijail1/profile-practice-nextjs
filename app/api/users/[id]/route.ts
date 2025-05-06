@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import userSchema from "../schema";
+import userSchema, { partialUserSchema } from "../schema";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
@@ -25,12 +25,14 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
     try {
         const { id } = params
         const body = await request.json()
 
-        const validation = userSchema.safeParse(body)
+        console.log(body)
+
+        const validation = partialUserSchema.safeParse(body)
 
         if (!validation.success) {
             // console.log(JSON.stringify(validation.error.errors))
