@@ -10,7 +10,7 @@ const userSchema = z.object({
         if (typeof arg === "string" || arg instanceof Date) return new Date(arg)
     }, z.date()),
     aboutMe: z.string().max(100),
-    friends: z.array(z.number())
+    friends: z.array(z.number()).optional()
 })
 
 export default userSchema
