@@ -41,11 +41,12 @@ export default function ImageEditForm({
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
         event.preventDefault()
-        const updatedProfileData = { ...profileData, ...inputData }
+        // const updatedProfileData = { ...profileData, ...inputData }
+        const updatedProfileData = { ...inputData }
 
         try {
             const response = await fetch(`/api/users/${id}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },

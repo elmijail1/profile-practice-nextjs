@@ -43,11 +43,12 @@ export default function TextEditForm({
     const id = useParams().id
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
-        const updatedProfileData = { ...profileData, ...inputData }
+        event.preventDefault()
+        const updatedProfileData = { ...inputData }
 
         try {
             const response = await fetch(`/api/users/${id}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -60,9 +61,7 @@ export default function TextEditForm({
             }
 
             const updatedUser = await response.json()
-
             setProfileData(updatedUser.user)
-
             setOpenTextEditor(false)
 
         } catch (error) {
