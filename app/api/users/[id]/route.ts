@@ -33,6 +33,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         const validation = userSchema.safeParse(body)
 
         if (!validation.success) {
+            // console.log(JSON.stringify(validation.error.errors))
             return NextResponse.json({ error: validation.error.errors }, { status: 400 })
         }
 
