@@ -13,4 +13,6 @@ const userSchema = z.object({
     friends: z.array(z.number()).optional()
 })
 
+export const partialUserSchema = userSchema.partial().strict()
+
 export default userSchema
