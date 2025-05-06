@@ -40,6 +40,7 @@ export default function ImageEditForm({
     }
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+        event.preventDefault()
         const updatedProfileData = { ...profileData, ...inputData }
 
         try {
