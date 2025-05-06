@@ -16,6 +16,6 @@ model User {
   emoji          String   @default("🎃") @db.VarChar(1)
   bgColor        Int[]    @default([0, 0, 95])
   joinedIn       DateTime @default(now())
-  aboutMe        String?  @db.VarChar(100)
+  aboutMe        String?  @default("") @db.VarChar(100)
   friends        Int[]    @default([])
 }
