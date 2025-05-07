@@ -30,23 +30,34 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         const { id } = params
         const body = await request.json()
 
-        console.log(body)
-
+        // validation the input
         const validation = partialUserSchema.safeParse(body)
-
         if (!validation.success) {
-            // console.log(JSON.stringify(validation.error.errors))
             return NextResponse.json({ error: validation.error.errors }, { status: 400 })
         }
 
+        // finding the user entry to update in the DB
         const user = await prisma.user.findUnique({
             where: { id: Number(id) }
         })
-
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
+        // checking email input for uniqueness (if it's been updated)
+        if (validation.data.email && validation.data.email !== user.email) {
+            const existingUser = await prisma.user.findUnique({
+                where: { email: validation.data.email }
+            })
+
+            if (existingUser) {
+                return NextResponse.json(
+                    { error: "This email is already in use" }, { status: 400 }
+                )
+            }
+        }
+
+        // updating the user entry in the DB
         const updatedUser = await prisma.user.update({
             where: { id: user.id },
             data: validation.data
