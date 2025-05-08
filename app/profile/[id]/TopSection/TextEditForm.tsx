@@ -1,7 +1,7 @@
 "use client";
 // *0.1
 // misc
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { useParams } from "next/navigation";
 // components
 import CrossButton from "../CrossButton"
@@ -11,6 +11,7 @@ import WideButton from "../WideButton"
 // utilities & data
 import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
+import debounce from "lodash.debounce"
 
 
 type TSProps = {
@@ -30,17 +31,32 @@ export default function TextEditForm({
     })
     const inputCounter = { name: 20, aboutMe: 100 } //*0.3
 
-
-    function discardChanges() { //*0.4
-        setInputData({
-            name: profileData?.name,
-            email: profileData?.email,
-            aboutMe: profileData?.aboutMe
-        })
-        setOpenTextEditor(false)
-    }
+    const [emailTaken, setEmailTaken] = useState(false)
+    const [checking, setChecking] = useState(false)
 
     const id = useParams().id
+
+    async function checkEmail(emailToCheck: string) {
+        if (!emailToCheck) return
+        setChecking(true)
+        try {
+            const res = await fetch(`/api/users/check-email?email=${emailToCheck}&userId=${id}`)
+            const data = await res.json()
+            setEmailTaken(data.isTaken)
+        } catch (error) {
+            console.error("Failed to check email", error)
+        } finally {
+            setChecking(false)
+        }
+    }
+
+    const debouncedCheck = debounce(checkEmail, 700)
+
+    useEffect(() => {
+        debouncedCheck(inputData.email)
+        return () => debouncedCheck.cancel()
+    }, [inputData.email])
+
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
         event.preventDefault()
@@ -76,6 +92,15 @@ export default function TextEditForm({
         })
     }
 
+    function discardChanges() { //*0.4
+        setInputData({
+            name: profileData?.name,
+            email: profileData?.email,
+            aboutMe: profileData?.aboutMe
+        })
+        setOpenTextEditor(false)
+    }
+
     let popupWindowRef = useRef() // *0.5
     useHandleElsewhereClick(popupWindowRef, "ProfPUW__DivGen", discardChanges) // *0.5
 
@@ -102,6 +127,10 @@ export default function TextEditForm({
                     handleInput={handleInput}
                     inputCounter={inputCounter}
                 />
+                {
+                    emailTaken &&
+                    <p className="text-red-500 font-bold">THIS EMAIL'S TAKEN, YOU KNOBHEAD</p>
+                }
 
                 <FormInput
                     inputData={inputData}
@@ -111,17 +140,25 @@ export default function TextEditForm({
                     inputCounter={inputCounter}
                 />
 
-                <WideButton
-                    colors={extractColorObject(wideButtonColorsData, "GreenFill")}
-                    onClickAction={handleSubmission}
-                    buttonText="Save changes"
-                />
 
-                <WideButton
-                    colors={extractColorObject(wideButtonColorsData, "RedText")}
-                    onClickAction={discardChanges}
-                    buttonText="Discard changes"
-                />
+                {
+                    (!checking && !emailTaken) &&
+                    (
+                        <>
+                            <WideButton
+                                colors={extractColorObject(wideButtonColorsData, "GreenFill")}
+                                onClickAction={handleSubmission}
+                                buttonText="Save changes"
+                            />
+
+                            <WideButton
+                                colors={extractColorObject(wideButtonColorsData, "RedText")}
+                                onClickAction={discardChanges}
+                                buttonText="Discard changes"
+                            />
+                        </>
+                    )
+                }
             </form>
 
             <CrossButton onClickAction={discardChanges} />
