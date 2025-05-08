@@ -45,17 +45,19 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         }
 
         // checking email input for uniqueness (if it's been updated)
-        if (validation.data.email && validation.data.email !== user.email) {
-            const existingUser = await prisma.user.findUnique({
-                where: { email: validation.data.email }
-            })
+        // TURNED OFF, because I now have a real-time checker (see app/api/users/check-email && TextEditForm)
 
-            if (existingUser) {
-                return NextResponse.json(
-                    { error: "This email is already in use" }, { status: 400 }
-                )
-            }
-        }
+        // if (validation.data.email && validation.data.email !== user.email) {
+        //     const existingUser = await prisma.user.findUnique({
+        //         where: { email: validation.data.email }
+        //     })
+
+        //     if (existingUser) {
+        //         return NextResponse.json(
+        //             { error: "This email is already in use" }, { status: 400 }
+        //         )
+        //     }
+        // }
 
         // updating the user entry in the DB
         const updatedUser = await prisma.user.update({
