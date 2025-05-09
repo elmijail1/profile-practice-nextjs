@@ -40,7 +40,18 @@ export default function TextEditForm({
         if (!emailToCheck) return
         setChecking(true)
         try {
-            const res = await fetch(`/api/users/check-email?email=${emailToCheck}&userId=${id}`)
+            // the GET approach:
+            // const res = await fetch(`/api/users/check-email?email=${emailToCheck}&userId=${id}`)
+
+            // the POST approach (allegedly safer):
+            const res = await fetch("/api/users/check-email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "applicatio/json"
+                },
+                body: JSON.stringify({ email: emailToCheck, userId: id })
+            })
+
             const data = await res.json()
             setEmailTaken(data.isTaken)
         } catch (error) {
