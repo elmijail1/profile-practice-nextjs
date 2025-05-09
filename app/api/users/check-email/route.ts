@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
 
-    // extracting email & id from the request's search params (??)
-    const email = req.nextUrl.searchParams.get("email")
-    const userId = req.nextUrl.searchParams.get("userId")
+    // extracting email & id from...
+
+    // ...query params (the GET approach)
+    // const email = req.nextUrl.searchParams.get("email")
+    // const userId = req.nextUrl.searchParams.get("userId")
+
+    // ...request's body (the POST approach)
+    const { email, userId } = await req.json()
 
     // validating that there's email in the request
     if (!email) {
