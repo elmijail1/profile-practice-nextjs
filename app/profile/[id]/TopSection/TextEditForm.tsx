@@ -71,24 +71,32 @@ export default function TextEditForm({
     const debouncedCheck = useCallback(debounce(checkEmail, 1000), [id])
 
     useEffect(() => {
-        if (inputData.email === profileData.email) {
+        const email = inputData.email
+        const emailHasChanged = email !== profileData.email
+
+        if (!emailHasChanged) {
             setEmailStatus("idle")
             return
         }
 
-        if (!validateEmail(inputData.email)) {
+        const emailIsValid = validateEmail(email)
+        if (!emailIsValid) {
             setEmailStatus("invalid")
             return
         }
 
         setEmailStatus("checking")
-
         debouncedCheck(inputData.email)
+
         return () => debouncedCheck.cancel()
     }, [inputData.email, profileData.email])
 
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+        if (["invalid", "unavailable", "checking"].includes(emailStatus)) {
+            return
+        }
+
         event.preventDefault()
         const updatedProfileData = { ...inputData }
 
@@ -115,7 +123,7 @@ export default function TextEditForm({
         }
     }
 
-    function handleInput(event: any) { //*0.4
+    function handleInput(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) { //*0.4
         const { name, value } = event.target
         setInputData(prevInputData => {
             return ({ ...prevInputData, [name]: value })
