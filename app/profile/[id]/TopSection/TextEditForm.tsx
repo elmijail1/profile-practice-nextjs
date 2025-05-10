@@ -90,7 +90,7 @@ export default function TextEditForm({
         }
 
         setEmailStatus("checking")
-        checkEmailRef.current(inputData.email)
+        checkEmailRef.current(email)
 
     }, [inputData.email, profileData.email])
 
