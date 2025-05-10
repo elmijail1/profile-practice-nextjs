@@ -1,7 +1,7 @@
 "use client";
 // *0.1
 // misc
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect, useCallback } from "react"
 import { useParams } from "next/navigation";
 // components
 import CrossButton from "../CrossButton"
@@ -13,32 +13,40 @@ import { wideButtonColorsData, extractColorObject } from "../../../../data/wideB
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
 
+type ProfileData = {
+    name: string,
+    email: string,
+    aboutMe: string
+}
 
 type TSProps = {
-    profileData: any,
-    setProfileData: any,
-    setOpenTextEditor: any
+    profileData: ProfileData,
+    setProfileData: React.Dispatch<React.SetStateAction<ProfileData>>,
+    setOpenTextEditor: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 
 export default function TextEditForm({
     profileData, setProfileData, setOpenTextEditor // *0.2
 }: TSProps) {
 
-    const [inputData, setInputData] = useState({ // *0.3
+    const [inputData, setInputData] = useState<ProfileData>({ // *0.3
         name: profileData?.name,
         email: profileData?.email,
         aboutMe: profileData?.aboutMe
     })
     const inputCounter = { name: 20, aboutMe: 100 } //*0.3
 
-    const [emailTaken, setEmailTaken] = useState(false)
-    const [checking, setChecking] = useState(false)
+    const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
+
+    function validateEmail(email: string) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
 
     const id = useParams().id
 
     async function checkEmail(emailToCheck: string) {
-        if (!emailToCheck) return
-        setChecking(true)
+        if (!emailToCheck || !validateEmail(emailToCheck)) return
         try {
             // the GET approach:
             // const res = await fetch(`/api/users/check-email?email=${emailToCheck}&userId=${id}`)
@@ -47,26 +55,37 @@ export default function TextEditForm({
             const res = await fetch("/api/users/check-email", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "applicatio/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ email: emailToCheck, userId: id })
             })
 
             const data = await res.json()
-            setEmailTaken(data.isTaken)
+            setEmailStatus(data.isTaken ? "unavailable" : "available")
         } catch (error) {
             console.error("Failed to check email", error)
-        } finally {
-            setChecking(false)
+            setEmailStatus("unavailable")
         }
     }
 
-    const debouncedCheck = debounce(checkEmail, 700)
+    const debouncedCheck = useCallback(debounce(checkEmail, 1000), [id])
 
     useEffect(() => {
+        if (inputData.email === profileData.email) {
+            setEmailStatus("idle")
+            return
+        }
+
+        if (!validateEmail(inputData.email)) {
+            setEmailStatus("invalid")
+            return
+        }
+
+        setEmailStatus("checking")
+
         debouncedCheck(inputData.email)
         return () => debouncedCheck.cancel()
-    }, [inputData.email])
+    }, [inputData.email, profileData.email])
 
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
@@ -138,10 +157,11 @@ export default function TextEditForm({
                     handleInput={handleInput}
                     inputCounter={inputCounter}
                 />
-                {
-                    emailTaken &&
-                    <p className="text-red-500 font-bold">THIS EMAIL'S TAKEN, YOU KNOBHEAD</p>
-                }
+
+                {emailStatus === "available" && <p className="text-green-600">{emailStatus.toUpperCase()}</p>}
+                {["unavailable", "invalid"].includes(emailStatus) && <p className="text-red-600">{emailStatus.toUpperCase()}</p>}
+                {emailStatus === "checking" && <p className="text-black">{emailStatus.toUpperCase()}</p>}
+
 
                 <FormInput
                     inputData={inputData}
@@ -153,7 +173,7 @@ export default function TextEditForm({
 
 
                 {
-                    (!checking && !emailTaken) &&
+                    (!["checking", "invalid", "unavailable"].includes(emailStatus)) &&
                     (
                         <>
                             <WideButton
