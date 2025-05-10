@@ -39,7 +39,7 @@ export default function TextEditForm({
     const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
 
     function validateEmail(email: string) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) // ADD 100 SYMB LIMIT
+        return /^(?=.{5,100}$)[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
     const id = useParams().id
