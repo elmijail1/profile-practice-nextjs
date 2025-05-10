@@ -1,14 +1,13 @@
 "use client";
-// *0.1
-// misc
-import React, { useState, useRef, useEffect, useCallback } from "react"
+// React & Next's utilities
+import React, { useState, useRef, useEffect } from "react"
 import { useParams } from "next/navigation";
 // components
 import CrossButton from "../CrossButton"
 import FormInput from "./FormInput"
 import PopupWindow from "../PopupWindow"
 import WideButton from "../WideButton"
-// utilities & data
+// my utilities & data
 import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
@@ -40,7 +39,7 @@ export default function TextEditForm({
     const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
 
     function validateEmail(email: string) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) // ADD 100 SYMB LIMIT
     }
 
     const id = useParams().id
@@ -68,7 +67,12 @@ export default function TextEditForm({
         }
     }
 
-    const debouncedCheck = useCallback(debounce(checkEmail, 1000), [id])
+    const checkEmailRef = useRef(debounce(checkEmail, 1000))
+
+    useEffect(() => {
+        checkEmailRef.current = debounce(checkEmail, 1000)
+        return () => checkEmailRef.current.cancel()
+    }, [id])
 
     useEffect(() => {
         const email = inputData.email
@@ -86,9 +90,8 @@ export default function TextEditForm({
         }
 
         setEmailStatus("checking")
-        debouncedCheck(inputData.email)
+        checkEmailRef.current(inputData.email)
 
-        return () => debouncedCheck.cancel()
     }, [inputData.email, profileData.email])
 
 
