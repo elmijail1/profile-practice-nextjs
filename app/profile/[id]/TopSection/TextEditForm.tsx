@@ -60,10 +60,15 @@ export default function TextEditForm({
             })
 
             const data = await res.json()
-            setEmailStatus(data.isTaken ? "unavailable" : "available")
+
+            if (lastValidEmailRef.current === emailToCheck) {
+                setEmailStatus(data.isTaken ? "unavailable" : "available")
+            }
         } catch (error) {
             console.error("Failed to check email", error)
-            setEmailStatus("unavailable")
+            if (lastValidEmailRef.current === emailToCheck) {
+                setEmailStatus("unavailable")
+            }
         }
     }
 
@@ -73,6 +78,8 @@ export default function TextEditForm({
         checkEmailRef.current = debounce(checkEmail, 1000)
         return () => checkEmailRef.current.cancel()
     }, [id])
+
+    const lastValidEmailRef = useRef<string | null>(null)
 
     useEffect(() => {
         const email = inputData.email
@@ -86,10 +93,12 @@ export default function TextEditForm({
         const emailIsValid = validateEmail(email)
         if (!emailIsValid) {
             setEmailStatus("invalid")
+            lastValidEmailRef.current = null
             return
         }
 
         setEmailStatus("checking")
+        lastValidEmailRef.current = email
         checkEmailRef.current(email)
 
     }, [inputData.email, profileData.email])
