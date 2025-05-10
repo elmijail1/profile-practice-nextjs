@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id             Int      @id @default(autoincrement())
-  email          String   @unique
+  email          String   @unique @db.VarChar(100)
   hashedPassword String
   name           String   @default("New User") @db.VarChar(20)
   emoji          String   @default("🎃") @db.VarChar(1)
