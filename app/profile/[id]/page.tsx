@@ -7,6 +7,7 @@ import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
+import PasswordWindow from "./PasswordWindow";
 
 export default function Profile() {
     const currentId = useParams().id
@@ -20,6 +21,8 @@ export default function Profile() {
         }
         fetchUser()
     }, [])
+
+    const [passwordWindowOpen, setPasswordWindowOpen] = useState(false)
 
     if (!profileData) {
         return (
@@ -45,7 +48,6 @@ export default function Profile() {
                     setProfileData={setProfileData}
                 />
 
-                {/* CONTINUE HERE */}
                 {/* 3. Data Section: Name, Joined In, Friends – all's dynamic */}
                 <DataSection
                     profileData={profileData}
@@ -53,6 +55,20 @@ export default function Profile() {
                     usersData={usersData}
                     currentId={Number(currentId)}
                 />
+
+                <button
+                    className="text-yellow-300 font-bold text-xl mt-2"
+                    onClick={() => setPasswordWindowOpen(true)}
+                >
+                    Change password
+                </button>
+
+                {
+                    passwordWindowOpen &&
+                    <PasswordWindow
+                        setPasswordWindowOpen={setPasswordWindowOpen}
+                    />
+                }
 
             </div>
         </main >
