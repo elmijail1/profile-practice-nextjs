@@ -12,6 +12,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
 
     const [currentPasswordInput, setCurrentPasswordInput] = useState("")
     const [passwordDisplay, setPasswordDisplay] = useState<PasswordDisplayType>("password")
+    const [passwordIsWrong, setPasswordIsWrong] = useState<boolean>(false)
     const [currentPasswordChecked, setCurrentPasswordChecked] = useState(false)
 
     const [newPasswordInput, setNewPasswordInput] = useState("")
@@ -21,6 +22,28 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
     useEffect(() => {
         setPasswordsMatch(newPasswordInput === repeatPasswordInput)
     }, [newPasswordInput, repeatPasswordInput])
+
+    async function comparePasswords(
+        event: React.FormEvent<HTMLFormElement>
+    ) {
+        event.preventDefault()
+
+        const res = await fetch("/api/users/check-password", {
+            method: "POST",
+            body: JSON.stringify({ password: currentPasswordInput }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        const result = await res.json()
+
+        if (!result.success) {
+            setPasswordIsWrong(true)
+        } else {
+            setCurrentPasswordChecked(true)
+        }
+    }
 
     return (
         <PopupWindow>
@@ -38,7 +61,10 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                 currentPasswordChecked
                     ? <p className="text-black text-lg">1. Password checked successfully</p>
                     :
-                    <form className="w-[90%] text-lg flex flex-col items-center text-cneter">
+                    <form
+                        onSubmit={(event) => comparePasswords(event)}
+                        className="w-[90%] text-lg flex flex-col items-center text-cneter"
+                    >
                         <label htmlFor="current-password" className="text-black">
                             1. Enter your current password
                             <input
@@ -60,6 +86,12 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                         >
                             Show password
                         </button>
+                        {
+                            passwordIsWrong &&
+                            <p className="text-gray-600 text-sm my-3">
+                                Password is wrong, try again
+                            </p>
+                        }
 
                         <button
                             type="submit"
@@ -89,7 +121,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                     <label htmlFor="current-password" className="text-black">
                         3. Repeat the new password
                         <input
-                            id="new-password"
+                            id="repeat-password"
                             type={passwordDisplay}
                             name="password"
                             value={repeatPasswordInput}
@@ -126,6 +158,6 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
             }
 
 
-        </PopupWindow>
+        </PopupWindow >
     )
 }
