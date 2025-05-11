@@ -1,7 +1,12 @@
 "use client";
 
 type ImageEditFormProps = {
-    colors: any,
+    colors: {
+        behindColor: string,
+        textColor: string,
+        backgroundColor: string,
+        borderColor: string
+    },
     onClickAction: any,
     buttonText: string
 }
