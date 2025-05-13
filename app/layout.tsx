@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import LayoutFooter from "./components/LayoutFooter";
+import LayoutFooter from "./components/footer/LayoutFooter";
 import { Nunito } from "next/font/google";
 import AuthProvider from "./auth/AuthProvider";
 
