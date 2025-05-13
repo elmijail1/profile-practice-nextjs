@@ -8,9 +8,14 @@ import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
 import PasswordWindow from "./PasswordWindow";
+import { useSession } from "next-auth/react";
 
 export default function Profile() {
     const currentId = useParams().id
+    const { data: session, status } = useSession()
+    const isOwnProfile = status === "authenticated" && session?.user?.id.toString() === currentId
+
+
     const [profileData, setProfileData] = useState<User | undefined>()
 
     useEffect(() => {
@@ -56,12 +61,15 @@ export default function Profile() {
                     currentId={Number(currentId)}
                 />
 
-                <button
-                    className="text-yellow-300 font-bold text-xl mt-2"
-                    onClick={() => setPasswordWindowOpen(true)}
-                >
-                    Change password
-                </button>
+                {
+                    isOwnProfile &&
+                    <button
+                        className="text-yellow-300 font-bold text-xl mt-2"
+                        onClick={() => setPasswordWindowOpen(true)}
+                    >
+                        Change password
+                    </button>
+                }
 
                 {
                     passwordWindowOpen &&
