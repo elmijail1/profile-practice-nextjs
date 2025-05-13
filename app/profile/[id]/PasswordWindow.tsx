@@ -16,18 +16,14 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
     const [currentPasswordInput, setCurrentPasswordInput] = useState("")
     const [passwordDisplay, setPasswordDisplay] = useState<PasswordDisplayType>("password")
     const [passwordIsWrong, setPasswordIsWrong] = useState<boolean>(false)
-    const [currentPasswordChecked, setCurrentPasswordChecked] = useState(false)
 
     const [newPasswordInput, setNewPasswordInput] = useState("")
     const [repeatPasswordInput, setRepeatPasswordInput] = useState("")
-    const [passwordsMatch, setPasswordsMatch] = useState(false)
-
     const [passwordChangeError, setPasswordChangeError] = useState(false)
-    const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false)
 
-    useEffect(() => {
-        setPasswordsMatch(newPasswordInput === repeatPasswordInput)
-    }, [newPasswordInput, repeatPasswordInput])
+    const newAndCurrentAreIdentical = newPasswordInput === currentPasswordInput
+    const passwordsMatch = newPasswordInput === repeatPasswordInput
+
 
     async function comparePasswords(
         event: React.FormEvent<HTMLFormElement>
@@ -57,12 +53,6 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
             setPasswordChangeError(true)
         }
     }
-
-    const [newAndCurrentAreIdentical, setNewAndCurrentAreIdentical] = useState(false)
-
-    useEffect(() => {
-        (newPasswordInput.length > 1 && currentPasswordInput === newPasswordInput) ? setNewAndCurrentAreIdentical(true) : setNewAndCurrentAreIdentical(false)
-    }, [newPasswordInput])
 
     async function setNewPassword(
         event: React.FormEvent<HTMLFormElement>
