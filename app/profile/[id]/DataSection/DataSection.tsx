@@ -1,13 +1,12 @@
 "use client";
 // *0.1 Imports
 // general
-import { useState, useEffect } from "react"
+import { useState } from "react"
 // components
 import AboutSection from "./AboutSection"
 import ManageFriendButton from "./ManageFriendButton"
 import FriendListWindow from "./FriendListWindow"
 import { useSession } from "next-auth/react";
-import { useParams } from "next/navigation";
 
 type ProfileProps = {
     profileData: any,
@@ -25,6 +24,7 @@ export default function DataSection({
     const [friendAdded, setFriendAdded] = useState(false)
     const { data: session, status } = useSession()
     const isOwnProfile = status === "authenticated" && session?.user?.id === currentId.toString()
+    const isAuthenticated = !!session
 
     const months = ["January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
@@ -63,7 +63,7 @@ export default function DataSection({
             <section className=
                 {`
                     ProfDS__Section
-                    ${!isOwnProfile ? "ProfDS__LowerMargin" : ""}
+                    ${!isOwnProfile && isAuthenticated ? "ProfDS__LowerMargin" : ""}
                 `}
             >
 
@@ -86,7 +86,7 @@ export default function DataSection({
 
                 {/* 1.5  Manage Friend button */}
                 {
-                    !isOwnProfile &&
+                    (!isOwnProfile && isAuthenticated) &&
                     <ManageFriendButton
                         friendAdded={friendAdded}
                         setFriendAdded={setFriendAdded}
