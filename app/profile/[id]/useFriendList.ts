@@ -9,10 +9,16 @@ async function fetchData(url: string) {
 
 }
 
-export function useFriendList() {
-    const { data: friends, mutate, isLoading, error } = useSWR<number[]>(
-        "/api/account/friend-list",
+export function useFriendList(enabled: boolean) {
+    const swr = useSWR<number[]>(
+        enabled ? "/api/account/friend-list" : null,
         fetchData
     )
-    return { friends, mutate, isLoading, error }
+
+    return {
+        friends: swr.data,
+        mutate: swr.mutate,
+        isLoading: swr.isLoading,
+        error: swr.error
+    }
 }
