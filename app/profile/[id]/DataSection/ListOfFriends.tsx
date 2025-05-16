@@ -11,12 +11,11 @@ type FLWProps = {
     profileData: any,
     setProfileData: any,
     setOpenFriendList: any,
-    friendsList: any[],
-    activeSorting: "name" | "joinedIn"
+    friendsList: any[]
 }
 
 export default function ListOfFriends({
-    profileData, setProfileData, setOpenFriendList, friendsList, activeSorting // *0.2 Props
+    profileData, setProfileData, setOpenFriendList, friendsList // *0.2 Props
 }: FLWProps) {
 
     // *0.3 Functions
@@ -30,7 +29,7 @@ export default function ListOfFriends({
     return (
         <ol className="ProfLOF__ListWrapper">
             {
-                sortBy(friendsList, activeSorting).map((user, index) => {
+                sortBy(friendsList, "name").map((user, index) => {
                     return (
 
                         <ListRow
