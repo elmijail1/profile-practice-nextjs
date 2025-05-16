@@ -3,15 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. extract an array of IDs from the request's body and see if it's an array
-        const { ids } = await req.json()
-        if (!Array.isArray(ids)) {
+        // 1. extract an array of friends from the request's body and see if it's an array
+        const { friends } = await req.json()
+        console.log(friends)
+        if (!Array.isArray(friends)) {
             return NextResponse.json({ error: "Invalid input" }, { status: 400 })
         }
 
-        // 2. fetch data for users with the extracted IDs
+        // 2. fetch data for users with the extracted friends
         const users = await prisma.user.findMany({
-            where: { id: { in: ids } },
+            where: { id: { in: friends } },
             select: {
                 id: true,
                 name: true,
@@ -22,12 +23,12 @@ export async function POST(req: NextRequest) {
         if (!users) {
             return NextResponse.json({ error: "Users not found" }, { status: 404 })
         }
-        if (users.length !== ids.length) {
-            const foundIds = users.map(user => user.id)
-            const missingIds = ids.filter(id => !foundIds.includes(id))
-            console.error("Missing IDs in DB: ", missingIds)
+        if (users.length !== friends.length) {
+            const foundfriends = users.map(user => user.id)
+            const missingfriends = friends.filter(id => !foundfriends.includes(id))
+            console.error("Missing friends in DB: ", missingfriends)
             return NextResponse.json(
-                { error: "One or more friend IDs are invalid or missing from the database" },
+                { error: "One or more friend friends are invalid or missing from the database" },
                 { status: 500 }
             )
         }
