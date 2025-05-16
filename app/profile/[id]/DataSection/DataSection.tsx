@@ -4,9 +4,11 @@
 import { useState } from "react"
 // components
 import AboutSection from "./AboutSection"
-import ManageFriendButton from "./ManageFriendButton"
 import FriendListWindow from "./FriendListWindow"
 import { useSession } from "next-auth/react";
+import { useFriendList } from "../useFriendList";
+import WideButton from "../WideButton"
+import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 
 type ProfileProps = {
     profileData: any,
@@ -21,7 +23,6 @@ export default function DataSection({
 
     // *0.3 Consts
     const [openFriendList, setOpenFriendList] = useState(false)
-    const [friendAdded, setFriendAdded] = useState(false)
     const { data: session, status } = useSession()
     const isOwnProfile = status === "authenticated" && session?.user?.id === currentId.toString()
     const isAuthenticated = !!session
@@ -37,19 +38,28 @@ export default function DataSection({
     const friendListButtonText = `${profileData.friends?.length} ${profileData.friends?.length !== 1 ? "Friends" : "Friend"}`
 
 
-    // *0.4 Functions
-    function determineFriendAdded() {
-        if (currentId !== 1) {
-            if (usersData[0].friends.includes(currentId)) {
-                return true
-            } else {
-                return false
+    const shouldFetch = !!session && !isOwnProfile
+    const { friends, mutate, isLoading, error } = useFriendList(shouldFetch)
+    const isFriend = friends?.includes(currentId)
+    async function handleFriendAction() {
+        try {
+
+            const res = await fetch("/api/account/friend-toggle", {
+                method: "POST", // shouldn't it be patch?
+                body: JSON.stringify({ targetId: currentId })
+            })
+            if (res.ok) {
+                mutate(prev => {
+                    const list = prev ?? []
+                    return isFriend
+                        ? list.filter(id => id !== currentId)
+                        : [...list, currentId]
+                }, false)
             }
-        } else {
-            return false
+        } catch (error) {
+            console.error("Network or server error during friend toggle: ", error)
         }
     }
-
 
     if (!profileData.joinedIn) {
         return (
@@ -87,9 +97,10 @@ export default function DataSection({
                 {/* 1.5  Manage Friend button */}
                 {
                     (!isOwnProfile && isAuthenticated) &&
-                    <ManageFriendButton
-                        friendAdded={friendAdded}
-                        setFriendAdded={setFriendAdded}
+                    <WideButton
+                        colors={extractColorObject(wideButtonColorsData, "RedText")}
+                        onClickAction={handleFriendAction}
+                        buttonText={isFriend ? "Remove Friend" : "Add Friend"}
                     />
                 }
 
