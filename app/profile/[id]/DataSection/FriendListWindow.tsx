@@ -28,8 +28,8 @@ export default function FriendListWindow({
 
     const [friendsList, setFriendsList] = useState([""])
     const pageColors = {
-        sortByText: "0, 0%, 100%",
-        sortByBackground: "130, 70%, 50%"
+        sortByText: [0, 0, 100],
+        sortByBackground: [130, 70, 50]
     }
     let popupWindowRef = useRef()
 
