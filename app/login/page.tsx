@@ -1,27 +1,33 @@
 "use client";
+import AuthTabButton from "./AuthTabButton";
 import LogInTab from "./LogInTab"
 import SignUpTab from "./SignUpTab"
 import { useState } from "react"
 
 export default function Auth() {
-    const [activeTab, setActiveTab] = useState("login")
+    const [activeTab, setActiveTab] = useState<"login" | "signup">("login")
 
     return (
-        <main className="App_Main">
-            <div className={`screen ${activeTab === "login" ? "screen__purple" : "screen__pink"}`}>
-                <section className={`auth__sectionbuttons ${activeTab === "login" ? "screen__purple" : "screen__pink"}`}>
-                    <button
-                        className={activeTab === "login" ? "auth__topbuttonactive" : "auth__topbutton"}
+        <main>
+            <div className={
+                `w-full min-h-[45rem] flex flex-col items-center relative pb-20 sm:w-[360px] sm:h-[600px]
+                ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`}
+            >
+                <section className="
+                    h-20 w-full flex justify-center items-center border-solid border-b-[0.2rem] border-white fixed z-20 sm:w-[360px]
+                ">
+                    <AuthTabButton
+                        isActive={activeTab === "login"}
                         onClick={() => setActiveTab("login")}
                     >
                         Log in
-                    </button>
-                    <button
-                        className={activeTab === "signup" ? "auth__topbuttonactive" : "auth__topbutton"}
+                    </AuthTabButton>
+                    <AuthTabButton
+                        isActive={activeTab === "signup"}
                         onClick={() => setActiveTab("signup")}
                     >
                         Sign up
-                    </button>
+                    </AuthTabButton>
                 </section>
                 {
                     activeTab === "login"
