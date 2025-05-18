@@ -16,7 +16,6 @@ export default function ListRow({
     // *0.1
 
     return (
-
         // 1. List item
         <li className={self ? "LR__GenSelf" : "LR__Gen"}>
 
@@ -42,7 +41,7 @@ export default function ListRow({
                 deleteOnClick &&
                 <button
                     className="LR__DeleteButton"
-                    onClick={() => deleteOnClick(user.id)}
+                    onClick={deleteOnClick}
                 >
                     +
                 </button>
