@@ -6,43 +6,54 @@ import { nanoid } from "nanoid"
 import ListRow from "./ListRow"
 // utilities
 import { sortBy } from "@/utilities/sorting"
+import { useOwnFriendList } from "./useOwnFriendList";
 
 type FLWProps = {
     profileData: any,
     setProfileData: any,
     setOpenFriendList: any,
-    friendsList: any[]
+    friendsList: any[],
+    isOwnProfile: boolean,
+    mutate?: any
 }
 
 export default function ListOfFriends({
-    profileData, setProfileData, setOpenFriendList, friendsList // *0.2 Props
+    profileData, setProfileData, setOpenFriendList, friendsList, isOwnProfile, mutate // *0.2 Props
 }: FLWProps) {
 
-    // *0.3 Functions
-    function removeFriend(id: number) {
-        setProfileData((prevData: any) => ({ ...prevData, friends: prevData.friends.filter((entry: number) => entry !== id) }))
-        if (profileData.friends.length === 1) {
-            setOpenFriendList(false)
+    async function removeFriend(friendId: number, mutate: () => void) {
+        const res = await fetch("/api/account/friend-remove", {
+            method: "PATCH",
+            body: JSON.stringify({ friendId }),
+            headers: { "Content-Type": "application/json" }
+        })
+
+        if (!res.ok) {
+            throw new Error("Failed to remove friend")
         }
+
+        setProfileData((prev: any) => ({
+            ...prev,
+            friends: prev.friends.filter((id: number) => id !== friendId)
+        }))
+
+        await mutate()
     }
 
     return (
         <ol className="ProfLOF__ListWrapper">
-            {
-                sortBy(friendsList, "name").map((user, index) => {
-                    return (
-
-                        <ListRow
-                            key={nanoid()}
-                            user={user}
-                            listOrder={index + 1}
-                            deleteOnClick={profileData.id === 1 ? removeFriend : null}
-                            extraActionOnClick={() => setOpenFriendList(false)}
-                            textColor="0, 0%, 0%"
-                        />
-
-                    )
-                })
+            {sortBy(friendsList, "name").map((user, index) => {
+                return (
+                    <ListRow
+                        key={nanoid()}
+                        user={user}
+                        listOrder={index + 1}
+                        deleteOnClick={isOwnProfile ? () => removeFriend(user.id, mutate) : null}
+                        extraActionOnClick={() => setOpenFriendList(false)}
+                        textColor="0, 0%, 0%"
+                    />
+                )
+            })
             }
         </ol>
     )
