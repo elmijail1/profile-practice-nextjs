@@ -112,8 +112,8 @@ export default function DataSection({
                 <FriendListWindow
                     profileData={profileData}
                     setProfileData={setProfileData}
-                    usersData={usersData}
                     setOpenFriendList={setOpenFriendList}
+                    currentId={currentId}
                 />
             }
 
