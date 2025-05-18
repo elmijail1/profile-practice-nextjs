@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import AuthFormInput from "./AuthFormInput";
+import WideButton from "../components/WideButton";
 
 export default function LogInTab() {
 
@@ -50,37 +52,37 @@ export default function LogInTab() {
         }
     }
 
+    const tabClass = "flex flex-col justify-center items-center py-1 w-full rounded-b-2xl mt-24"
+
     return (
         <>
-            <div className="auth__sectionform">
+            <div className={tabClass}>
+
                 <h2>Welcome back!</h2>
-                <form className="auth__form" onSubmit={handleLogin}>
-                    <label className="auth__label">
+                <form className="auth-form" onSubmit={handleLogin}>
+
+                    <AuthFormInput
+                        type="email"
+                        name="email"
+                        value={inputData.email}
+                        onChange={handleInput}
+                    >
                         Email
-                        <input
-                            type="email"
-                            className="auth__input"
-                            name="email"
-                            value={inputData.email}
-                            onChange={handleInput}
-                        />
-                    </label>
-                    <label className="auth__label">
+                    </AuthFormInput>
+
+                    <AuthFormInput
+                        type="password"
+                        name="password"
+                        value={inputData.password}
+                        onChange={handleInput}
+                    >
                         Password
-                        <input
-                            type="password"
-                            className="auth__input"
-                            name="password"
-                            value={inputData.password}
-                            onChange={handleInput}
-                        />
-                    </label>
-                    <div className="auth__formbuttondiv">
-                        <button className="auth__formbutton" disabled={isSubmitting}>
-                            Log in
-                        </button>
-                        <button className="auth__formbuttonback" disabled></button>
-                    </div>
+                    </AuthFormInput>
+
+                    <WideButton disabledIf={isSubmitting}>
+                        Log in
+                    </WideButton>
+
                 </form>
             </div>
         </>
