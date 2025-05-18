@@ -4,63 +4,45 @@ import { useState, useEffect } from "react"
 import ValidationIndicator from "./ValidationIndicator";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import WideButton from "../components/WideButton";
 
 export default function SignUpTab() {
+    // 1. input
     const [inputData, setInputData] = useState({ email: "", password: "", passwordRepeat: "" })
     function handleInput(event: any) {
         const { name, value } = event.target
         setInputData(prevData => ({ ...prevData, [name]: value }))
     }
 
+    // 2. validation
+    const [validatedData, setValidatedData] = useState({ email: false, password: false, passwordRepeat: false })
+    const [validatedFull, setValidatedFull] = useState(false)
     const regex = {
         email: /\S+@\S+\.\S+/, // string + @ + string + . + string
         password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/, // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
     }
+    useEffect(() => {
+        const isEmailValid = regex.email.test(inputData.email)
+        const isPasswordValid = regex.password.test(inputData.password)
+        const isPasswordRepeatValid =
+            inputData.passwordRepeat.length > 0 &&
+            inputData.password === inputData.passwordRepeat
 
-    // useEffect(() => {
-    //     let resultEmail = regex.email.test(inputData.email)
-    //     if (resultEmail) {
-    //         setValidatedData(prevData => ({ ...prevData, email: true }))
-    //     } else {
-    //         setValidatedData(prevData => ({ ...prevData, email: false }))
-    //     }
-    // }, [inputData])
+        const allValid = isEmailValid && isPasswordValid && isPasswordRepeatValid
 
-    // useEffect(() => {
-    //     let resultPassword = regex.password.test(inputData.password)
-    //     if (resultPassword) {
-    //         setValidatedData(prevData => ({ ...prevData, password: true }))
-    //     } else {
-    //         setValidatedData(prevData => ({ ...prevData, password: false }))
-    //     }
-    // }, [inputData])
+        setValidatedData({
+            email: isEmailValid,
+            password: isPasswordValid,
+            passwordRepeat: isPasswordRepeatValid
+        })
 
-    // useEffect(() => {
-    //     if (inputData.passwordRepeat.length > 0 && inputData.password === inputData.passwordRepeat) {
-    //         setValidatedData(prevData => ({ ...prevData, passwordRepeat: true }))
-    //     } else {
-    //         setValidatedData(prevData => ({ ...prevData, passwordRepeat: false }))
-    //     }
-    // }, [inputData])
+        setValidatedFull(allValid)
+    }, [inputData])
 
 
-    const [validatedData, setValidatedData] = useState({ email: true, password: true, passwordRepeat: true })
-    // const [validatedData, setValidatedData] = useState({ email: false, password: false, passwordRepeat: false })
-
-    const [validatedFull, setValidatedFull] = useState(true)
-    // const [validatedFull, setValidatedFull] = useState(false)
-    // useEffect(() => {
-    //     if (validatedData.email === true && validatedData.password === true && validatedData.passwordRepeat === true) {
-    //         setValidatedFull(true)
-    //     }
-    //     if (validatedData.email === false || validatedData.password === false || validatedData.passwordRepeat === false) {
-    //         setValidatedFull(false)
-    //     }
-    // })
-
+    // 3. focus
     const [lastFocus, setLastFocus] = useState("")
     const [firstFocus, setFirstFocus] = useState({ email: false, password: false, passwordRepeat: false })
-
     function registerFocus(name: "email" | "password" | "passwordRepeat") {
         setLastFocus(name)
         if (firstFocus[name] === false) {
@@ -68,9 +50,10 @@ export default function SignUpTab() {
         }
     }
 
+    // 4. submission
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [error, setError] = useState("")
     const router = useRouter()
+    const [error, setError] = useState("")
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -133,9 +116,11 @@ export default function SignUpTab() {
 
     return (
         <>
-            <div className="auth__sectionform__signup">
+            <div className="auth-tab">
+
                 <h2>Welcome!</h2>
-                <form className="auth__form" onSubmit={handleSubmission}>
+                <form className="auth-form" onSubmit={handleSubmission}>
+
                     <label className="auth__label">
                         Email
                         <div className="auth__inputwrapper">
@@ -214,17 +199,15 @@ export default function SignUpTab() {
                         }
                     </label>
 
-                    <div className="auth__formbuttondiv">
-                        <button
-                            className="auth__formbutton"
-                            disabled={!validatedFull || isSubmitting}
-                        >
-                            Sign up
-                        </button>
-                        <button className="auth__formbuttonback__signup" disabled></button>
-                    </div>
+                    <WideButton
+                        colors={{ backBG: "hsl(300, 25%, 55%)" }}
+                        disabledIf={!validatedFull || isSubmitting}
+                    >
+                        Sign up
+                    </WideButton>
+
                 </form>
-            </div>
+            </div >
         </>
     )
 }
