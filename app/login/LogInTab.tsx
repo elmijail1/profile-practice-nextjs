@@ -52,11 +52,9 @@ export default function LogInTab() {
         }
     }
 
-    const tabClass = "flex flex-col justify-center items-center py-1 w-full rounded-b-2xl mt-24"
-
     return (
         <>
-            <div className={tabClass}>
+            <div className="auth-tab">
 
                 <h2>Welcome back!</h2>
                 <form className="auth-form" onSubmit={handleLogin}>
