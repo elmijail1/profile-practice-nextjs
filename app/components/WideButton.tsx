@@ -1,7 +1,10 @@
 import React from "react"
 
 type WideButtonProps = {
-    colors?: string,
+    colors?: {
+        frontBG?: string
+        backBG?: string,
+    },
     disabledIf?: boolean,
     children: React.ReactNode
 }
@@ -16,12 +19,18 @@ export default function WideButton(
     return (
         <div className="relative z-0 w-[90%] h-[3rem]">
             <button
-                className={`${buttonFrontClass} ${colors}`}
+                className={buttonFrontClass}
+                style={{ backgroundColor: colors?.frontBG }}
                 disabled={disabledIf}
             >
                 {children}
             </button>
-            <button className={buttonBackClass} disabled></button>
-        </div>
+            <button
+                className={buttonBackClass}
+                style={{ backgroundColor: colors?.backBG }}
+                disabled
+            >
+            </button>
+        </div >
     )
 }
