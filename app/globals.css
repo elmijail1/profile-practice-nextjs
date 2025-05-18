@@ -19,20 +19,52 @@
   }
 }
 
-main {
-  @apply w-full flex flex-col items-center justify-center pb-20
-  /* width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5rem; */
+@layer base {
+  main {
+    @apply w-full flex flex-col items-center justify-center pb-20
+    /* note that this approach isn't usually recommended */
+    /* main components should be handled separately and in TSX */
+  }
+
+  h1 {
+    @apply text-[1.2rem]
+    /* font-size: 1.3rem; */
+  }
+  
+  h2 {
+    @apply text-[1.4rem] font-bold text-white mt-1
+  }
 }
 
-h1 {
-  @apply text-[1.3rem]
-  /* font-size: 1.3rem; */
+/* components are how you make repeatable classes */
+@layer components {
+  .auth-form {
+    @apply h-full w-full flex flex-col justify-start items-center gap-6 py-8 pt-8 pb-4 relative
+  }
+
+  .wide-button-front {
+    @apply w-full h-full rounded-[1rem] bg-white uppercase font-bold text-[1rem] border-0 z-1
+  }
 }
+
+@layer utilities {
+  .bg-auth-login {
+    background-color: hsl(260, 70%, 35%);
+  }
+
+  .bg-auth-signup {
+    background-color: hsl(320, 70%, 70%);
+  }
+
+  .inset-shadow-white-1 {
+    box-shadow: inset 0 -0.2rem 0 white;
+    /* TW can't handle it with built-in classes*/
+  }
+}
+
+
+
+
 
 /* to remove */
 .App__Main {
@@ -63,6 +95,15 @@ h1 {
   padding-bottom: 5rem;
 }
 
+@media (min-width: 500px) {
+
+  .screen,
+  .screen__Main {
+    width: 360px;
+    height: 600px;
+  }
+}
+
 /* to remove */
 .screen__Main {
   background-color: hsl(130, 70%, 50%);
@@ -91,61 +132,6 @@ h1 {
   background-color: hsl(200, 80%, 60%);
 }
 
-.screen__purple {
-  background-color: hsl(260, 70%, 35%);
-}
-
-.screen__pink {
-  background-color: hsl(320, 70%, 70%);
-}
-
-@media (min-width: 500px) {
-
-  .screen,
-  .screen__Main {
-    width: 360px;
-    height: 600px;
-  }
-}
-
-.auth__sectionbuttons {
-  height: 5rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-style: solid;
-  border-width: 0 0 0.2rem 0;
-  border-color: white;
-  position: fixed;
-  z-index: 2;
-}
-
-@media (min-width: 500px) {
-  .auth__sectionbuttons {
-    width: 360px;
-  }
-}
-
-.auth__topbutton,
-.auth__topbuttonactive {
-  width: 50%;
-  height: 100%;
-  border: none;
-  background-color: inherit;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.auth__topbuttonactive {
-  box-shadow: 0 -0.2rem 0 white inset;
-}
-
-.auth__sectionform,
 .auth__sectionform__signup {
   display: flex;
   flex-direction: column;
@@ -155,11 +141,6 @@ h1 {
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   margin-top: 6rem;
-}
-
-h2 {
-  color: white;
-  margin: 1rem 0 0 0;
 }
 
 .auth__form {
