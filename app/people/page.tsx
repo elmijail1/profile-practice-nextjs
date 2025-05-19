@@ -43,11 +43,14 @@ export default function People() {
         )
     }
 
+    const MainDivClass = "w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(200,80%,60%)] text-white sm:w-[360px] sm:h-[600px]"
+
     return (
         <main>
-            <div className="Global__Screen Global__Screen__Blue">
-                <div className="Peop__HeaderDiv">
-                    <h1 className="Global__H1__Centered">People</h1>
+            <div className={`${MainDivClass} Global__Screen__Blue`}>
+
+                <div className="w-4/5 flex justify-between items-center h-16 border-b border-white my-4">
+                    <h1 className="mx-auto">People</h1>
                 </div>
 
                 <SortByButton
@@ -64,7 +67,7 @@ export default function People() {
                     {users.length === 0
                         ? <p>No users found.</p>
                         : (
-                            <ol className="Peop__LOP__List">
+                            <ol className="list-none p-0 mt-0 flex flex-col gap-[0.8rem] w-full">
                                 {
                                     sortBy(users, activeSorting).map((user, index) => {
                                         return (
