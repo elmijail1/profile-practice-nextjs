@@ -1,16 +1,23 @@
 import React from "react"
+import ValidationIndicator from "./ValidationIndicator"
 
 type AuthFormInputProps = {
     type: string,
     name: string,
     value: string,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    children: React.ReactNode
-
+    children: React.ReactNode,
+    onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void,
+    validation?: {
+        trigger: boolean,
+        isValid: boolean,
+        lastFocus: boolean,
+        errorText: string
+    }
 }
 
 export default function AuthFormInput(
-    { type = "text", name, value, onChange, children }: AuthFormInputProps
+    { type = "text", name, value, onChange, children, onFocus, validation }: AuthFormInputProps
 ) {
     const id = `auth-${name}`
 
@@ -20,14 +27,35 @@ export default function AuthFormInput(
     return (
         <label className={labelClass}>
             {children}
-            <input
-                className={inputClass}
-                id={id}
-                type={type}
-                name={name}
-                value={value}
-                onChange={onChange}
-            />
-        </label>
+            <div className="relative w-full">
+                <input
+                    className={inputClass}
+                    id={id}
+                    type={type}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    onFocus={onFocus}
+                />
+
+                {/* an indicator showing if the field is valid */}
+                {
+                    validation?.trigger &&
+                    <ValidationIndicator
+                        isValid={validation?.isValid}
+                    />
+                }
+
+            </div>
+
+            {/* error message if the field is invalid */}
+            {
+                !validation?.isValid && validation?.lastFocus &&
+                <div className="text-[1rem] font-medium text-[hsl(0,0%,40%)] pb-2 whitespace-pre-line">
+                    {validation.errorText}
+                </div>
+            }
+
+        </label >
     )
 }
