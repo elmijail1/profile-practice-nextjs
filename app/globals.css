@@ -54,6 +54,10 @@
     @apply rounded-full absolute right-0 outline-[0.2rem] outline-white flex justify-center items-center
   }
   /* not a fully ready class – see ValidationIndicator.tsx to learn more about how it's used */
+
+  .list-row-regular {
+    @apply no-underline text-inherit flex items-center gap-4
+  }
 }
 
 @layer utilities {
@@ -117,41 +121,6 @@
 .screen__Main {
   background-color: hsl(130, 70%, 50%);
   color: hsl(0, 0%, 100%);
-}
-
-.Global__Screen {
-  width: 100%;
-  min-height: 45rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 500px) {
-  .Global__Screen {
-    width: 360px;
-    height: 600px;
-  }
-}
-
-.Global__Screen__Blue {
-  color: hsl(0, 0%, 100%);
-  background-color: hsl(200, 80%, 60%);
-}
-
-/*  */
-/* * */
-/* * * */
-/* * * * */
-/* * * */
-/* * */
-/*  */
-
-/* page: Profile */
-.Global__H1__Centered {
-  padding-left: 40%;
 }
 
 /*  */
@@ -337,38 +306,6 @@
   margin-left: 0.3rem;
 }
 
-/* BELOW ARE FINISHED */
-
-/*  */
-/* * */
-/* * * */
-/* * */
-/*  */
-
-/* page: People */
-/* 1. Header Section */
-.Peop__HeaderDiv {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  margin-top: 1rem;
-}
-
-/* 3. List of Profiles */
-.Peop__LOP__List {
-  list-style: none;
-  padding: 0;
-  margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  width: 100%;
-}
-
 /*  */
 /* * */
 /* * * */
@@ -392,7 +329,6 @@
   height: 3rem;
   font-size: 1.3rem;
   font-weight: 600;
-  /* background-color: blue; */
 }
 
 .LR__Link,
@@ -875,55 +811,6 @@
   color: white;
   border: none;
   font-size: 2.3rem;
-}
-
-/* * */
-/*  */
-/* * */
-
-/* component: SortByButton */
-.SBB__DivGen {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  position: relative;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.SBB__Button {
-  padding: 0.2rem 0.5rem;
-  border-radius: 1rem;
-  border: none;
-  font-weight: 700;
-}
-
-.SBB__ButtonArrow {
-  font-size: 0.6rem;
-  margin-left: 0.3rem;
-}
-
-.SBB__OptionsList {
-  background-color: white;
-  font-weight: 500;
-  list-style: none;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.8rem;
-  position: absolute;
-  z-index: 1;
-  top: 1.8rem;
-  left: 4rem;
-}
-
-.SBB__OptionItemActive {
-  box-sizing: border-box;
-  font-weight: 600;
-  border-bottom: 2px solid;
 }
 
 /* * */
