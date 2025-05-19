@@ -1,25 +1,24 @@
 import { GrFormCheckmark, GrFormClose } from "react-icons/gr";
 
 type UserProps = {
-    validatedData: {
-        email: boolean,
-        password: boolean,
-        passwordRepeat: boolean
-    },
-    dataField: "email" | "password" | "passwordRepeat"
+    isValid: boolean
 }
 
-export default function ValidationIndicator({ validatedData, dataField }: UserProps) {
-    if (validatedData[dataField]) {
+const isValidClass = "auth-validation-indicator w-8 h-8 bg-[hsl(265,60%,50%)] bottom-0"
+const isInvalidClass = "auth-validation-indicator w-10 h-10 bg-[hsl(15,70%,55%)] bottom-[-0.2rem]"
+
+
+export default function ValidationIndicator({ isValid }: UserProps) {
+    if (isValid) {
         return (
-            <div className="auth__inputindicator">
-                <GrFormCheckmark className="auth__inputindicator__check" />
+            <div className={isValidClass}>
+                <GrFormCheckmark className="text-white text-[1.5rem]" />
             </div>
         )
     } else {
         return (
-            <div className="auth__inputindicatorissue">
-                <GrFormClose className="auth__inputindicator__cross" />
+            <div className={isInvalidClass}>
+                <GrFormClose className="text-white text-[1.8rem]" />
             </div>
         )
     }
