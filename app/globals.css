@@ -49,6 +49,11 @@
   .wide-button-front {
     @apply w-full h-full rounded-[1rem] bg-white uppercase font-bold text-[1rem] border-0 z-1
   }
+
+  .auth-validation-indicator {
+    @apply rounded-full absolute right-0 outline-[0.2rem] outline-white flex justify-center items-center
+  }
+  /* not a fully ready class – see ValidationIndicator.tsx to learn more about how it's used */
 }
 
 @layer utilities {
@@ -62,7 +67,7 @@
 
   .inset-shadow-white-1 {
     box-shadow: inset 0 -0.2rem 0 white;
-    /* TW can't handle it with built-in classes*/
+    /* TW can't handle insets with built-in classes*/
   }
 }
 
@@ -134,122 +139,6 @@
 .Global__Screen__Blue {
   color: hsl(0, 0%, 100%);
   background-color: hsl(200, 80%, 60%);
-}
-
-.auth__label {
-  background-color: white;
-  min-height: 6.5rem;
-  width: 90%;
-  border-radius: 1rem;
-  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 0.5rem;
-  font-weight: 600;
-  color: hsl(0, 0%, 30%);
-  position: relative;
-  font-size: 1.1rem;
-}
-
-.auth__inputwrapper {
-  position: relative;
-  width: 100%;
-}
-
-.auth__input {
-  display: block;
-  width: 100%;
-  height: 1.8rem;
-  border-radius: 1rem;
-  border: 2.5px solid hsl(0, 0%, 90%);
-  font-size: 1rem;
-  padding: 0 2.4rem 0 0.5rem;
-}
-
-.auth__inputindicator {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: hsl(265, 60%, 50%);
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  outline: 0.2rem solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.auth__inputindicator__check {
-  color: white;
-  font-size: 1.5rem;
-}
-
-.auth__inputindicatorissue {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: hsl(15, 70%, 55%);
-  position: absolute;
-  bottom: -0.2rem;
-  right: 0;
-  outline: 0.2rem solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.auth__inputindicator__cross {
-  color: white;
-  font-size: 1.8rem;
-}
-
-.auth__formbuttondiv {
-  position: relative;
-  z-index: 0;
-  width: 90%;
-  height: 3rem;
-}
-
-.auth__formbutton,
-.auth__formbuttonback,
-.auth__formbuttonback__signup {
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  background-color: white;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  z-index: 1;
-}
-
-.auth__formbutton:disabled {
-  color: hsl(265, 50%, 80%);
-  background-color: hsl(265, 30%, 60%);
-}
-
-.auth__formbuttonback,
-.auth__formbuttonback__signup {
-  position: absolute;
-  bottom: -0.3rem;
-  left: 0;
-  background-color: hsl(272, 25%, 55%);
-  z-index: -1;
-}
-
-.auth__formbuttonback__signup {
-  background-color: hsl(300, 25%, 55%);
-}
-
-.warning {
-  font-size: 1rem;
-  font-weight: 500;
-  color: hsl(0, 0%, 40%);
-  padding-bottom: 0.5rem;
 }
 
 /*  */
