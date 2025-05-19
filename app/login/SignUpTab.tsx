@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react"
-import ValidationIndicator from "./ValidationIndicator";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import WideButton from "../components/WideButton";
+import AuthFormInput from "./AuthFormInput";
 
 export default function SignUpTab() {
     // 1. input
@@ -121,83 +121,59 @@ export default function SignUpTab() {
                 <h2>Welcome!</h2>
                 <form className="auth-form" onSubmit={handleSubmission}>
 
-                    <label className="auth__label">
+                    <AuthFormInput
+                        type="email"
+                        name="email"
+                        value={inputData.email}
+                        onChange={handleInput}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        validation={{
+                            trigger: firstFocus.email,
+                            isValid: validatedData.email,
+                            lastFocus: lastFocus === "email",
+                            errorText: "Email must be in the format: something@domain.com"
+                        }}
+                    >
                         Email
-                        <div className="auth__inputwrapper">
-                            <input
-                                type="email"
-                                className="auth__input"
-                                name="email"
-                                value={inputData.email}
-                                onChange={handleInput}
-                                onFocus={(event: any) => registerFocus(event.target.name)}
-                            />
+                    </AuthFormInput>
 
-                            {
-                                firstFocus.email
-                                && <ValidationIndicator validatedData={validatedData} dataField="email" />
-                            }
-
-                        </div>
-                        {
-                            lastFocus === "email" && !validatedData.email &&
-                            <div className="warning">
-                                Email must be in the format: something@domain.com
-                            </div>
-                        }
-                    </label>
-
-                    <label className="auth__label">
+                    <AuthFormInput
+                        type="password"
+                        name="password"
+                        value={inputData.password}
+                        onChange={handleInput}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        validation={{
+                            trigger: firstFocus.password,
+                            isValid: validatedData.password,
+                            lastFocus: lastFocus === "password",
+                            errorText: `
+                                Password must be 8+ symbols long and contain at least one:
+                                · uppercase letter (e.g. A, B, C)
+                                · lowercase letter (e.g. a, b, c)
+                                · digit (e.g. 1, 2, 3)
+                                · special symbol (e.g. _, !, ?)
+                            `
+                        }}
+                    >
                         Password
-                        <div className="auth__inputwrapper">
-                            <input
-                                type="password"
-                                className="auth__input"
-                                name="password"
-                                value={inputData.password}
-                                onChange={handleInput}
-                                onFocus={(event: any) => registerFocus(event.target.name)}
-                            />
-                            {
-                                firstFocus.password
-                                && <ValidationIndicator validatedData={validatedData} dataField="password" />
-                            }
-                        </div>
-                        {
-                            lastFocus === "password" && !validatedData.password &&
-                            <div className="warning">
-                                Password must be 8+ symbols long and contain at least one:<br />
-                                · uppercase letter (e.g. A, B, C)<br />
-                                · lowercase letter (e.g. a, b, c)<br />
-                                · digit (e.g. 1, 2, 3)<br />
-                                · special symbol (e.g. _, !, ?)<br />
-                            </div>
-                        }
-                    </label>
+                    </AuthFormInput>
 
-                    <label className="auth__label">
+                    <AuthFormInput
+                        type="password"
+                        name="passwordRepeat"
+                        value={inputData.passwordRepeat}
+                        onChange={handleInput}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        validation={{
+                            trigger: firstFocus.passwordRepeat,
+                            isValid: validatedData.passwordRepeat,
+                            lastFocus: lastFocus === "passwordRepeat",
+                            errorText: "Passwords must match and be 8+ symbols long."
+                        }}
+                    >
                         Repeat Password
-                        <div className="auth__inputwrapper">
-                            <input
-                                type="password"
-                                className="auth__input"
-                                name="passwordRepeat"
-                                value={inputData.passwordRepeat}
-                                onChange={handleInput}
-                                onFocus={(event: any) => registerFocus(event.target.name)}
-                            />
-                            {
-                                firstFocus.passwordRepeat
-                                && <ValidationIndicator validatedData={validatedData} dataField="passwordRepeat" />
-                            }
-                        </div>
-                        {
-                            lastFocus === "passwordRepeat" && !validatedData.passwordRepeat &&
-                            <div className="warning">
-                                Passwords must match and be 8+ symbols long.
-                            </div>
-                        }
-                    </label>
+                    </AuthFormInput>
 
                     <WideButton
                         colors={{ backBG: "hsl(300, 25%, 55%)" }}
