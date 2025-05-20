@@ -58,6 +58,10 @@
   .list-row-regular {
     @apply no-underline text-inherit flex items-center gap-4
   }
+
+  .profile-popup-h2 {
+    @apply text-black text-[1.4rem] mt-[0.7rem]
+  }
 }
 
 @layer utilities {
@@ -79,19 +83,6 @@
 
 
 /*  */
-
-.Profile__TextEditWindow {
-  width: 18rem;
-  padding: 1rem 0 1rem 0;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-  gap: 2rem;
-}
 
 .Profile__TextEditWindow h2 {
   color: black;
@@ -380,46 +371,6 @@
 /*  */
 /* * */
 
-/* component: Profile/DataSection/DataSection */
-.ProfDS__Section {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
-  margin-top: 1.1rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  padding-bottom: 0.5rem;
-  position: relative;
-  z-index: 0;
-}
-
-.ProfDS__Section * {
-  margin: 0;
-}
-
-.ProfDS__LowerMargin {
-  padding-bottom: 2rem;
-}
-
-.ProfDS__Hyperlink {
-  color: hsl(50, 90%, 70%);
-  font-weight: 700;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-.ProfDS__Hyperlink:disabled {
-  color: hsl(0, 0%, 100%);
-  font-weight: 600;
-}
-
-/* * */
-/*  */
-/* * */
-
 /* component: Profile/DataSection/FriendListWindow */
 .ProfFLW__Section {
   top: 6rem;
@@ -504,177 +455,6 @@
 .ProfImIn__OptionSingleHighlighted {
   border: 4px solid hsl(50, 90%, 70%);
   background-color: hsla(50, 90%, 70%, 0.1);
-}
-
-/* * */
-/*  */
-/* * */
-
-/* component: Profile/ImageSection/ImageEditForm */
-.ProfIEF__DivGen {
-  width: 18rem;
-  padding: 1rem 0 1rem 0;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-  gap: 2rem;
-}
-
-.ProfIEF__Form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  gap: 2rem;
-  padding-bottom: 1rem;
-}
-
-/* * */
-/*  */
-/* * */
-
-/* component: Profile/ImageSection/ImageSection */
-.ProfImg__Section {
-  width: 80%;
-  height: 10rem;
-  margin-top: 1.5rem;
-  background-color: white;
-  border-radius: 1.5rem;
-  position: relative;
-  z-index: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.ProfImg__Avatar {
-  width: 50%;
-  height: 70%;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.ProfImg__AvatarHead {
-  font-size: 6rem;
-  position: absolute;
-  bottom: 0.5rem;
-  left: 17%;
-  z-index: 1;
-}
-
-.ProfImg__AvatarBody {
-  position: relative;
-  width: 100%;
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-}
-
-.ProfImg__AvatarNeck {
-  width: 4rem;
-  height: 100%;
-  background-color: hsl(0, 0%, 85%);
-}
-
-.ProfImg__AvatarShoulders {
-  position: absolute;
-  width: 80%;
-  height: 1.5rem;
-  background-color: hsl(0, 0%, 85%);
-  bottom: 0;
-}
-
-.ProfImg__PencilButton {
-  position: absolute;
-  right: 5%;
-  top: 9%;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  border: 0.1rem solid hsl(0, 0%, 85%);
-  border-radius: 0.8rem;
-  color: hsl(0, 0%, 60%);
-  background-color: white;
-  rotate: 90deg;
-  z-index: 1;
-}
-
-.ProfImg__PencilButtonBottom {
-  position: absolute;
-  right: 5%;
-  top: 10.5%;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: 0.8rem;
-  background-color: hsl(0, 0%, 85%);
-  z-index: 0;
-}
-
-/* * */
-/*  */
-/* * */
-
-/* * */
-/*  */
-/* * */
-
-/* component: Profile/PopupWindow */
-.ProfPUW__Blurer {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 6.5rem;
-  backdrop-filter: blur(2px);
-  background-color: hsla(130, 50%, 40%, 0.2);
-}
-
-.ProfPUW__DivGen {
-  width: 18rem;
-  padding: 1rem 0 1rem 0;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  gap: 2rem;
-}
-
-/* * */
-/*  */
-/* * */
-
-/* component: Profile/TextEditForm */
-.ProfTEF__DivGen {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  margin-top: 1rem;
-}
-
-.ProfPUW__DivGen h2 {
-  color: black;
-  font-size: 1.4rem;
-  margin-top: 0.7rem;
 }
 
 /* * */
