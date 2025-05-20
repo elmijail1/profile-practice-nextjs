@@ -6,20 +6,20 @@ import { nanoid } from "nanoid"
 import ListRow from "./ListRow"
 // utilities
 import { sortBy } from "@/utilities/sorting"
-import { useOwnFriendList } from "./useOwnFriendList";
+import { useProfileContext } from "@/lib/ProfileContext";
 
 type FLWProps = {
-    profileData: any,
     setProfileData: any,
     setOpenFriendList: any,
     friendsList: any[],
-    isOwnProfile: boolean,
     mutate?: any
 }
 
 export default function ListOfFriends({
-    profileData, setProfileData, setOpenFriendList, friendsList, isOwnProfile, mutate // *0.2 Props
+    setProfileData, setOpenFriendList, friendsList, mutate // *0.2 Props
 }: FLWProps) {
+
+    const { isOwnProfile } = useProfileContext()
 
     async function removeFriend(friendId: number, mutate: () => void) {
         const res = await fetch("/api/account/friend-remove", {

@@ -9,10 +9,11 @@ import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
 import PasswordWindow from "./PasswordWindow";
 import { useSession } from "next-auth/react";
+import { ProfileContextProvider } from "@/lib/ProfileContext";
 
 export default function Profile() {
-    const currentId = useParams().id
     const { data: session, status } = useSession()
+    const currentId = useParams().id!.toString()
     const isOwnProfile = status === "authenticated" && session?.user?.id.toString() === currentId
 
 
@@ -38,47 +39,47 @@ export default function Profile() {
     }
 
     return (
-        <main className="App__Main">
-            <div className="screen__Main">
+        <ProfileContextProvider value={{ session, status, currentId, isOwnProfile }}>
+            <main className="App__Main">
+                <div className="screen__Main">
 
-                {/* 1. Top Section: Header + Text Editor */}
-                <TopSection
-                    profileData={profileData}
-                    setProfileData={setProfileData}
-                />
-
-                {/* 2. Image Section: Image + Image Editor */}
-                <ImageSection
-                    profileData={profileData}
-                    setProfileData={setProfileData}
-                />
-
-                {/* 3. Data Section: Name, Joined In, Friends – all's dynamic */}
-                <DataSection
-                    profileData={profileData}
-                    setProfileData={setProfileData}
-                    usersData={usersData}
-                    currentId={Number(currentId)}
-                />
-
-                {
-                    isOwnProfile &&
-                    <button
-                        className="text-yellow-300 font-bold text-xl mt-2"
-                        onClick={() => setPasswordWindowOpen(true)}
-                    >
-                        Change password
-                    </button>
-                }
-
-                {
-                    passwordWindowOpen &&
-                    <PasswordWindow
-                        setPasswordWindowOpen={setPasswordWindowOpen}
+                    {/* 1. Top Section: Header + Text Editor */}
+                    <TopSection
+                        profileData={profileData}
+                        setProfileData={setProfileData}
                     />
-                }
 
-            </div>
-        </main >
+                    {/* 2. Image Section: Image + Image Editor */}
+                    <ImageSection
+                        profileData={profileData}
+                        setProfileData={setProfileData}
+                    />
+
+                    {/* 3. Data Section: Name, Joined In, Friends – all's dynamic */}
+                    <DataSection
+                        profileData={profileData}
+                        setProfileData={setProfileData}
+                    />
+
+                    {
+                        isOwnProfile &&
+                        <button
+                            className="text-yellow-300 font-bold text-xl mt-2"
+                            onClick={() => setPasswordWindowOpen(true)}
+                        >
+                            Change password
+                        </button>
+                    }
+
+                    {
+                        passwordWindowOpen &&
+                        <PasswordWindow
+                            setPasswordWindowOpen={setPasswordWindowOpen}
+                        />
+                    }
+
+                </div>
+            </main >
+        </ProfileContextProvider>
     )
 }

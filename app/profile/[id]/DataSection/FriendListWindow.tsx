@@ -5,28 +5,27 @@ import { useState, useEffect, useRef } from "react"
 import CrossButton from "../CrossButton"
 import ListOfFriends from "./ListOfFriends"
 import PopupWindow from "../PopupWindow"
-import { useSession } from "next-auth/react"
 import { useOwnFriendList } from "./useOwnFriendList"
 // utilities
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
+import { useProfileContext } from "@/lib/ProfileContext"
 
 type DSProps = {
     profileData: any,
     setProfileData: any,
-    setOpenFriendList: any,
-    currentId: number
+    setOpenFriendList: any
 }
 
 export default function FriendListWindow({
-    profileData, setProfileData, setOpenFriendList, currentId // *0.2 Props
+    profileData, setProfileData, setOpenFriendList // *0.2 Props
 }: DSProps) {
+
+    const { isOwnProfile } = useProfileContext()
 
     const [friendsList, setFriendsList] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<any>(null)
 
-    const { data: session, status } = useSession()
-    const isOwnProfile = status === "authenticated" && Number(session.user.id) === currentId
     const { friendsSelf, mutate } = useOwnFriendList(isOwnProfile, profileData.friends)
 
     useEffect(() => {
@@ -85,11 +84,9 @@ export default function FriendListWindow({
                     !loading
                         ?
                         <ListOfFriends
-                            profileData={profileData}
                             setProfileData={setProfileData}
                             setOpenFriendList={setOpenFriendList}
                             friendsList={friendsList}
-                            isOwnProfile={isOwnProfile}
                             mutate={mutate}
                         />
                         : <div className="text-black">Loading...</div>

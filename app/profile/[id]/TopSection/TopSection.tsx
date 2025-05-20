@@ -2,7 +2,7 @@
 import { useState } from "react"
 // components
 import TextEditForm from "./TextEditForm"
-import { useSession } from "next-auth/react"
+import { useProfileContext } from "@/lib/ProfileContext"
 
 type ProfileProps = {
     profileData: any,
@@ -13,19 +13,18 @@ export default function TopSection({
     profileData, setProfileData //*0.2
 }: ProfileProps) {
 
-    // *0.3
+    const { session, isOwnProfile } = useProfileContext()
     const [openTextEditor, setOpenTextEditor] = useState(false)
-    const { data: session } = useSession()
 
 
     return (
         <section className="ProfTop__Section">
 
             {/* 1. Initially visible H1 & Gear Button */}
-            <h1 className="Global__H1__Centered">Profile</h1>
+            <h1 className="ml-[40%]">Profile</h1>
 
             {
-                session && profileData.id === Number(session.user.id) &&
+                session && isOwnProfile &&
                 <button
                     className="ProfTop__GearButton"
                     onClick={() => setOpenTextEditor(true)}
