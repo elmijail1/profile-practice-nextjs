@@ -18,26 +18,27 @@ export default function FormInput({
         return fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1)
     }
 
+    let currentLength: number = inputData[fieldName]?.length
+    const limit: number | undefined = inputCounter[fieldName]
+    const isLimitReached = limit && currentLength >= limit
+
     return (
-        <div className="ProfFI__DivGen">
+        <div className="flex flex-col items-center w-full">
 
-            <label className="ProfFI__Label" htmlFor={`TextEditor__${fieldName}`}>
+            <label
+                className="flex w-full justify-between text-[hsl(0,0%,70%)]"
+                id={`texteditor-label-${fieldName}`}
+                htmlFor={`text-editor-field-${fieldName}`}
+            >
 
-                <span className="Profile__TextEditor__InputName">
+                <span className="text-[1.1rem] font-semibold">
                     {capitalizeFieldName()}
                 </span>
 
                 {
                     inputCounter[fieldName] &&
-                    <span
-                        className={
-                            `ProfFI__CharCounter
-                        ${inputData[fieldName]?.length >= inputCounter[fieldName]
-                                ? "ProfFI__CharCounterLimitReached"
-                                : ""}
-                        `}
-                    >
-                        {inputData[fieldName]?.length}/{inputCounter[fieldName]}
+                    <span className={`text-[0.9rem] ${isLimitReached && "text-[hsl(0,100%,50%)] font-semibold"}`}>
+                        {currentLength}/{limit}
                     </span>
                 }
             </label>
@@ -45,25 +46,25 @@ export default function FormInput({
             {fieldType === "input" &&
                 <input
                     type="text"
-                    id={`TextEditor__${fieldName}`}
+                    id={`text-editor-field-${fieldName}`}
                     name={fieldName}
                     value={inputData[fieldName]}
-                    onChange={() => handleInput(event)}
+                    onChange={(event) => handleInput(event)}
                     maxLength={inputCounter[fieldName]}
                     autoComplete="off"
-                    className="ProfFI__Input text-black"
+                    className="w-full h-[2.2rem] rounded-lg border-[0.15rem] border-solid border-[hsl(0,0%,85%)] text-[1rem] px-[0.4rem] py-[0] text-black"
                 />
             }
 
             {fieldType === "textarea" &&
                 <textarea
-                    id={`TextEditor__${fieldName}`}
+                    id={`text-editor-field-${fieldName}`}
                     name="aboutMe"
                     value={inputData[fieldName]}
-                    onChange={() => handleInput(event)}
+                    onChange={(event) => handleInput(event)}
                     maxLength={inputCounter[fieldName]}
                     autoComplete="off"
-                    className="ProfFI__Textarea text-black"
+                    className="w-full h-32 p-[0.4rem] rounded-lg border-[0.15rem] border-solid border-[hsl(0,0%,85%)] text-[1rem] m-0 text-black"
                 >
                 </textarea>
             }

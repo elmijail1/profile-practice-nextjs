@@ -1,8 +1,6 @@
 "use client";
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation";
-import { usersData } from "@/data/usersData"
-// components
 import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
@@ -12,10 +10,10 @@ import { useSession } from "next-auth/react";
 import { ProfileContextProvider } from "@/lib/ProfileContext";
 
 export default function Profile() {
+
     const { data: session, status } = useSession()
     const currentId = useParams().id!.toString()
     const isOwnProfile = status === "authenticated" && session?.user?.id.toString() === currentId
-
 
     const [profileData, setProfileData] = useState<User | undefined>()
 
@@ -40,8 +38,8 @@ export default function Profile() {
 
     return (
         <ProfileContextProvider value={{ session, status, currentId, isOwnProfile }}>
-            <main className="App__Main">
-                <div className="screen__Main">
+            <main className="w-full flex flex-col items-center justify-center pb-20 sm:h-[50rem]">
+                <div className="w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(130,70%,50%)] text-white sm:w-[360px] sm:h-[600px]">
 
                     {/* 1. Top Section: Header + Text Editor */}
                     <TopSection

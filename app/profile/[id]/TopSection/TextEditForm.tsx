@@ -5,12 +5,13 @@ import React, { useState, useRef, useEffect } from "react"
 import CrossButton from "../CrossButton"
 import FormInput from "./FormInput"
 import PopupWindow from "../PopupWindow"
-import WideButton from "../WideButton"
+// import WideButton from "../WideButton"
 // my utilities & data
 import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
 import { useProfileContext } from "@/lib/ProfileContext";
+import WideButton from "@/app/components/WideButton";
 
 type ProfileData = {
     name: string,
@@ -48,10 +49,6 @@ export default function TextEditForm({
     async function checkEmail(emailToCheck: string) {
         if (!emailToCheck || !validateEmail(emailToCheck)) return
         try {
-            // the GET approach:
-            // const res = await fetch(`/api/users/check-email?email=${emailToCheck}&userId=${id}`)
-
-            // the POST approach (allegedly safer):
             const res = await fetch("/api/users/check-email", {
                 method: "POST",
                 headers: {
@@ -161,8 +158,8 @@ export default function TextEditForm({
         <PopupWindow
             windowReference={popupWindowRef}
         >
-            <h2 style={{ color: "black" }}>Edit Profile</h2>
-            <form className="ProfTEF__Form">
+            <h2 className="text-black">Edit Profile</h2>
+            <form className="flex flex-col items-center w-4/5 gap-6 pb-4 relative z-0">
                 <FormInput
                     inputData={inputData}
                     fieldName={"name"}
@@ -196,19 +193,21 @@ export default function TextEditForm({
                 {
                     (!["checking", "invalid", "unavailable"].includes(emailStatus)) &&
                     (
-                        <>
+                        <div className="w-full flex flex-col items-center gap-4">
                             <WideButton
-                                colors={extractColorObject(wideButtonColorsData, "GreenFill")}
-                                onClickAction={handleSubmission}
-                                buttonText="Save changes"
-                            />
+                                colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                onClick={handleSubmission}
+                            >
+                                Save changes
+                            </WideButton>
 
                             <WideButton
-                                colors={extractColorObject(wideButtonColorsData, "RedText")}
-                                onClickAction={discardChanges}
-                                buttonText="Discard changes"
-                            />
-                        </>
+                                colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
+                                onClick={discardChanges}
+                            >
+                                Discard changes
+                            </WideButton>
+                        </div>
                     )
                 }
             </form>
