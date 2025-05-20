@@ -7,9 +7,8 @@ import BGColorInput from "./BGColorInput"
 import CrossButton from "../CrossButton"
 import ImageInput from "./ImageInput"
 import PopupWindow from "../PopupWindow"
-import WideButton from "../WideButton"
+import WideButton from "@/app/components/WideButton";
 // data
-import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 // utilities
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import { useProfileContext } from "@/lib/ProfileContext";
@@ -73,9 +72,9 @@ export default function ImageEditForm({
 
     return (
         <PopupWindow windowReference={popupWindowRef}>
-            <div className="ProfIEF__DivGen">
-                <h2>Edit Profile Image</h2>
-                <form className="ProfIEF__Form">
+            <div className="w-72 px-[0] py-4 bg-[white] rounded-2xl flex flex-col items-center justify-center z-0 gap-8">
+                <h2 className="profile-popup-h2">Edit Profile Image</h2>
+                <form className="flex flex-col items-center w-4/5 gap-8 pb-4">
                     <ImageInput
                         inputData={inputData}
                         setInputData={setInputData}
@@ -86,17 +85,21 @@ export default function ImageEditForm({
                         setInputData={setInputData}
                     />
 
-                    <WideButton
-                        colors={extractColorObject(wideButtonColorsData, "GreenFill")}
-                        onClickAction={handleSubmission}
-                        buttonText="Save changes"
-                    />
+                    <div className="w-full flex flex-col items-center gap-4">
+                        <WideButton
+                            colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                            onClick={handleSubmission}
+                        >
+                            Save changes
+                        </WideButton>
 
-                    <WideButton
-                        colors={extractColorObject(wideButtonColorsData, "RedText")}
-                        onClickAction={discardChanges}
-                        buttonText="Discard changes"
-                    />
+                        <WideButton
+                            colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
+                            onClick={discardChanges}
+                        >
+                            Discard changes
+                        </WideButton>
+                    </div>
 
                     <CrossButton onClickAction={discardChanges} />
 

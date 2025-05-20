@@ -5,9 +5,9 @@ type TEFormProps = {
 
 export default function PopupWindow({ children, windowReference = null }: TEFormProps) { //*0.1
     return (
-        <div className="ProfPUW__Blurer">
+        <div className="h-full w-full absolute top-[0] left-[0] flex justify-center items-start pt-[6.5rem] backdrop-filter backdrop-blur-[2px] bg-[hsla(130,_50%,_40%,_0.2)] z-20">
             <div
-                className="ProfPUW__DivGen"
+                className="w-72 px-[0] py-4 bg-[white] rounded-2xl flex flex-col items-center justify-center relative gap-8"
                 ref={windowReference ? windowReference : null} //*0.1
             >
                 {children}
@@ -15,26 +15,3 @@ export default function PopupWindow({ children, windowReference = null }: TEForm
         </div>
     )
 }
-
-{/*
-DOCUMENTATION
--
-IDEA:
-A popup window for forms and other data. Also adds a blurer to the background.
-.
-STRUCTURE:
-1. Blurer
-1.1. Popup Window
-.
-KNOWN USES:
-1. components/Profile/TextEditForm
-.
-COMMENTS
-0.1 Props
-children – the PopupWindow component works as a wrapper. It gives a blurer to the background
-to cover the rest of the page's conent and a window element to contain all the content that
-you pass to it as children.
-windowReference – mainly used for useHandleElsewhereClick to make the popup go away upon
-clicking off it. By default the windowReference is meant to be null as it might not always
-be passed.
-*/}

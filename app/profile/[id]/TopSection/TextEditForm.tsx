@@ -7,7 +7,6 @@ import FormInput from "./FormInput"
 import PopupWindow from "../PopupWindow"
 // import WideButton from "../WideButton"
 // my utilities & data
-import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
 import { useProfileContext } from "@/lib/ProfileContext";

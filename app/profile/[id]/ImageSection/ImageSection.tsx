@@ -1,8 +1,5 @@
 "use client";
-//*0.1
-// general
 import { useState } from "react"
-// components
 import ImageEditForm from "./ImageEditForm"
 import { useProfileContext } from "@/lib/ProfileContext";
 
@@ -15,7 +12,6 @@ export default function ImageSection({
     profileData, setProfileData //*0.2
 }: ProfileProps) {
 
-    // *0.3
     const { session, isOwnProfile } = useProfileContext()
 
     const [openImageEditor, setOpenImageEditor] = useState(false)
@@ -24,16 +20,18 @@ export default function ImageSection({
     return (
         <>
             <section
-                className="ProfImg__Section"
+                className="w-4/5 max-w-[23rem] h-40 mt-6 bg-[white] rounded-3xl relative z-0 flex justify-center items-end"
                 style={{ backgroundColor: `hsl(${profileData.bgColor[0]}, ${profileData.bgColor[1]}%, ${profileData.bgColor[2]}%)` }}
             >
 
                 {/* 1. Initially visible part: Image + Pencil Button */}
-                <div className="ProfImg__Avatar">
-                    <div className="ProfImg__AvatarHead">{profileData.emoji}</div>
-                    <div className="ProfImg__AvatarBody">
-                        <div className="ProfImg__AvatarNeck"></div>
-                        <div className="ProfImg__AvatarShoulders"></div>
+                <div className="w-1/2 max-w-[10rem] h-[70%] relative flex items-end justify-center">
+                    <div className="text-[6rem] absolute bottom-1 mx-auto z-10">
+                        {profileData.emoji}
+                    </div>
+                    <div className="relative w-full h-12 flex justify-center">
+                        <div className="w-16 h-full bg-[hsl(0,_0%,_85%)]"></div>
+                        <div className="absolute w-4/5 h-6 bg-[hsl(0,_0%,_85%)] bottom-[0]"></div>
                     </div>
                 </div>
 
@@ -41,13 +39,13 @@ export default function ImageSection({
                     session && isOwnProfile &&
                     <>
                         <button
-                            className="ProfImg__PencilButton"
+                            className="absolute right-[5%] top-[9%] w-8 h-8 text-[1.2rem] font-medium border-[0.1rem] border-solid border-[hsl(0,0%,85%)] rounded-[0.8rem] text-[hsl(0,_0%,_60%)] bg-[white] [rotate:90deg] z-10"
                             onClick={() => setOpenImageEditor(true)}
                         >
                             ✎
                         </button>
                         <button
-                            className="ProfImg__PencilButtonBottom"
+                            className="absolute right-[5%] top-[10.5%] w-8 h-8 border-none rounded-[0.8rem] bg-[hsl(0,_0%,_85%)] z-0"
                             onClick={() => setOpenImageEditor(true)}
                         >
                         </button>
