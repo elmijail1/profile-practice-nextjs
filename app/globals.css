@@ -78,51 +78,6 @@
 
 
 
-
-/* to remove */
-.App__Main {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5rem;
-}
-
-/* to remove */
-@media (min-width: 500px) {
-  .App__Main {
-    height: 50rem;
-  }
-}
-
-/* to remove */
-.screen,
-.screen__Main {
-  width: 100%;
-  min-height: 45rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 500px) {
-
-  .screen,
-  .screen__Main {
-    width: 360px;
-    height: 600px;
-  }
-}
-
-/* to remove */
-.screen__Main {
-  background-color: hsl(130, 70%, 50%);
-  color: hsl(0, 0%, 100%);
-}
-
 /*  */
 
 .Profile__TextEditWindow {
@@ -166,11 +121,6 @@
   width: 100%;
   justify-content: space-between;
   color: hsl(0, 0%, 70%);
-}
-
-.Profile__TextEditor__InputName {
-  font-size: 1.1rem;
-  font-weight: 600;
 }
 
 .Profile__TextEditor__CharCounter {
@@ -406,57 +356,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/* * */
-/*  */
-/* * */
-
-/* component: Profile/FormInput */
-.ProfFI__DivGen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.ProfFI__Label {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  color: hsl(0, 0%, 70%);
-}
-
-.ProfFI__Input {
-  width: 100%;
-  height: 2.2rem;
-  border-radius: 0.5rem;
-  border: 0.15rem solid hsl(0, 0%, 85%);
-  font-size: 1rem;
-  padding: 0 0.4rem;
-}
-
-.ProfFI__Textarea {
-  width: 100%;
-  height: 8rem;
-  padding: 0.4rem;
-  border-radius: 0.5rem;
-  border: 0.15rem solid hsl(0, 0%, 85%);
-  font-size: 1rem;
-  margin: 0;
-}
-
-.ProfFI__CharCounter {
-  font-size: 0.9rem;
-}
-
-.ProfFI__CharCounterLimitReached {
-  color: hsl(0, 100%, 50%);
-  font-weight: 600;
-}
-
-/* * */
-/*  */
-/* * */
 
 /* * */
 /*  */
@@ -778,35 +677,14 @@
   margin-top: 0.7rem;
 }
 
-.ProfTEF__Form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  gap: 2rem;
-  padding-bottom: 1rem;
-  position: relative;
-  z-index: 0;
-}
-
 /* * */
 /*  */
 /* * */
 
-/* component: Profile/TopSection */
-.ProfTop__Section {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4rem;
-  border: solid white;
-  border-width: 0 0 1px 0;
-  margin-top: 1rem;
-}
-
 /* 1. Initially visible H1 & Gear Button */
 .ProfTop__GearButton {
+  position: absolute;
+  right: 0;
   background-color: transparent;
   color: white;
   border: none;
