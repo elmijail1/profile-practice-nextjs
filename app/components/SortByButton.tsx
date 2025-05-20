@@ -20,7 +20,9 @@ export default function SortByButton({
 
     const [sortByMenuOpen, setSortByMenuOpen] = useState(false)
     let sortingMenuRef = useRef<any>(null)
-    useHandleElsewhereClick(sortingMenuRef, "SBB__Button", setSortByMenuOpen)
+
+    // 1. The problem must be here
+    useHandleElsewhereClick(sortingMenuRef, ["sort-by-button", "sort-by-arrow"], setSortByMenuOpen)
 
     function isBlack(colors: number[]) {
         const isBlack = colors[0] === 0
@@ -41,10 +43,12 @@ export default function SortByButton({
             <button
                 className="px-[0.5rem] py-[0.2rem] rounded-[1rem] border-none font-bold"
                 style={{ color: arrayToHSLA(colors.text), backgroundColor: arrayToHSLA(colors.background) }}
+                // 2. And the problem continues here
                 onClick={() => setSortByMenuOpen(prevMenu => !prevMenu)}
+                id="sort-by-button"
             >
                 {determineSortingButtonName(sortingOptionsData, activeSorting)}
-                <span className="text-[0.6rem] ml-[0.3rem]">▼</span>
+                <span className="text-[0.6rem] ml-[0.3rem]" id="sort-by-arrow">▼</span>
             </button>
 
             {sortByMenuOpen &&
@@ -52,6 +56,7 @@ export default function SortByButton({
                     className="bg-white font-medium list-none p-[1rem] rounded-[0.8rem] flex flex-col justify-start items-center gap-[0.8rem] absolute z-[1] top-[1.8rem] left-[4rem]"
                     style={{ color: arrayToHSLA(colors.text, 0.7), backgroundColor: arrayToHSLA(colors.background) }}
                     ref={sortingMenuRef}
+                    id="sort-by-list"
                 >
                     {
                         sortingOptionsData.map((sortingOption) => {
