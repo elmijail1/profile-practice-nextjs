@@ -5,8 +5,7 @@ import { useState } from "react"
 import AboutSection from "./AboutSection"
 import FriendListWindow from "./FriendListWindow"
 import { useFriendList } from "../useFriendList";
-import WideButton from "../WideButton"
-import { wideButtonColorsData, extractColorObject } from "../../../../data/wideButtonColorsData"
+import WideButton from "@/app/components/WideButton";
 import { useProfileContext } from "@/lib/ProfileContext";
 
 type ProfileProps = {
@@ -58,6 +57,8 @@ export default function DataSection({
         }
     }
 
+    const SectionClass = `w-3/5 flex flex-col items-center gap-[0.1rem] mt-[1.1rem] border-solid border-[white] border-[0_0_1px_0] pb-2 relative z-0`
+
     if (!profileData.joinedIn) {
         return (
             <p>Loading...</p>
@@ -67,12 +68,7 @@ export default function DataSection({
     return (
         <>
             {/* 1. Section */}
-            <section className=
-                {`
-                    ProfDS__Section
-                    ${!isOwnProfile && isAuthenticated ? "ProfDS__LowerMargin" : ""}
-                `}
-            >
+            <section className={`${SectionClass} ${!isOwnProfile && isAuthenticated && "pb-[2rem]"}`}>
 
                 {/* 1.1. Header */}
                 <h2>{profileData.name}</h2>
@@ -84,7 +80,7 @@ export default function DataSection({
 
                 {/* 1.4 Friend List button */}
                 <button
-                    className="ProfDS__Hyperlink"
+                    className="text-[hsl(50,_90%,_70%)] font-bold border-none bg-none p-0 disabled:text-white disabled:font-semibold"
                     onClick={() => setOpenFriendList(true)}
                     disabled={profileData.friends?.length < 1}
                 >
@@ -94,11 +90,17 @@ export default function DataSection({
                 {/* 1.5  Manage Friend button */}
                 {
                     (!isOwnProfile && isAuthenticated) &&
-                    <WideButton
-                        colors={extractColorObject(wideButtonColorsData, "RedText")}
-                        onClickAction={handleFriendAction}
-                        buttonText={isFriend ? "Remove Friend" : "Add Friend"}
-                    />
+                    <div className="w-full max-w-[18rem] flex justify-center">
+                        <WideButton
+                            colors={isFriend
+                                ? { frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }
+                                : { frontText: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }
+                            }
+                            onClick={handleFriendAction}
+                        >
+                            {isFriend ? "Remove Friend" : "Add Friend"}
+                        </WideButton>
+                    </div>
                 }
 
             </section >
