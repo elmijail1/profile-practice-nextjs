@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 export default function useHandleElsewhereClick(
     buttonRef: any,
-    buttonClassName: string,
+    buttonId: string,
     setButtonActiveState: any
 ) {
     useEffect(() => {
         function handleElsewhereClick(event: any) {
             if (
                 !buttonRef.current?.contains(event.target) &&
-                event.target.className !== buttonClassName
+                event.target.id !== buttonId
             ) {
                 setButtonActiveState(false);
             }
