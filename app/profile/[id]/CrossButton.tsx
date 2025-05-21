@@ -1,29 +1,10 @@
 export default function CrossButton({ onClickAction }: any) {
     return (
         <button
-            className="ProfCross__Button"
+            className="text-[hsl(0,_0%,_70%)] text-[3rem] bg-none border-none [rotate:45deg] absolute top-[0] right-[0] w-12 h-12 flex justify-center items-center"
             onClick={onClickAction}
         >
             +
         </button>
     )
 }
-
-{/*
-DOCUMENTATION
--
-IDEA
-A stylized button meant to close a window or something similar.
--
-STRUCTURE
-1. Button
--
-KNOWN USES:
-1. components/Profile/TextEditForm
--
-COMMENTS
-1. Props
-1.1. onClickAction. An action applied to the button as an onClick. Usually involves changing
-some state.
-
-*/}

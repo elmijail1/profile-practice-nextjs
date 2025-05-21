@@ -6,28 +6,23 @@ export default function BGColorInput({
     inputData, setInputData // *0.2
 }: { inputData: any, setInputData: any }) {
 
-    return (
-        <section className="ProfImIn__Section">
-            {/* 1.1. Header */}
-            <h3 className="ProfImIn__H3">Background Color</h3>
 
-            {/* 1.2. Row of options  */}
-            <div className="ProfImIn__OptionRow">
+    return (
+        <section className="image-option-section">
+            <h3 className="image-option-h3">Background Color</h3>
+
+            <div className="image-option-row">
                 {backgroundColorData.map((option) => {
+
+                    const isChosen = inputData.bgColor[0] === option.color[0] && inputData.bgColor[1] === option.color[1] && inputData.bgColor[2] === option.color[2]
+
                     return (
                         // *1.2.1. Label
                         <label
                             key={nanoid()}
                             onClick={() => setInputData((prevData: any) => ({ ...prevData, bgColor: option.color }))}
                             htmlFor={`checkbox${option.color}`}
-                            className=
-                            {`
-                                ProfImIn__OptionSingle
-                                ${inputData.bgColor[0] === option.color[0] && inputData.bgColor[1] === option.color[1] && inputData.bgColor[2] === option.color[2]
-                                    ? "ProfImIn__OptionSingleHighlighted"
-                                    : ""
-                                }
-                            `}
+                            className={`image-option-option ${isChosen && "yellow-border-highlight"}`}
                             style={{ backgroundColor: `hsl(${option.color[0]}, ${option.color[1]}%, ${option.color[2]}%)` }}
                         >
 
@@ -35,7 +30,7 @@ export default function BGColorInput({
                             <input
                                 id={`checkbox${option.color}`}
                                 type="checkbox"
-                                className="ProfImIn__CheckboxInput"
+                                className="hidden"
                                 checked={inputData.bgColor === option.color}
                                 onChange={() => setInputData((prevDat: any) => ({ ...prevData, emoji: option.color }))}
                             />

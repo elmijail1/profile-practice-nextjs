@@ -41,7 +41,7 @@ export default function ListOfFriends({
     }
 
     return (
-        <ol className="ProfLOF__ListWrapper">
+        <ol className="[list-style:none] p-0 mt-0 flex flex-col gap-2 w-4/5">
             {sortBy(friendsList, "name").map((user, index) => {
                 return (
                     <ListRow

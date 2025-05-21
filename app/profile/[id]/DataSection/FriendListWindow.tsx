@@ -67,15 +67,15 @@ export default function FriendListWindow({
     // this is a questionable arrangement
     let popupWindowRef = useRef()
 
-    useHandleElsewhereClick(popupWindowRef, "ProfPUW__DivGen", () => setOpenFriendList(false))
+    useHandleElsewhereClick(popupWindowRef, "", () => setOpenFriendList(false))
 
 
     return (
         <PopupWindow windowReference={popupWindowRef}>
 
-            <section className="ProfFLW__Section">
+            <section className="top-24 w-72 min-h-[20.5rem] max-h-[22.5rem] px-[0] py-4 bg-[white] rounded-2xl flex flex-col items-center justify-start">
 
-                <h2 className="ProfFLW__H2">
+                <h2 className="text-[black] text-[1.4rem] mt-[0.7rem] text-center">
                     Friends of
                     <br />{profileData.name}
                 </h2>

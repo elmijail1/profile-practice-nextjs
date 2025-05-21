@@ -12,33 +12,27 @@ export default function ImageInput({
 }: ImageEditFormProps) {
 
     return (
-        <section className="ProfImIn__Section">
-            {/* 1.1. Header */}
-            <h3 className="ProfImIn__H3">Image</h3>
+        <section className="image-option-section">
 
-            {/* 1.2. Row of options */}
-            <div className="ProfImIn__OptionRow">
+            <h3 className="image-option-h3">Image</h3>
+
+            <div className="image-option-row">
                 {profileImageData.map((image) => {
-                    return (
 
+                    const isChosen = inputData.emoji === image.emoji
+
+                    return (
                         // 1.2.1. Label
                         <label
                             key={nanoid()}
                             onClick={() => setInputData((prevData: any) => ({ ...prevData, emoji: image.emoji }))}
-                            className=
-                            {`
-                            ProfImIn__OptionSingle
-                            ${inputData.emoji === image.emoji
-                                    ? "ProfImIn__OptionSingleHighlighted"
-                                    : ""
-                                }
-                        `}
+                            className={`image-option-option ${isChosen && "yellow-border-highlight"}`}
                         >
 
                             {/* 1.2.1.1. Checkbox Input */}
                             <input
                                 type="checkbox"
-                                className="ProfImIn__CheckboxInput"
+                                className="hidden"
                                 checked={inputData.emoji === image.emoji}
                                 onChange={() => setInputData((prevData: any) => ({ ...prevData, emoji: image.emoji }))}
                             />
