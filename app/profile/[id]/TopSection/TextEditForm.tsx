@@ -1,16 +1,13 @@
 "use client";
-// React & Next's utilities
 import React, { useState, useRef, useEffect } from "react"
-// components
 import CrossButton from "../CrossButton"
 import FormInput from "./FormInput"
 import PopupWindow from "../PopupWindow"
-// import WideButton from "../WideButton"
-// my utilities & data
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
 import { useProfileContext } from "@/lib/ProfileContext";
 import WideButton from "@/app/components/WideButton";
+import { useSession } from "next-auth/react";
 
 type ProfileData = {
     name: string,
@@ -29,7 +26,7 @@ export default function TextEditForm({
     profileData, setProfileData, setOpenTextEditor // *0.2
 }: TSProps) {
 
-    const { currentId } = useProfileContext()
+    const { session, currentId } = useProfileContext()
 
     const [inputData, setInputData] = useState<ProfileData>({ // *0.3
         name: profileData?.name,
@@ -101,7 +98,9 @@ export default function TextEditForm({
     }, [inputData.email, profileData.email])
 
 
-    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+    const { update } = useSession()
+
+    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         if (["invalid", "unavailable", "checking"].includes(emailStatus)) {
             return
         }
@@ -124,6 +123,7 @@ export default function TextEditForm({
             }
 
             const updatedUser = await response.json()
+            await update()
             setProfileData(updatedUser.user)
             setOpenTextEditor(false)
 
