@@ -7,12 +7,15 @@ import { sortingOptionsData } from "@/data/sortingOptionsData";
 import { sortBy } from "../../utilities/sorting";
 import type { User } from "../types/user";
 import { useSession } from "next-auth/react";
+import Loader from "../components/Loader";
 
 export default function People() {
 
     const [activeSorting, setActiveSorting] = useState<"joinedIn" | "name">("joinedIn")
-    const [usersLoading, setUsersLoading] = useState(true)
+
     const [users, setUsers] = useState<User[]>([])
+
+    const [isLoading, setIsLoading] = useState(true)
 
     const { data: session, status } = useSession()
 
@@ -30,24 +33,29 @@ export default function People() {
             } catch (error) {
                 console.error("Error fetching users: ", error)
             } finally {
-                setUsersLoading(false)
+                setIsLoading(false)
             }
         }
         fetchUsers()
     }, [])
 
 
-    if (usersLoading || status === "loading") {
-        return (
-            <p>Loading...</p>
-        )
-    }
 
     const MainDivClass = "w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(200,80%,60%)] text-white sm:w-[360px] sm:h-[600px]"
 
+    if (isLoading || status === "loading") {
+        return (
+            <main>
+                <div className={MainDivClass}>
+                    <Loader />
+                </div>
+            </main >
+        )
+    }
+
     return (
         <main>
-            <div className={`${MainDivClass} Global__Screen__Blue`}>
+            <div className={MainDivClass}>
 
                 <div className="w-4/5 flex justify-between items-center h-16 border-b border-white my-4">
                     <h1 className="mx-auto">People</h1>

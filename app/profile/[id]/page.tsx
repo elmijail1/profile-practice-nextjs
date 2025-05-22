@@ -8,6 +8,7 @@ import type { User } from "@/app/types/user";
 import PasswordWindow from "./PasswordWindow";
 import { useSession } from "next-auth/react";
 import { ProfileContextProvider } from "@/lib/ProfileContext";
+import Loader from "@/app/components/Loader";
 
 export default function Profile() {
 
@@ -16,22 +17,26 @@ export default function Profile() {
     const isOwnProfile = status === "authenticated" && session?.user?.id.toString() === currentId
 
     const [profileData, setProfileData] = useState<User | undefined>()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         async function fetchUser() {
             const res = await fetch(`/api/users/${currentId}`)
             const user = await res.json()
             setProfileData(user)
+            setIsLoading(false)
         }
         fetchUser()
     }, [])
 
     const [passwordWindowOpen, setPasswordWindowOpen] = useState(false)
 
-    if (!profileData) {
+    if (isLoading) {
         return (
-            <main>
-                Loading...
+            <main className="w-full flex flex-col items-center justify-center pb-20 sm:h-[50rem]">
+                <div className="w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(130,70%,50%)] text-white sm:w-[360px] sm:h-[600px]">
+                    <Loader />
+                </div>
             </main>
         )
     }
