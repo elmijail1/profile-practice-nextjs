@@ -47,7 +47,6 @@ export default function LogInTab() {
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
             console.error("Error while logging in a user: ", error)
-        } finally {
             setIsSubmitting(false)
         }
     }
@@ -78,7 +77,7 @@ export default function LogInTab() {
                     </AuthFormInput>
 
                     <WideButton disabledIf={isSubmitting}>
-                        Log in
+                        {isSubmitting ? "Logging in..." : "Log in"}
                     </WideButton>
 
                 </form>

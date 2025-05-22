@@ -77,10 +77,8 @@ export default function SignUpTab() {
             }
 
             const createdUser: { email: string } = await response.json()
-            console.log(createdUser)
         } catch (error) {
             console.error("Error while creating a user: ", error)
-        } finally {
             setIsSubmitting(false)
         }
 
@@ -109,7 +107,6 @@ export default function SignUpTab() {
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
             console.error("Error while logging in a user: ", error)
-        } finally {
             setIsSubmitting(false)
         }
     }
@@ -179,7 +176,7 @@ export default function SignUpTab() {
                         colors={{ backBG: "hsl(300, 25%, 55%)" }}
                         disabledIf={!validatedFull || isSubmitting}
                     >
-                        Sign up
+                        {isSubmitting ? "Signing up..." : "Sign up"}
                     </WideButton>
 
                 </form>
