@@ -44,6 +44,7 @@ export default function FormCompare({
             }
 
             setProgressStage("set-new")
+            setPasswordDisplay("password")
         } catch (error) {
             // console.error("Network or server error: ", error)
             setError("Password checking is currently unavailable. Try again later.")
@@ -78,6 +79,7 @@ export default function FormCompare({
             >
                 {passwordDisplay === "password" ? "Show" : "Hide"} password
             </button>
+
             {
                 error &&
                 <p className="text-red-700 mb-3 text-center text-[1rem]">
