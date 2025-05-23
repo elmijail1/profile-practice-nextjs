@@ -1,10 +1,11 @@
 "use client"
 import CrossButton from "../CrossButton"
 import PopupWindow from "../PopupWindow"
-import React, { useState, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import FormCompare from "./FormCompare"
 import FormSetNew from "./FormSetNew"
 import SuccessMessage from "./SuccessMessage"
+import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 
 type PropsFromProfilePage = {
     setPasswordWindowOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,10 +28,12 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
     const newAndCurrentAreIdentical = newPasswordInput === currentPasswordInput
     const passwordsMatch = newPasswordInput.length > 0 && newPasswordInput === repeatPasswordInput
 
+    let popupWindowRef = useRef<HTMLDivElement>(null)
+    useHandleElsewhereClick(popupWindowRef, "popup-window", setPasswordWindowOpen)
 
 
     return (
-        <PopupWindow>
+        <PopupWindow windowReference={popupWindowRef}>
             <h2 className="text-black">Change Password</h2>
 
             {progressStage === "compare" &&
