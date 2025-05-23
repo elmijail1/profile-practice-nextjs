@@ -24,7 +24,7 @@ export default function LayoutFooter() {
     return (
         <footer className="flex justify-center relative">
             <div className="fixed bottom-0 w-full h-20 bg-white border-t-[0.1rem]
-             border-gray-300 z-3 flex justify-center items-center sm:w-[360px] sm:absolute"
+             border-gray-300 z-30 flex justify-center items-center sm:w-[360px] sm:absolute"
             >
                 {/* Login Page */}
                 {pathname === "/login" && (
