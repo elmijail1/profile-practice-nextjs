@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import WideButton from "../components/WideButton";
 import AuthFormInput from "./AuthFormInput";
+import ErrorPopup from "../components/ErrorPopup";
+import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 
 export default function SignUpTab() {
     // 1. input
@@ -70,15 +72,15 @@ export default function SignUpTab() {
             })
 
             if (!response.ok) {
-                setError("Error creating user")
-                const errorData = await response.json()
-                console.error("Failed to create a user: ", errorData)
+                // const errorData = await response.json()
+                // console.error("Failed to create a user: ", errorData)
+                setError("Our app is curently unavailable. Try again.")
+                setIsSubmitting(false)
                 return
             }
-
-            const createdUser: { email: string } = await response.json()
         } catch (error) {
-            console.error("Error while creating a user: ", error)
+            // console.error("Error while creating a user: ", error)
+            setError("Our app is curently unavailable. Try again.")
             setIsSubmitting(false)
         }
 
@@ -91,25 +93,31 @@ export default function SignUpTab() {
             })
 
             if (!response?.ok) {
-                console.error("Login failed")
-                setError("Invalid email or password")
+                // console.error("Login failed")
+                setError("Our app is curently unavailable. Try again.")
+                setIsSubmitting(false)
                 return
             }
 
             const session = await getSession()
 
             if (!session?.user.id) {
-                console.error("Session missing user ID")
-                setError("Session missing user ID")
+                // console.error("Session missing user ID")
+                setError("Our app is curently unavailable. Try again.")
+                setIsSubmitting(false)
                 return
             }
 
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
-            console.error("Error while logging in a user: ", error)
+            // console.error("Error while logging in a user: ", error)
+            setError("Our app is curently unavailable. Try again.")
             setIsSubmitting(false)
         }
     }
+
+    let popupWindowRef = useRef<HTMLDivElement>(null)
+    useHandleElsewhereClick(popupWindowRef, "popup-window-error", setError)
 
     return (
         <>
@@ -180,6 +188,14 @@ export default function SignUpTab() {
                     </WideButton>
 
                 </form>
+                {
+                    error &&
+                    <ErrorPopup
+                        error={error}
+                        setError={setError}
+                        windowReference={popupWindowRef}
+                    />
+                }
             </div >
         </>
     )
