@@ -21,7 +21,6 @@ export default function SortByButton({
     const [sortByMenuOpen, setSortByMenuOpen] = useState(false)
     let sortingMenuRef = useRef<any>(null)
 
-    // 1. The problem must be here
     useHandleElsewhereClick(sortingMenuRef, ["sort-by-button", "sort-by-arrow"], setSortByMenuOpen)
 
     function isBlack(colors: number[]) {
@@ -53,7 +52,7 @@ export default function SortByButton({
 
             {sortByMenuOpen &&
                 <ul
-                    className="bg-white font-medium list-none p-[1rem] rounded-[0.8rem] flex flex-col justify-start items-center gap-[0.8rem] absolute z-[1] top-[1.8rem] left-[4rem]"
+                    className="bg-white font-medium list-none p-[1rem] rounded-[0.8rem] flex flex-col justify-start items-center gap-[0.8rem] absolute z-[1] top-[1.8rem] left-[4rem] w-[7rem]"
                     style={{ color: arrayToHSLA(colors.text, 0.7), backgroundColor: arrayToHSLA(colors.background) }}
                     ref={sortingMenuRef}
                     id="sort-by-list"
