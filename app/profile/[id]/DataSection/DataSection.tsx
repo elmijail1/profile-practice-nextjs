@@ -107,7 +107,7 @@ export default function DataSection({
 
             {/* 2. Friend List window */}
             {
-                openFriendList &&
+                openFriendList && profileData.friends.length > 0 &&
                 <FriendListWindow
                     profileData={profileData}
                     setProfileData={setProfileData}
