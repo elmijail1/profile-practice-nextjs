@@ -30,6 +30,8 @@ export default function ImageEditForm({
         bgColor: profileData.bgColor,
     })
 
+    const [error, setError] = useState("")
+
     function discardChanges() { // *0.4
         setInputData({
             emoji: profileData.emoji,
@@ -53,7 +55,8 @@ export default function ImageEditForm({
             })
 
             if (!response.ok) {
-                console.error("Failed to update user")
+                // console.error("Failed to update user")
+                setError("Updating is currently unavailable. Try again later.")
                 return
             }
 
@@ -62,18 +65,24 @@ export default function ImageEditForm({
             setOpenImageEditor(false)
 
         } catch (error) {
-            console.error("Error updating the profile's images: ", error)
+            // console.error("Error updating the profile's images: ", error)
+            setError("Updating is currently unavailable. Try again later.")
         }
     }
 
 
-    let popupWindowRef = useRef() // *0.5
-    useHandleElsewhereClick(popupWindowRef, "ProfPUW__DivGen", () => setOpenImageEditor(false))
+    let popupWindowRef = useRef()
+    useHandleElsewhereClick(popupWindowRef, "popup-window", () => setOpenImageEditor(false))
 
     return (
         <PopupWindow windowReference={popupWindowRef}>
             <div className="w-72 px-[0] py-4 bg-[white] rounded-2xl flex flex-col items-center justify-center z-0 gap-8">
                 <h2 className="profile-popup-h2">Edit Profile Image</h2>
+                {error &&
+                    <p className="text-red-500 w-[80%] text-center my-[-1.5rem]">
+                        {error}
+                    </p>
+                }
                 <form className="flex flex-col items-center w-4/5 gap-8 pb-4">
                     <ImageInput
                         inputData={inputData}
@@ -86,12 +95,14 @@ export default function ImageEditForm({
                     />
 
                     <div className="w-full flex flex-col items-center gap-4">
-                        <WideButton
-                            colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                            onClick={handleSubmission}
-                        >
-                            Save changes
-                        </WideButton>
+                        {!error &&
+                            <WideButton
+                                colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                onClick={handleSubmission}
+                            >
+                                Save changes
+                            </WideButton>
+                        }
 
                         <WideButton
                             colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}

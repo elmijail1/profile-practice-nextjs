@@ -24,7 +24,7 @@ export default function FriendListWindow({
 
     const [friendsList, setFriendsList] = useState([])
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<any>(null)
+    const [error, setError] = useState("")
 
     const { friendsSelf, mutate } = useOwnFriendList(isOwnProfile, profileData.friends)
 
@@ -39,14 +39,16 @@ export default function FriendListWindow({
                         body: JSON.stringify({ friends: profileData.friends })
                     })
                     if (!res.ok) {
+                        setFriendsList([])
+                        setError("The friend list is currently unavailable. Try again later.")
                         throw new Error("Failed to fetch friend list")
                     }
 
                     const data = await res.json()
                     setFriendsList(data)
                 } catch (error) {
-                    console.error("Unexpected error fetching friend list: ", error)
-                    setError(error)
+                    // console.error("Unexpected error fetching friend list: ", error)
+                    setError("The friend list is currently unavailable. Try again later.")
                 } finally {
                     setLoading(false)
                 }
@@ -64,10 +66,8 @@ export default function FriendListWindow({
         }
     }, [isOwnProfile, friendsSelf])
 
-    // this is a questionable arrangement
     let popupWindowRef = useRef()
-
-    useHandleElsewhereClick(popupWindowRef, "", () => setOpenFriendList(false))
+    useHandleElsewhereClick(popupWindowRef, "popup-window", setOpenFriendList)
 
 
     return (
@@ -79,6 +79,13 @@ export default function FriendListWindow({
                     Friends of
                     <br />{profileData.name}
                 </h2>
+
+                {
+                    error &&
+                    <p className="text-red-500 text-center w-[80%] my-2">
+                        {error}
+                    </p>
+                }
 
                 {
                     !loading

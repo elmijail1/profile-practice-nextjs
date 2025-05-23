@@ -26,7 +26,7 @@ export default function TextEditForm({
     profileData, setProfileData, setOpenTextEditor // *0.2
 }: TSProps) {
 
-    const { session, currentId } = useProfileContext()
+    const { currentId } = useProfileContext()
 
     const [inputData, setInputData] = useState<ProfileData>({ // *0.3
         name: profileData?.name,
@@ -36,6 +36,7 @@ export default function TextEditForm({
     const inputCounter = { name: 20, aboutMe: 100 } //*0.3
 
     const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
+    const [error, setError] = useState("")
 
     function validateEmail(email: string) {
         return /^(?=.{5,100}$)[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -118,7 +119,8 @@ export default function TextEditForm({
             })
 
             if (!response.ok) {
-                console.error("Failed to update user")
+                // console.error("Failed to update user")
+                setError("Updating is currently unavailable. Try again later.")
                 return
             }
 
@@ -128,7 +130,8 @@ export default function TextEditForm({
             setOpenTextEditor(false)
 
         } catch (error) {
-            console.error("Error updating the profile's texts: ", error)
+            // console.error("Error updating the profile's texts: ", error)
+            setError("Updating is currently unavailable. Try again later.")
         }
     }
 
@@ -149,7 +152,7 @@ export default function TextEditForm({
     }
 
     let popupWindowRef = useRef() // *0.5
-    useHandleElsewhereClick(popupWindowRef, "ProfPUW__DivGen", discardChanges) // *0.5
+    useHandleElsewhereClick(popupWindowRef, "popup-window", discardChanges) // *0.5
 
 
 
@@ -158,6 +161,11 @@ export default function TextEditForm({
             windowReference={popupWindowRef}
         >
             <h2 className="text-black">Edit Profile</h2>
+            {error &&
+                <p className="text-red-500 w-[80%] text-center my-[-1.5rem]">
+                    {error}
+                </p>
+            }
             <form className="flex flex-col items-center w-4/5 gap-6 pb-4 relative z-0">
                 <FormInput
                     inputData={inputData}
@@ -193,12 +201,15 @@ export default function TextEditForm({
                     (!["checking", "invalid", "unavailable"].includes(emailStatus)) &&
                     (
                         <div className="w-full flex flex-col items-center gap-4">
-                            <WideButton
-                                colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                                onClick={handleSubmission}
-                            >
-                                Save changes
-                            </WideButton>
+                            {
+                                !error &&
+                                <WideButton
+                                    colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                    onClick={handleSubmission}
+                                >
+                                    Save changes
+                                </WideButton>
+                            }
 
                             <WideButton
                                 colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
