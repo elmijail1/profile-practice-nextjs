@@ -11,7 +11,7 @@ export default function PopupWindow({ children, windowReference = null }: TEForm
         >
             <div
                 className="w-72 px-[0] py-4 bg-[white] rounded-2xl flex flex-col items-center justify-center relative gap-8"
-                ref={windowReference ? windowReference : null} //*0.1
+                ref={windowReference ? windowReference : null}
             >
                 {children}
             </div>
