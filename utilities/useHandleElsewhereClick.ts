@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 
-export default function useHandleElsewhereClick(
-    buttonRef: any,
-    buttonId: string | string[],
-    setButtonActiveState: React.Dispatch<React.SetStateAction<boolean>>
-) {
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>
+
+export default function useHandleElsewhereClick
+    <T extends boolean | string>
+    (
+        buttonRef: any,
+        buttonId: string | string[],
+        setButtonActiveState: SetState<T>
+    ) {
 
     function clickingAtCurrentRef(event: any) {
         return buttonRef.current?.contains(event.target)
@@ -24,7 +28,11 @@ export default function useHandleElsewhereClick(
                 !clickingAtCurrentRef(event) &&
                 !clickingAtThisButton(event)
             ) {
-                setButtonActiveState(false);
+                if (typeof (false as T) === "boolean") {
+                    setButtonActiveState(false as T);
+                } else if (typeof ("" as T) === "string") {
+                    setButtonActiveState("" as T)
+                }
             }
         }
 
