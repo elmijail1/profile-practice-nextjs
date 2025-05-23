@@ -23,17 +23,17 @@ type TSProps = {
 
 
 export default function TextEditForm({
-    profileData, setProfileData, setOpenTextEditor // *0.2
+    profileData, setProfileData, setOpenTextEditor
 }: TSProps) {
 
     const { currentId } = useProfileContext()
 
-    const [inputData, setInputData] = useState<ProfileData>({ // *0.3
+    const [inputData, setInputData] = useState<ProfileData>({
         name: profileData?.name,
         email: profileData?.email,
         aboutMe: profileData?.aboutMe
     })
-    const inputCounter = { name: 20, aboutMe: 100 } //*0.3
+    const inputCounter = { name: 20, aboutMe: 100 }
 
     const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
     const [error, setError] = useState("")
@@ -142,7 +142,7 @@ export default function TextEditForm({
         })
     }
 
-    function discardChanges() { //*0.4
+    function discardChanges() {
         setInputData({
             name: profileData?.name,
             email: profileData?.email,
@@ -151,8 +151,8 @@ export default function TextEditForm({
         setOpenTextEditor(false)
     }
 
-    let popupWindowRef = useRef() // *0.5
-    useHandleElsewhereClick(popupWindowRef, "popup-window", discardChanges) // *0.5
+    let popupWindowRef = useRef()
+    useHandleElsewhereClick(popupWindowRef, "popup-window", discardChanges)
 
 
 
