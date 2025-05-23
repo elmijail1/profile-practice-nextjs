@@ -5,7 +5,7 @@ import TopSection from "./TopSection/TopSection"
 import ImageSection from "./ImageSection/ImageSection"
 import DataSection from "./DataSection/DataSection"
 import type { User } from "@/app/types/user";
-import PasswordWindow from "./PasswordWindow";
+import PasswordWindow from "./PasswordChange/PasswordWindow";
 import { useSession } from "next-auth/react";
 import { ProfileContextProvider } from "@/lib/ProfileContext";
 import Loader from "@/app/components/Loader";
