@@ -138,9 +138,11 @@ export default function LogInTab() {
                         Password
                     </AuthFormInput>
 
-                    <WideButton disabledIf={!validatedFull || isSubmitting}>
-                        {determineButtonText()}
-                    </WideButton>
+                    <div className="w-full flex justify-center xl:max-w-[35rem]">
+                        <WideButton disabledIf={!validatedFull || isSubmitting}>
+                            {determineButtonText()}
+                        </WideButton>
+                    </div>
                 </form>
                 {
                     error &&
