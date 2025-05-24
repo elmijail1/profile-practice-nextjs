@@ -94,9 +94,9 @@ export default function People() {
                     total > 5 &&
                     <div className="mt-4 flex justify-between w-[90%] px-4">
                         <button
-                            className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
+                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl ${renderPage === 1 && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                            disabled={page === 1}
+                            disabled={renderPage !== page || renderPage === 1}
                         >
                             ◀ Prev
                         </button>
@@ -106,9 +106,9 @@ export default function People() {
                                 : <span className="self-center">Loading pages...</span>
                         }
                         <button
-                            className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
+                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl ${renderPage * limit >= total && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
                             onClick={() => setPage((p) => p + 1)}
-                            disabled={page * limit >= total}
+                            disabled={renderPage !== page || renderPage * limit >= total}
                         >
                             Next ▶
                         </button>
