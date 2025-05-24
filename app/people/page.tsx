@@ -89,27 +89,31 @@ export default function People() {
                             </ol>
                         )}
                 </div>
-                <div className="mt-4 flex justify-between w-[90%] px-4">
-                    <button
-                        className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
-                        onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                        disabled={page === 1}
-                    >
-                        ◀ Prev
-                    </button>
-                    {
-                        total
-                            ? <span className="self-center">Page {page} of {Math.ceil(total / limit)}</span>
-                            : <span className="self-center">Loading pages...</span>
-                    }
-                    <button
-                        className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
-                        onClick={() => setPage((p) => p + 1)}
-                        disabled={page * limit >= total}
-                    >
-                        Next ▶
-                    </button>
-                </div>
+
+                {
+                    total > 5 &&
+                    <div className="mt-4 flex justify-between w-[90%] px-4">
+                        <button
+                            className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
+                            onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                            disabled={page === 1}
+                        >
+                            ◀ Prev
+                        </button>
+                        {
+                            total
+                                ? <span className="self-center">Page {page} of {Math.ceil(total / limit)}</span>
+                                : <span className="self-center">Loading pages...</span>
+                        }
+                        <button
+                            className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
+                            onClick={() => setPage((p) => p + 1)}
+                            disabled={page * limit >= total}
+                        >
+                            Next ▶
+                        </button>
+                    </div>
+                }
 
             </div>
         </main >
