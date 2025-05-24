@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import AuthFormInput from "./AuthFormInput";
@@ -18,6 +18,42 @@ export default function LogInTab() {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState("")
+    const [validatedData, setValidatedData] = useState({ email: false, password: false })
+    const validatedFull = validatedData.email && validatedData.password
+    const regex = {
+        email: /\S+@\S+\.\S+/, // string + @ + string + . + string
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/, // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
+    }
+
+    useEffect(() => {
+        const isEmailValid = regex.email.test(inputData.email)
+        const isPasswordValid = regex.password.test(inputData.password)
+
+        setValidatedData({
+            email: isEmailValid,
+            password: isPasswordValid,
+        })
+    }, [inputData])
+
+
+    function determineButtonText() {
+        if (!validatedFull) {
+            return "Enter valid Email & Password"
+        } else if (validatedFull && !isSubmitting) {
+            return "Log in"
+        } else if (validatedFull && isSubmitting) {
+            return "Logging in..."
+        }
+    }
+
+    const [lastFocus, setLastFocus] = useState("")
+    const [firstFocus, setFirstFocus] = useState({ email: false, password: false })
+    function registerFocus(name: "email" | "password") {
+        setLastFocus(name)
+        if (firstFocus[name] === false) {
+            setFirstFocus(prevFocus => ({ ...prevFocus, [name]: true }))
+        }
+    }
 
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -69,6 +105,14 @@ export default function LogInTab() {
                         name="email"
                         value={inputData.email}
                         onChange={handleInput}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+
+                        validation={{
+                            trigger: firstFocus.email,
+                            isValid: validatedData.email,
+                            lastFocus: lastFocus === "email",
+                            errorText: "Email must be in the format: something@domain.com"
+                        }}
                     >
                         Email
                     </AuthFormInput>
@@ -78,12 +122,24 @@ export default function LogInTab() {
                         name="password"
                         value={inputData.password}
                         onChange={handleInput}
-                    >
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        validation={{
+                            trigger: firstFocus.password,
+                            isValid: validatedData.password,
+                            lastFocus: lastFocus === "password",
+                            errorText: `
+                                Password must be 8+ symbols long and contain at least one:
+                                · uppercase letter (e.g. A, B, C)
+                                · lowercase letter (e.g. a, b, c)
+                                · digit (e.g. 1, 2, 3)
+                                · special symbol (e.g. _, !, ?)
+                            `
+                        }}>
                         Password
                     </AuthFormInput>
 
-                    <WideButton disabledIf={isSubmitting}>
-                        {isSubmitting ? "Logging in..." : "Log in"}
+                    <WideButton disabledIf={!validatedFull || isSubmitting}>
+                        {determineButtonText()}
                     </WideButton>
                 </form>
                 {
@@ -95,7 +151,7 @@ export default function LogInTab() {
                     />
                 }
 
-            </div>
+            </div >
         </>
     )
 }
