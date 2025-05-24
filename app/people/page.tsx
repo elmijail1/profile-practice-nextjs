@@ -20,6 +20,7 @@ export default function People() {
     const [page, setPage] = useState(1)
     const limit = 5
     const [total, setTotal] = useState(0)
+    const [renderPage, setRenderPage] = useState(1)
 
     useEffect(() => {
         async function fetchUsers() {
@@ -29,6 +30,7 @@ export default function People() {
                 const { users, total }: { users: User[], total: number } = await res.json()
                 setUsers(users)
                 setTotal(total)
+                setRenderPage(page)
             } catch (error) {
                 setUsers([])
                 console.error("Error fetching users: ", error)
@@ -62,7 +64,7 @@ export default function People() {
                     }}
                 />
 
-                <div className="h-[18rem]">
+                <div className="h-[18rem] w-[15rem]">
                     {
                         isLoading || status === "loading" &&
                         <p>Loading users...</p>
@@ -78,7 +80,7 @@ export default function People() {
                                             <ListRow
                                                 key={user.id}
                                                 user={user}
-                                                listOrder={index + 1}
+                                                listOrder={(limit * (renderPage - 1)) + (index + 1)}
                                                 self={user.id === Number(session?.user.id)}
                                             />
                                         )
