@@ -43,15 +43,6 @@ export default function People() {
 
     const MainDivClass = "w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(200,80%,60%)] text-white sm:w-[360px] sm:h-[600px]"
 
-    if (isLoading || status === "loading") {
-        return (
-            <main>
-                <div className={MainDivClass}>
-                    <Loader />
-                </div>
-            </main >
-        )
-    }
 
     return (
         <main>
@@ -71,8 +62,13 @@ export default function People() {
                     }}
                 />
 
-                <div>
-                    {users.length === 0
+                <div className="h-[18rem]">
+                    {
+                        isLoading || status === "loading" &&
+                        <p>Loading users...</p>
+                    }
+
+                    {!isLoading && users.length === 0
                         ? <p>No users found.</p>
                         : (
                             <ol className="list-none p-0 mt-0 flex flex-col gap-[0.8rem] w-full">
@@ -91,21 +87,25 @@ export default function People() {
                             </ol>
                         )}
                 </div>
-                <div className="mt-4 flex justify-between w-full px-4">
+                <div className="mt-4 flex justify-between w-[90%] px-4">
                     <button
-                        className="px-4 py-2 bg-white text-black rounded disabled:opacity-50"
+                        className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
                         onClick={() => setPage((p) => Math.max(p - 1, 1))}
                         disabled={page === 1}
                     >
-                        Prev
+                        ◀ Prev
                     </button>
-                    <span className="self-center">Page {page} of {Math.ceil(total / limit)}</span>
+                    {
+                        total
+                            ? <span className="self-center">Page {page} of {Math.ceil(total / limit)}</span>
+                            : <span className="self-center">Loading pages...</span>
+                    }
                     <button
-                        className="px-4 py-2 bg-white text-black rounded disabled:opacity-50"
+                        className="px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl disabled:opacity-0"
                         onClick={() => setPage((p) => p + 1)}
                         disabled={page * limit >= total}
                     >
-                        Next
+                        Next ▶
                     </button>
                 </div>
 
