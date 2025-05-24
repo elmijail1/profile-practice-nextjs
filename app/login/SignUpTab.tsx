@@ -52,6 +52,7 @@ export default function SignUpTab() {
         }
     }
 
+
     // 4. submission
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter()
@@ -113,6 +114,16 @@ export default function SignUpTab() {
             // console.error("Error while logging in a user: ", error)
             setError("Our app is curently unavailable. Try again.")
             setIsSubmitting(false)
+        }
+    }
+
+    function determineButtonText() {
+        if (!validatedFull) {
+            return "Enter valid details"
+        } else if (validatedFull && !isSubmitting) {
+            return "Sign up"
+        } else if (validatedFull && isSubmitting) {
+            return "Signing up..."
         }
     }
 
@@ -184,7 +195,7 @@ export default function SignUpTab() {
                         colors={{ backBG: "hsl(300, 25%, 55%)" }}
                         disabledIf={!validatedFull || isSubmitting}
                     >
-                        {isSubmitting ? "Signing up..." : "Sign up"}
+                        {determineButtonText()}
                     </WideButton>
 
                 </form>
