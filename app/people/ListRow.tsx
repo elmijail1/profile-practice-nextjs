@@ -18,7 +18,7 @@ export default function ListRow(
         return `hsl(${array[0]}, ${array[1]}%, ${array[2]}%)`
     }
 
-    const listRowClass = "flex items-center justify-between w-full h-12 text-[1.3rem] font-semibold"
+    const listRowClass = "flex items-center justify-start w-full h-12 text-[1.3rem] font-semibold"
     const nameClass = "overflow-hidden truncate whitespace-nowrap"
     const deleteButtonClass = "bg-[hsl(0,50%,80%)] text-white rounded-full border-0 w-[1.9rem] h-[1.9rem] rotate-[45deg] text-[2.1rem] font-bold flex justify-center items-center pl-[0.55rem] pb-[0.65rem]"
 
