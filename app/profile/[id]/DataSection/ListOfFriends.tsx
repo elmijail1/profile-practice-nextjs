@@ -13,11 +13,13 @@ type FLWProps = {
     setProfileData: any,
     setOpenFriendList: any,
     friendsList: any[],
-    mutate?: any
+    mutate?: any,
+    page: number,
+    limit: number
 }
 
 export default function ListOfFriends({
-    setProfileData, setOpenFriendList, friendsList, mutate // *0.2 Props
+    setProfileData, setOpenFriendList, friendsList, mutate, page, limit
 }: FLWProps) {
 
     const { isOwnProfile } = useProfileContext()
@@ -54,16 +56,17 @@ export default function ListOfFriends({
 
     return (
         <>
-            <p className="text-red-500 w-[80%] text-center my-2">
+            <p className="text-red-500 w-[80%] text-center my-1">
                 {error}
             </p>
-            <ol className="[list-style:none] p-0 mt-0 flex flex-col gap-2 w-4/5">
+            {/* <ol className="[list-style:none] p-0 mt-0 flex flex-col gap-2 w-4/5 h-full"> */}
+            <ol className="[list-style:none] p-0 mt-0 flex flex-col gap-2 w-[14rem] h-full">
                 {sortBy(friendsList, "name").map((user, index) => {
                     return (
                         <ListRow
                             key={nanoid()}
                             user={user}
-                            listOrder={index + 1}
+                            listOrder={((page - 1) * limit) + index + 1}
                             deleteOnClick={isOwnProfile && !error ? () => removeFriend(user.id, mutate) : null}
                             extraActionOnClick={() => setOpenFriendList(false)}
                             textColor="0, 0%, 0%"
