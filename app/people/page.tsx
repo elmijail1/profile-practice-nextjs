@@ -11,33 +11,33 @@ import Loader from "../components/Loader";
 
 export default function People() {
 
+    const { data: session, status } = useSession()
+    const [isLoading, setIsLoading] = useState(true)
     const [activeSorting, setActiveSorting] = useState<"joinedIn" | "name">("joinedIn")
+    const pageColors = { sortByText: [200, 80, 60], sortByBackground: [0, 0, 100] }
 
     const [users, setUsers] = useState<User[]>([])
-
-    const [isLoading, setIsLoading] = useState(true)
-
-    const { data: session, status } = useSession()
-
-    const pageColors = {
-        sortByText: [200, 80, 60],
-        sortByBackground: [0, 0, 100],
-    }
+    const [page, setPage] = useState(1)
+    const limit = 5
+    const [total, setTotal] = useState(0)
 
     useEffect(() => {
         async function fetchUsers() {
+            setIsLoading(true)
             try {
-                const res = await fetch("/api/users")
-                const users: User[] = await res.json()
+                const res = await fetch(`/api/users?page=${page}&limit=${limit}&order=${activeSorting}`)
+                const { users, total }: { users: User[], total: number } = await res.json()
                 setUsers(users)
+                setTotal(total)
             } catch (error) {
+                setUsers([])
                 console.error("Error fetching users: ", error)
             } finally {
                 setIsLoading(false)
             }
         }
         fetchUsers()
-    }, [])
+    }, [page])
 
 
 
@@ -90,6 +90,23 @@ export default function People() {
                                 }
                             </ol>
                         )}
+                </div>
+                <div className="mt-4 flex justify-between w-full px-4">
+                    <button
+                        className="px-4 py-2 bg-white text-black rounded disabled:opacity-50"
+                        onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        Prev
+                    </button>
+                    <span className="self-center">Page {page} of {Math.ceil(total / limit)}</span>
+                    <button
+                        className="px-4 py-2 bg-white text-black rounded disabled:opacity-50"
+                        onClick={() => setPage((p) => p + 1)}
+                        disabled={page * limit >= total}
+                    >
+                        Next
+                    </button>
                 </div>
 
             </div>
