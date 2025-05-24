@@ -13,9 +13,7 @@ export default function Auth() {
                 `w-full min-h-[45rem] flex flex-col items-center relative pb-20 sm:w-[360px] sm:h-[600px]
                 ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`}
             >
-                <section className="
-                    h-20 w-full flex justify-center items-center border-solid border-b-[0.2rem] border-white fixed z-20 sm:w-[360px]
-                ">
+                <section className={`h-20 w-full flex justify-center items-center border-solid border-b-[0.2rem] border-white fixed z-20 sm:w-[360px] ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`}>
                     <AuthTabButton
                         isActive={activeTab === "login"}
                         onClick={() => setActiveTab("login")}
