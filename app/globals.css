@@ -30,7 +30,7 @@
     @apply text-[1.2rem]
     /* font-size: 1.3rem; */
   }
-  
+
   h2 {
     @apply text-[1.4rem] font-bold text-white mt-1
   }
@@ -39,9 +39,9 @@
 /* components are how you make repeatable classes */
 @layer components {
   .auth-tab {
-    @apply flex flex-col justify-center items-center py-1 w-full rounded-b-2xl mt-24
+    @apply flex flex-col justify-center items-center py-1 w-full xl:max-w-[40rem] rounded-b-2xl mt-24
   }
-  
+
   .auth-form {
     @apply h-full w-full flex flex-col justify-start items-center gap-6 py-8 pt-8 pb-4 relative
   }
@@ -53,6 +53,7 @@
   .auth-validation-indicator {
     @apply rounded-full absolute right-0 outline-[0.2rem] outline-white flex justify-center items-center
   }
+
   /* not a fully-ready class – see ValidationIndicator.tsx to learn more about how it's used */
 
   .list-row-regular {
@@ -68,7 +69,7 @@
   }
 
   .image-option-section {
-    @apply w-full text-[1.1rem] font-semibold text-[hsl(0,_0%,_80%)]
+    @apply w-full text-[1.1rem] font-semibold text-[hsl(0,0%,80%)]
   }
 
   .image-option-h3 {
@@ -99,6 +100,6 @@
   }
 
   .yellow-border-highlight {
-    @apply border-[4px] border-solid border-[hsl(50,90%,70%)] bg-[hsla(50,_90%,_70%,_0.1)]
+    @apply border-[4px] border-solid border-[hsl(50,90%,70%)] bg-[hsla(50,90%,70%,0.1)]
   }
 }
