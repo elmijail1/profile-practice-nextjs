@@ -38,7 +38,7 @@ export default function People() {
             }
         }
         fetchUsers()
-    }, [page])
+    }, [page, activeSorting])
 
     const mainDivClassMob = "w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative bg-[hsl(200,80%,60%)] text-white pb-5"
     const mainDivClassDesk = "xl:h-screen xl:pt-[3rem]"
