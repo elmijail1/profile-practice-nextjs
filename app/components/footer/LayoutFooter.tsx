@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import FooterLink from "./FooterLink";
-import FooterLogout from "./FooterLogout";
+import MobileButtons from "./MobileButtons";
+import DesktopButtons from "./DesktopButtons";
+import useWindowWidth from "./useWindowWidth";
 
 export default function LayoutFooter() {
 
@@ -17,83 +17,41 @@ export default function LayoutFooter() {
     const isOwnProfile = session?.user?.id?.toString() === currentPathId
     const isOtherProfile = isAuthenticated && !isOwnProfile
 
-    if (!status || status === "loading") {
+    const width = useWindowWidth()
+    if (width === null) {
         return <div>Loading...</div>
     }
 
+    const isMobile = width < 1280
+
+    const footerClassMob = "w-full h-20 bg-white fixed bottom-0 z-30 border-t-[0.1rem] border-gray-300 flex justify-center items-center"
+    const footerClassDesk = "xl:h-15 xl:top-0 xl:px-[35%]"
+
+    const buttonsClassMob = "w-full h-full flex justify-center items-center"
+    const buttonsClassDesk = "xl:max-w-[40rem] xl:justify-between"
+
+
     return (
-        <footer className="flex justify-center relative">
-            <div className="fixed bottom-0 w-full h-20 bg-white border-t-[0.1rem]
-             border-gray-300 z-30 flex justify-center items-center sm:w-[360px] sm:absolute"
-            >
-                {/* Login Page */}
-                {pathname === "/login" && (
-                    <>
-                        <FooterLink targetPath="/login" currentPath={pathname}>
-                            Login
-                        </FooterLink>
-                        <FooterLink targetPath="/people" currentPath={pathname}>
-                            People
-                        </FooterLink>
-                    </>
-                )}
-
-                {/* People Page, No Session */}
-                {pathname === "/people" && !session && (
-                    <>
-                        <FooterLink targetPath="/login" currentPath={pathname}>
-                            Login
-                        </FooterLink>
-                        <FooterLink targetPath="/people" currentPath={pathname}>
-                            People
-                        </FooterLink>
-                    </>
-                )}
-
-                {/* People Page, With Session */}
-                {pathname === "/people" && session && (
-                    <>
-                        <FooterLogout />
-                        <FooterLink targetPath={`/profile/${session.user.id}`} currentPath={pathname}>
-                            Profile
-                        </FooterLink>
-                    </>
-                )}
-
-                {/* Profile Page, unauthorized */}
-                {pathname.startsWith("/profile") && !isAuthenticated && (
-                    <>
-                        <FooterLink targetPath="/login" currentPath={pathname}>
-                            Login
-                        </FooterLink>
-                        <FooterLink targetPath="/people" currentPath={pathname}>
-                            People
-                        </FooterLink>
-                    </>
-                )}
-
-                {/* Profile Page, authorized + not yours */}
-                {pathname.startsWith("/profile") && isAuthenticated && isOtherProfile && (
-                    <>
-                        <FooterLogout />
-                        <FooterLink targetPath={`/profile/${session.user.id}`} currentPath={pathname}>
-                            My Profile
-                        </FooterLink>
-                        <FooterLink targetPath="/people" currentPath={pathname}>
-                            People
-                        </FooterLink>
-                    </>
-                )}
-
-                {/* Profile Page, authorized + yours */}
-                {pathname.startsWith("/profile") && isAuthenticated && isOwnProfile && (
-                    <>
-                        <FooterLogout />
-                        <FooterLink targetPath="/people" currentPath={pathname}>
-                            People
-                        </FooterLink>
-                    </>
-                )}
+        <footer className={`${footerClassMob} ${footerClassDesk}`}>
+            <div className={`${buttonsClassMob} ${buttonsClassDesk}`}>
+                {isMobile
+                    ?
+                    <MobileButtons
+                        pathname={pathname}
+                        session={session}
+                        isAuthenticated={isAuthenticated}
+                        isOtherProfile={isOtherProfile}
+                        isOwnProfile={isOwnProfile}
+                    />
+                    :
+                    <DesktopButtons
+                        pathname={pathname}
+                        session={session}
+                        isAuthenticated={isAuthenticated}
+                        isOtherProfile={isOtherProfile}
+                        isOwnProfile={isOwnProfile}
+                    />
+                }
 
             </div>
         </footer >
