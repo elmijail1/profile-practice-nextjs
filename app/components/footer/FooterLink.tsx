@@ -15,11 +15,13 @@ export default function FooterLink(
         return currentPath === targetPath || currentPath.includes(targetPath)
     }
 
+    const linkClassMob = `h-full w-1/2 border-none uppercase no-underline tracking-[0.05rem] font-bold text-[1.1rem] flex justify-center items-center text-black ${isActive() ? "bg-[hsl(200,50%,90%)]" : "bg-white"}`
+    const linkClassDesk = `xl:cursor-pointer xl:h-[2rem] xl:w-max xl:bg-transparent xl:border-b-1 xl:border-solid ${isActive() ? "xl:border-black" : "xl:border-white"} xl:hover:border-black`
+
     return (
         <Link
             href={targetPath}
-            className="h-full w-1/2 border-none bg-white uppercase no-underline tracking-[0.05rem] font-bold text-[1.1rem] flex justify-center items-center text-black"
-            style={isActive() ? { backgroundColor: "hsl(200,50%,90%)" } : undefined}
+            className={`${linkClassMob} ${linkClassDesk}`}
         >
             {children}
         </Link>
