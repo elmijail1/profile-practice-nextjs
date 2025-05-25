@@ -1,23 +1,20 @@
-// *0.1 Imports
-// general
-import { useState, useEffect, useRef } from "react"
-// components
+import React, { useState, useEffect, useRef, SetStateAction } from "react"
 import CrossButton from "../CrossButton"
 import ListOfFriends from "./ListOfFriends"
 import PopupWindow from "../PopupWindow"
 import { useOwnFriendList } from "./useOwnFriendList"
-// utilities
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import { useProfileContext } from "@/lib/ProfileContext"
+import type { User } from "@/app/types/user"
 
 type DSProps = {
-    profileData: any,
-    setProfileData: any,
-    setOpenFriendList: any
+    profileData: User,
+    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setOpenFriendList: React.Dispatch<SetStateAction<boolean>>
 }
 
 export default function FriendListWindow({
-    profileData, setProfileData, setOpenFriendList // *0.2 Props
+    profileData, setProfileData, setOpenFriendList
 }: DSProps) {
 
     const { isOwnProfile } = useProfileContext()
@@ -58,7 +55,7 @@ export default function FriendListWindow({
                     setTotal(total)
                     setRenderPage(page)
                 } catch (error) {
-                    // console.error("Unexpected error fetching friend list: ", error)
+                    console.error("Unexpected error fetching friend list: ", error)
                     setError("The friend list is currently unavailable. Try again later.")
                 } finally {
                     setLoading(false)
@@ -79,7 +76,7 @@ export default function FriendListWindow({
         }
     }, [isOwnProfile, friendsSelf])
 
-    let popupWindowRef = useRef()
+    const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window", setOpenFriendList)
 
 

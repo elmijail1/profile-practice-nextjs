@@ -1,6 +1,8 @@
+import { ReactNode, RefObject } from "react"
+
 type TEFormProps = {
-    children: any,
-    windowReference?: any
+    children: ReactNode,
+    windowReference?: RefObject<HTMLDivElement | null> | null
 }
 
 export default function PopupWindow({ children, windowReference = null }: TEFormProps) { //*0.1
