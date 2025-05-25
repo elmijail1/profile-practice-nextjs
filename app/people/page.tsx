@@ -7,7 +7,6 @@ import { sortingOptionsData } from "@/data/sortingOptionsData";
 import { sortBy } from "../../utilities/sorting";
 import type { User } from "../types/user";
 import { useSession } from "next-auth/react";
-import Loader from "../components/Loader";
 
 export default function People() {
 
@@ -41,16 +40,17 @@ export default function People() {
         fetchUsers()
     }, [page])
 
+    const mainDivClassMob = "w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative bg-[hsl(200,80%,60%)] text-white pb-5"
+    const mainDivClassDesk = "xl:h-screen xl:pt-[3rem]"
 
-
-    const MainDivClass = "w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(200,80%,60%)] text-white sm:w-[360px] sm:h-[600px]"
-
+    const topDivClassMob = "w-4/5 flex justify-between items-center h-16 border-b border-white my-4"
+    const topDivClassDesk = "xl:max-w-[30rem]"
 
     return (
         <main>
-            <div className={MainDivClass}>
+            <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
 
-                <div className="w-4/5 flex justify-between items-center h-16 border-b border-white my-4">
+                <div className={`${topDivClassMob} ${topDivClassDesk}`}>
                     <h1 className="mx-auto">People</h1>
                 </div>
 
@@ -64,16 +64,16 @@ export default function People() {
                     }}
                 />
 
-                <div className="h-[18rem] w-[15rem]">
+                <div className="h-[18rem] w-[15rem] flex justify-center">
                     {
                         isLoading || status === "loading" &&
                         <p>Loading users...</p>
                     }
 
                     {!isLoading && users.length === 0
-                        ? <p>No users found.</p>
+                        ? <p className="pt-5">No users found.</p>
                         : (
-                            <ol className="list-none p-0 mt-0 flex flex-col gap-[0.8rem] w-full">
+                            <ol className="list-none p-0 my-1 flex flex-col gap-[0.8rem] w-full">
                                 {
                                     sortBy(users, activeSorting).map((user, index) => {
                                         return (
@@ -92,9 +92,9 @@ export default function People() {
 
                 {
                     total > 5 &&
-                    <div className="mt-4 flex justify-between w-[90%] px-4">
+                    <div className="mt-4 flex justify-between w-[90%] xl:max-w-[22rem] px-4">
                         <button
-                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl ${renderPage === 1 && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
+                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl xl:cursor-pointer ${renderPage === 1 && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
                             disabled={renderPage !== page || renderPage === 1}
                         >
@@ -106,7 +106,7 @@ export default function People() {
                                 : <span className="self-center">Loading pages...</span>
                         }
                         <button
-                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl ${renderPage * limit >= total && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
+                            className={`px-3 py-1 font-semibold text-[1.2rem] bg-white text-[hsl(200,80%,60%)] rounded-3xl xl:cursor-pointer ${renderPage * limit >= total && "opacity-0"} ${renderPage !== page && "opacity-50"}`}
                             onClick={() => setPage((p) => p + 1)}
                             disabled={renderPage !== page || renderPage * limit >= total}
                         >

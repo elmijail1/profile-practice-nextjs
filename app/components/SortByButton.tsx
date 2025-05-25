@@ -40,7 +40,7 @@ export default function SortByButton({
             <p style={{ color: isBlack(colors.background) }}>Sort by:</p>
 
             <button
-                className="px-[0.5rem] py-[0.2rem] rounded-[1rem] border-none font-bold"
+                className="px-[0.5rem] py-[0.2rem] rounded-[1rem] border-none font-bold xl:cursor-pointer"
                 style={{ color: arrayToHSLA(colors.text), backgroundColor: arrayToHSLA(colors.background) }}
                 // 2. And the problem continues here
                 onClick={() => setSortByMenuOpen(prevMenu => !prevMenu)}
@@ -63,7 +63,7 @@ export default function SortByButton({
                                 <li
                                     onClick={() => changeSorting(sortingOption.name, setActiveSorting, setSortByMenuOpen(false))}
                                     key={nanoid()}
-                                    className={activeSorting === sortingOption.name ? "box-border font-semibold border-b-2" : ""}
+                                    className={`xl:cursor-pointer ${activeSorting === sortingOption.name ? "box-border font-semibold border-b-2" : ""}`}
                                     style={activeSorting === sortingOption.name ? { color: arrayToHSLA(colors.text), borderColor: arrayToHSLA(colors.text) } : undefined}
                                 >
                                     {sortingOption.displayName}
