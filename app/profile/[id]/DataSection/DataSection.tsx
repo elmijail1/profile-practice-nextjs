@@ -1,16 +1,17 @@
 "use client";
 
 
-import { useState } from "react"
+import React, { SetStateAction, useState } from "react"
 import AboutSection from "./AboutSection"
 import FriendListWindow from "./FriendListWindow"
 import { useFriendList } from "../useFriendList";
 import WideButton from "@/app/components/WideButton";
 import { useProfileContext } from "@/lib/ProfileContext";
+import type { User } from "@/app/types/user";
 
 type ProfileProps = {
-    profileData: any,
-    setProfileData: any,
+    profileData: User,
+    setProfileData: React.Dispatch<SetStateAction<User>>,
 }
 
 export default function DataSection({
