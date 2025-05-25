@@ -10,7 +10,7 @@ import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 export default function LogInTab() {
 
     const [inputData, setInputData] = useState({ email: "", password: "" })
-    function handleInput(event: any) {
+    function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target
         setInputData(prevData => ({ ...prevData, [name]: value }))
     }
@@ -21,7 +21,7 @@ export default function LogInTab() {
     const [validatedData, setValidatedData] = useState({ email: false, password: false })
     const validatedFull = validatedData.email && validatedData.password
     const regex = {
-        email: /\S+@\S+\.\S+/, // string + @ + string + . + string
+        email: /\S+@\S+\.\S+/,
         password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/, // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
     }
 
@@ -84,13 +84,13 @@ export default function LogInTab() {
 
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
-            // console.error("Error while logging in a user: ", error)
+            console.error("Error while logging in a user: ", error)
             setError("The app is unavailable. Try again later.")
             setIsSubmitting(false)
         }
     }
 
-    let popupWindowRef = useRef<HTMLDivElement>(null)
+    const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window-error", setError)
 
     return (

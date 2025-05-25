@@ -5,13 +5,13 @@ type PeopleProps = {
     user: User,
     listOrder: number,
     self: boolean,
-    deleteOnClick?: any,
-    extraActionOnClick?: any,
+    deleteOnClick?: (id: number) => void,
+    extraActionOnClick?: (event: React.MouseEvent) => void,
     textColor?: number[]
 }
 
 export default function ListRow(
-    { user, listOrder = 0, self = false, deleteOnClick = false, extraActionOnClick = false, textColor = [0, 0, 100] }: PeopleProps
+    { user, listOrder = 0, self = false, deleteOnClick, extraActionOnClick, textColor = [0, 0, 100] }: PeopleProps
 ) {
 
     function arrayToHSL(array: number[]) {
@@ -28,7 +28,7 @@ export default function ListRow(
             <Link
                 href={`/profile/${user.id}`}
                 className={deleteOnClick ? "list-row-regular justify-start w-[85%]" : "list-row-regular"}
-                onClick={extraActionOnClick ? extraActionOnClick : undefined}
+                onClick={extraActionOnClick}
                 style={
                     self
                         ? { color: "hsl(50, 90%, 70%)", fontWeight: 800 }

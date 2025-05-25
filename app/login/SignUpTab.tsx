@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import WideButton from "../components/WideButton";
@@ -11,7 +11,7 @@ import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 export default function SignUpTab() {
     // 1. input
     const [inputData, setInputData] = useState({ email: "", password: "", passwordRepeat: "" })
-    function handleInput(event: any) {
+    function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target
         setInputData(prevData => ({ ...prevData, [name]: value }))
     }
@@ -80,7 +80,7 @@ export default function SignUpTab() {
                 return
             }
         } catch (error) {
-            // console.error("Error while creating a user: ", error)
+            console.error("Error while creating a user: ", error)
             setError("Our app is curently unavailable. Try again.")
             setIsSubmitting(false)
         }
@@ -111,7 +111,7 @@ export default function SignUpTab() {
 
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
-            // console.error("Error while logging in a user: ", error)
+            console.error("Error while logging in a user: ", error)
             setError("Our app is curently unavailable. Try again.")
             setIsSubmitting(false)
         }
@@ -127,7 +127,7 @@ export default function SignUpTab() {
         }
     }
 
-    let popupWindowRef = useRef<HTMLDivElement>(null)
+    const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window-error", setError)
 
     return (
