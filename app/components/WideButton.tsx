@@ -8,7 +8,7 @@ type WideButtonProps = {
         border?: string
     },
     disabledIf?: boolean,
-    onClick?: any,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
     children: React.ReactNode
 }
 
@@ -29,7 +29,7 @@ export default function WideButton(
                     border: colors?.border && `1px solid ${colors?.border}`
                 }}
                 disabled={disabledIf}
-                onClick={onClick ? onClick : null}
+                onClick={onClick}
             >
                 {children}
             </button>

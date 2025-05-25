@@ -3,7 +3,7 @@ import React, { SetStateAction } from "react"
 type ErrorProps = {
     error: string,
     setError: React.Dispatch<SetStateAction<string>>,
-    windowReference?: any
+    windowReference?: React.Ref<HTMLDivElement> | null
 }
 
 export default function ErrorPopup(

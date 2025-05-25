@@ -19,7 +19,7 @@ export default function SortByButton({
 }: SortByButtonProps) {
 
     const [sortByMenuOpen, setSortByMenuOpen] = useState(false)
-    let sortingMenuRef = useRef<any>(null)
+    const sortingMenuRef = useRef<HTMLUListElement | null>(null)
 
     useHandleElsewhereClick(sortingMenuRef, ["sort-by-button", "sort-by-arrow"], setSortByMenuOpen)
 
