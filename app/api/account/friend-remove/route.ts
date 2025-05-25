@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest) {
 
         return NextResponse.json({ success: true, updatedFriends: updatedUser.friends })
     } catch (error) {
-        return NextResponse.json({ error: "Unexpected error during deleting a friend" }, { status: 500 })
+        return NextResponse.json({ error: `Unexpected error during deleting a friend: ${error}` }, { status: 500 })
     }
 
 }

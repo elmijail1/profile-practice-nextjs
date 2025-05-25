@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ users, total })
 
     } catch (error) {
-        console.error({ error: "Fetching friend list failed" }, { status: 500 })
+        console.error({ error: `Fetching friend list failed: ${error}` }, { status: 500 })
         return NextResponse.json({ error: "Server error while fetching friend list" }, { status: 500 })
     }
 }

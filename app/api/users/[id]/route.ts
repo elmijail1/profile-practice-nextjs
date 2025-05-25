@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import userSchema, { partialUserSchema } from "../schema";
+import { partialUserSchema } from "../schema";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
