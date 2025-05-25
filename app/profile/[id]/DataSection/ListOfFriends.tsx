@@ -1,19 +1,16 @@
 "use client";
-// *0.1 Imports
-// general
 import { nanoid } from "nanoid"
-// components
 import ListRow from "./ListRow"
-// utilities
 import { sortBy } from "@/utilities/sorting"
 import { useProfileContext } from "@/lib/ProfileContext";
-import { useState } from "react";
+import React, { SetStateAction, useState } from "react";
+import type { User } from "@/app/types/user";
 
 type FLWProps = {
-    setProfileData: any,
-    setOpenFriendList: any,
-    friendsList: any[],
-    mutate?: any,
+    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setOpenFriendList: React.Dispatch<SetStateAction<boolean>>,
+    friendsList: number[],
+    mutate?: () => Promise<User | undefined>,
     page: number,
     limit: number
 }
@@ -26,7 +23,7 @@ export default function ListOfFriends({
 
     const [error, setError] = useState("")
 
-    async function removeFriend(friendId: number, mutate: () => void) {
+    async function removeFriend(friendId: number, mutate?: () => Promise<User | undefined>) {
         const res = await fetch("/api/account/friend-remove", {
             method: "PATCH",
             body: JSON.stringify({ friendId }),
@@ -43,7 +40,9 @@ export default function ListOfFriends({
             friends: prev.friends.filter((id: number) => id !== friendId)
         }))
 
-        await mutate()
+        if (mutate) {
+            await mutate()
+        }
     }
 
     if (!friendsList || friendsList.length === 0) {
