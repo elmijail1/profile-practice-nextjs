@@ -48,8 +48,6 @@ export default function LayoutFooter() {
                         pathname={pathname}
                         session={session}
                         isAuthenticated={isAuthenticated}
-                        isOtherProfile={isOtherProfile}
-                        isOwnProfile={isOwnProfile}
                     />
                 }
 

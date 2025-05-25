@@ -2,16 +2,14 @@ import { Session } from "next-auth"
 import FooterLink from "./FooterLink"
 import FooterLogout from "./FooterLogout"
 
-type MobileButtonsProps = {
+type DesktopButtonsProps = {
     pathname: string,
     session: Session | null,
-    isAuthenticated: boolean,
-    isOwnProfile: boolean,
-    isOtherProfile: boolean
+    isAuthenticated: boolean
 }
 
 export default function DesktopButtons(
-    { pathname, session, isAuthenticated, isOwnProfile, isOtherProfile }: MobileButtonsProps) {
+    { pathname, session, isAuthenticated }: DesktopButtonsProps) {
     return (
         <>
             <div className="text-gray-600 flex flex-col justify-center leading-4 italic">
