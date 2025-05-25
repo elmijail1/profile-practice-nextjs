@@ -57,7 +57,9 @@ export default function DataSection({
         }
     }
 
-    const SectionClass = `w-3/5 flex flex-col items-center gap-[0.1rem] mt-[1.1rem] border-solid border-[white] border-[0_0_1px_0] pb-2 relative z-0`
+    const sectionClassMob = `w-3/5 flex flex-col items-center gap-[0.1rem] mt-[1.1rem] border-solid border-[white] border-[0_0_1px_0] pb-2 relative z-0 ${!isOwnProfile && isAuthenticated && "pb-[2rem]"}`
+    const sectionClassDesk = "xl:max-w-[18rem]"
+
 
     if (!profileData.joinedIn) {
         return (
@@ -68,7 +70,7 @@ export default function DataSection({
     return (
         <>
             {/* 1. Section */}
-            <section className={`${SectionClass} ${!isOwnProfile && isAuthenticated && "pb-[2rem]"}`}>
+            <section className={`${sectionClassMob} ${sectionClassDesk}`}>
 
                 {/* 1.1. Header */}
                 <h2>{profileData.name}</h2>
@@ -80,7 +82,7 @@ export default function DataSection({
 
                 {/* 1.4 Friend List button */}
                 <button
-                    className="text-[hsl(50,_90%,_70%)] font-bold border-none bg-none p-0 disabled:text-white disabled:font-semibold"
+                    className="text-[hsl(50,_90%,_70%)] font-bold border-none bg-none p-0 disabled:text-white disabled:font-semibold xl:enabled:cursor-pointer xl:enabled:hover:brightness-95"
                     onClick={() => setOpenFriendList(true)}
                     disabled={profileData.friends?.length < 1}
                 >

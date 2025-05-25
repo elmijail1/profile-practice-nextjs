@@ -44,7 +44,7 @@ export default function ListRow({
             {
                 deleteOnClick &&
                 <button
-                    className="bg-[hsl(0,_50%,_80%)] text-[white] rounded-[50%] border-none w-[1.9rem] h-[1.9rem] p-2 [rotate:45deg] text-[2.1rem] font-bold flex justify-center items-center pl-[0.55rem] pb-[0.65rem]"
+                    className="bg-[hsl(0,_50%,_80%)] text-[white] rounded-[50%] border-none w-[1.9rem] h-[1.9rem] p-2 [rotate:45deg] text-[2.1rem] font-bold flex justify-center items-center pl-[0.55rem] pb-[0.65rem] xl:cursor-pointer xl:hover:brightness-95"
                     onClick={deleteOnClick}
                 >
                     +

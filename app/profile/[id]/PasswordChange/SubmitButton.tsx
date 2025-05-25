@@ -7,7 +7,7 @@ export default function SubmitButton(
     return (
         <button
             type={onClick ? "button" : "submit"}
-            className="text-white font-semibold bg-gray-700 w-[70%] rounded-2xl disabled:text-gray-300"
+            className="text-white font-semibold bg-gray-700 w-[70%] rounded-2xl disabled:text-gray-300 xl:cursor-pointer xl:hover:bg-gray-600"
             disabled={disabledIf}
             onClick={onClick ? onClick : null}
         >

@@ -109,7 +109,7 @@ export default function FormSetNew({
 
                 <button
                     type="button"
-                    className="text-gray-600 text-[1rem] leading-[1.1rem] mt-2 mb-4 border-b-[1px] line-he"
+                    className="text-gray-600 text-[1rem] leading-[1.1rem] mt-2 mb-4 border-b-[1px] line-he xl:cursor-pointer xl:hover:font-semibold x:hover:brightness-90"
                     onClick={() => setPasswordDisplay(prevDisplay => prevDisplay === "password" ? "text" : "password")}
                 >
                     {passwordDisplay === "password" ? "Show" : "Hide"} password

@@ -13,7 +13,7 @@ export default function SuccessMessage(
             <SubmitButton
                 onClick={() => setPasswordWindowOpen(false)}
             >
-                Ok, close the window
+                OK
             </SubmitButton>
         </div>
     )

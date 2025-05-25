@@ -26,7 +26,7 @@ export default function ImageInput({
                         <label
                             key={nanoid()}
                             onClick={() => setInputData((prevData: any) => ({ ...prevData, emoji: image.emoji }))}
-                            className={`image-option-option ${isChosen && "yellow-border-highlight"}`}
+                            className={`image-option-option ${isChosen ? "yellow-border-highlight" : "xl:hover:bg-gray-100"} xl:cursor-pointer`}
                         >
 
                             {/* 1.2.1.1. Checkbox Input */}

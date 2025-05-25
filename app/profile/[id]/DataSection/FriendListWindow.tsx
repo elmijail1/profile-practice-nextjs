@@ -121,7 +121,7 @@ export default function FriendListWindow({
                     total > 5 &&
                     <div className="flex justify-between w-[100%] px-2 h-[2rem] text-black">
                         <button
-                            className={`px-2 font-semibold text-[1.2rem] text-white bg-gray-800 rounded-2xl ${renderPage !== page && "opacity-50"} ${page === 1 && "opacity-0"}`}
+                            className={`px-2 font-semibold text-[1.2rem] text-white bg-gray-800 rounded-2xl ${renderPage !== page && "opacity-50"} ${page === 1 && "opacity-0"} xl:cursor-pointer xl:hover:bg-gray-700`}
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
                             disabled={renderPage !== page || page === 1}
                         >
@@ -133,7 +133,7 @@ export default function FriendListWindow({
                                 : <span className="self-center">Loading pages...</span>
                         }
                         <button
-                            className={`px-2 font-semibold text-[1.2rem] text-white bg-gray-800 rounded-2xl ${renderPage !== page && "opacity-50"} ${page * limit >= total && "opacity-0"}`}
+                            className={`px-2 font-semibold text-[1.2rem] text-white bg-gray-800 rounded-2xl ${renderPage !== page && "opacity-50"} ${page * limit >= total && "opacity-0"} xl:cursor-pointer xl:hover:bg-gray-700`}
                             onClick={() => setPage((p) => p + 1)}
                             disabled={renderPage !== page || page * limit >= total}
                         >

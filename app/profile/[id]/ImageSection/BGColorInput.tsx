@@ -22,7 +22,7 @@ export default function BGColorInput({
                             key={nanoid()}
                             onClick={() => setInputData((prevData: any) => ({ ...prevData, bgColor: option.color }))}
                             htmlFor={`checkbox${option.color}`}
-                            className={`image-option-option ${isChosen && "yellow-border-highlight"}`}
+                            className={`image-option-option ${isChosen && "yellow-border-highlight"} xl:cursor-pointer xl:hover:brightness-95`}
                             style={{ backgroundColor: `hsl(${option.color[0]}, ${option.color[1]}%, ${option.color[2]}%)` }}
                         >
 

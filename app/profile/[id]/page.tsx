@@ -31,10 +31,13 @@ export default function Profile() {
 
     const [passwordWindowOpen, setPasswordWindowOpen] = useState(false)
 
+    const mainDivClassMob = "w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative pb-5 bg-[hsl(130,70%,50%)] text-white"
+    const mainDivClassDesk = "xl:h-screen xl:pt-[3rem]"
+
     if (isLoading) {
         return (
-            <main className="w-full flex flex-col items-center justify-center pb-20 sm:h-[50rem]">
-                <div className="w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(130,70%,50%)] text-white sm:w-[360px] sm:h-[600px]">
+            <main>
+                <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
                     <Loader />
                 </div>
             </main>
@@ -43,8 +46,8 @@ export default function Profile() {
 
     return (
         <ProfileContextProvider value={{ session, status, currentId, isOwnProfile }}>
-            <main className="w-full flex flex-col items-center justify-center pb-20 sm:h-[50rem]">
-                <div className="w-full min-h-[45rem] flex flex-col items-center relative pb-[5rem] bg-[hsl(130,70%,50%)] text-white sm:w-[360px] sm:h-[600px]">
+            <main className="bg-black">
+                <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
 
                     {/* 1. Top Section: Header + Text Editor */}
                     <TopSection
@@ -67,7 +70,7 @@ export default function Profile() {
                     {
                         isOwnProfile &&
                         <button
-                            className="text-yellow-300 font-bold text-xl mt-2"
+                            className="text-yellow-300 font-bold text-xl mt-2 xl:cursor-pointer xl:hover:text-yellow-400"
                             onClick={() => setPasswordWindowOpen(true)}
                         >
                             Change password
