@@ -11,7 +11,7 @@ export default function LayoutFooter() {
     const pathname = usePathname()
     const currentPathId = pathname?.split("/")[2]
 
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
 
     const isAuthenticated = !!session
     const isOwnProfile = session?.user?.id?.toString() === currentPathId
