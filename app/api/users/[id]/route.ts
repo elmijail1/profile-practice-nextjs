@@ -4,9 +4,8 @@ import { partialUserSchema } from "../schema";
 
 export async function GET(
     request: NextRequest,
-    context: {
-        params: { id: string }
-    }) {
+    context: { params: { id: string } }
+) {
     try {
         const { id } = context.params
         const user = await prisma.user.findUnique({
