@@ -35,10 +35,13 @@ export default function ListOfFriends({
             throw new Error("Failed to remove friend")
         }
 
-        setProfileData((prev) => ({
-            ...prev,
-            friends: prev.friends.filter((id: number) => id !== friendId)
-        }))
+        setProfileData((prev): User | undefined => {
+            if (!prev) return prev
+            return {
+                ...prev,
+                friends: prev.friends.filter((id: number) => id !== friendId)
+            }
+        })
 
         if (mutate) {
             await mutate()
