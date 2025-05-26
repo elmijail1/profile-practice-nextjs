@@ -142,7 +142,7 @@ export default function SignUpTab() {
                         name="email"
                         value={inputData.email}
                         onChange={handleInput}
-                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name as "email" | "password" | "passwordRepeat")}
                         validation={{
                             trigger: firstFocus.email,
                             isValid: validatedData.email,
@@ -158,7 +158,7 @@ export default function SignUpTab() {
                         name="password"
                         value={inputData.password}
                         onChange={handleInput}
-                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name as "email" | "password" | "passwordRepeat")}
                         validation={{
                             trigger: firstFocus.password,
                             isValid: validatedData.password,
@@ -180,7 +180,7 @@ export default function SignUpTab() {
                         name="passwordRepeat"
                         value={inputData.passwordRepeat}
                         onChange={handleInput}
-                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        onFocus={() => registerFocus("passwordRepeat")}
                         validation={{
                             trigger: firstFocus.passwordRepeat,
                             isValid: validatedData.passwordRepeat,
