@@ -32,6 +32,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid email or password.")
                 }
 
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { hashedPassword: _hashed, ...safeUser } = user
 
                 return {
