@@ -12,7 +12,7 @@ import { User } from "@/app/types/user";
 
 type TextEditFormProps = {
     profileData: User,
-    setProfileData: React.Dispatch<React.SetStateAction<User>>,
+    setProfileData: React.Dispatch<React.SetStateAction<User | undefined>>,
     setOpenTextEditor: React.Dispatch<React.SetStateAction<boolean>>
 }
 

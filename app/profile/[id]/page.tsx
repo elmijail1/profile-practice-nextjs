@@ -16,7 +16,7 @@ export default function Profile() {
     const currentId = useParams().id!.toString()
     const isOwnProfile = status === "authenticated" && session?.user?.id.toString() === currentId
 
-    const [profileData, setProfileData] = useState<User | undefined>()
+    const [profileData, setProfileData] = useState<User | undefined>(undefined)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -39,6 +39,16 @@ export default function Profile() {
             <main>
                 <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
                     <Loader />
+                </div>
+            </main>
+        )
+    }
+
+    if (!profileData) {
+        return (
+            <main>
+                <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
+                    <div>Error fetching user.</div>
                 </div>
             </main>
         )

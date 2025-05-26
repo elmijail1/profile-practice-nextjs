@@ -9,7 +9,7 @@ import type { User } from "@/app/types/user"
 
 type DSProps = {
     profileData: User,
-    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
     setOpenFriendList: React.Dispatch<SetStateAction<boolean>>
 }
 

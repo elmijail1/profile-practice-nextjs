@@ -11,7 +11,7 @@ import { useProfileContext } from "@/lib/ProfileContext";
 
 type ImageSectionProps = {
     profileData: User,
-    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
     setOpenImageEditor: React.Dispatch<SetStateAction<boolean>>
 }
 

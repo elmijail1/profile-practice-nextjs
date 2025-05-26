@@ -6,7 +6,7 @@ import type { User } from "@/app/types/user";
 
 type ProfileProps = {
     profileData: User,
-    setProfileData: React.Dispatch<SetStateAction<User>>
+    setProfileData: React.Dispatch<SetStateAction<User | undefined>>
 }
 
 export default function ImageSection({

@@ -7,7 +7,7 @@ import React, { SetStateAction, useState } from "react";
 import type { User } from "@/app/types/user";
 
 type FLWProps = {
-    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
     setOpenFriendList: React.Dispatch<SetStateAction<boolean>>,
     friendsList: number[],
     mutate?: () => Promise<User | undefined>,
