@@ -1,19 +1,19 @@
 "use client";
 import Link from "next/link";
+import type { User } from "@/app/types/user";
 
-type LOFProps = {
-    user: any,
+type ListRowProps = {
+    user: User,
     listOrder?: number,
     self?: boolean,
-    deleteOnClick?: any,
-    extraActionOnClick?: any,
+    deleteOnClick?: (() => void) | null,
+    extraActionOnClick?: () => void,
     textColor?: string
 }
 
 export default function ListRow({
     user, listOrder = 0, deleteOnClick = undefined, extraActionOnClick = undefined, textColor = "0, 0%, 100%"
-}: LOFProps) {
-    // *0.1
+}: ListRowProps) {
 
     return (
         // 1. List item
@@ -31,7 +31,7 @@ export default function ListRow({
                 </div>
                 <div
                     className="w-10 h-10 bg-[hsl(0,_0%,_90%)] rounded-[50%] flex px-2 py-[0] items-center text-[1.2rem] leading-[1.3rem]"
-                    style={{ backgroundColor: user.bgColor }}
+                    style={{ backgroundColor: `hsl(${user.bgColor[0]},${user.bgColor[1]}%,${user.bgColor[2]}%)` }}
                 >
                     {user.emoji}
                 </div>
