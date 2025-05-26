@@ -1,5 +1,3 @@
-// *0.1
-import { User } from "@/app/types/user"
 import { backgroundColorData } from "@/data/visualOptionsData"
 import { nanoid } from "nanoid"
 import React, { SetStateAction } from "react"
