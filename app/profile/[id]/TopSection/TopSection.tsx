@@ -1,16 +1,15 @@
-// general
-import { useState } from "react"
-// components
+import React, { SetStateAction, useState } from "react"
 import TextEditForm from "./TextEditForm"
 import { useProfileContext } from "@/lib/ProfileContext"
+import type { User } from "@/app/types/user"
 
 type ProfileProps = {
-    profileData: any,
-    setProfileData: any
+    profileData: User,
+    setProfileData: React.Dispatch<SetStateAction<User>>
 }
 
 export default function TopSection({
-    profileData, setProfileData //*0.2
+    profileData, setProfileData
 }: ProfileProps) {
 
     const { session, isOwnProfile } = useProfileContext()

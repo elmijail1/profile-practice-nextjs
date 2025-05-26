@@ -8,27 +8,21 @@ import debounce from "lodash.debounce"
 import { useProfileContext } from "@/lib/ProfileContext";
 import WideButton from "@/app/components/WideButton";
 import { useSession } from "next-auth/react";
+import { User } from "@/app/types/user";
 
-type ProfileData = {
-    name: string,
-    email: string,
-    aboutMe: string
-}
-
-type TSProps = {
-    profileData: ProfileData,
-    setProfileData: React.Dispatch<React.SetStateAction<ProfileData>>,
+type TextEditFormProps = {
+    profileData: User,
+    setProfileData: React.Dispatch<React.SetStateAction<User>>,
     setOpenTextEditor: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
 export default function TextEditForm({
     profileData, setProfileData, setOpenTextEditor
-}: TSProps) {
+}: TextEditFormProps) {
 
     const { currentId } = useProfileContext()
 
-    const [inputData, setInputData] = useState<ProfileData>({
+    const [inputData, setInputData] = useState({
         name: profileData?.name,
         email: profileData?.email,
         aboutMe: profileData?.aboutMe
@@ -130,7 +124,7 @@ export default function TextEditForm({
             setOpenTextEditor(false)
 
         } catch (error) {
-            // console.error("Error updating the profile's texts: ", error)
+            console.error("Error updating the profile's texts: ", error)
             setError("Updating is currently unavailable. Try again later.")
         }
     }
@@ -151,36 +145,36 @@ export default function TextEditForm({
         setOpenTextEditor(false)
     }
 
-    let popupWindowRef = useRef()
+    const popupWindowRef = useRef<HTMLDivElement | null>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window", discardChanges)
 
 
 
     return (
-        <PopupWindow
-            windowReference={popupWindowRef}
-        >
+        <PopupWindow windowReference={popupWindowRef}>
             <h2 className="text-black">Edit Profile</h2>
             {error &&
                 <p className="text-red-500 w-[80%] text-center my-[-1.5rem]">
                     {error}
                 </p>
             }
-            <form className="flex flex-col items-center w-4/5 gap-6 pb-4 relative z-0">
+            <form
+                className="flex flex-col items-center w-4/5 gap-6 pb-4 relative z-0"
+                onSubmit={handleSubmission}
+            >
                 <FormInput
-                    inputData={inputData}
+                    inputData={inputData.name}
                     fieldName={"name"}
                     fieldType={"input"}
                     handleInput={handleInput}
-                    inputCounter={inputCounter}
+                    inputCounter={inputCounter.name}
                 />
 
                 <FormInput
-                    inputData={inputData}
+                    inputData={inputData.email}
                     fieldName={"email"}
                     fieldType={"input"}
                     handleInput={handleInput}
-                    inputCounter={inputCounter}
                 />
 
                 {emailStatus === "available" && <p className="text-green-600">{emailStatus.toUpperCase()}</p>}
@@ -189,11 +183,11 @@ export default function TextEditForm({
 
 
                 <FormInput
-                    inputData={inputData}
+                    inputData={inputData.aboutMe}
                     fieldName={"aboutMe"}
                     fieldType={"textarea"}
                     handleInput={handleInput}
-                    inputCounter={inputCounter}
+                    inputCounter={inputCounter.aboutMe}
                 />
 
 
@@ -205,7 +199,7 @@ export default function TextEditForm({
                                 !error &&
                                 <WideButton
                                     colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                                    onClick={handleSubmission}
+                                    type="submit"
                                 >
                                     Save changes
                                 </WideButton>
