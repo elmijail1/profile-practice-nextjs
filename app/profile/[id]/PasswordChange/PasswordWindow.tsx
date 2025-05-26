@@ -28,7 +28,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
     const newAndCurrentAreIdentical = newPasswordInput === currentPasswordInput
     const passwordsMatch = newPasswordInput.length > 0 && newPasswordInput === repeatPasswordInput
 
-    let popupWindowRef = useRef<HTMLDivElement>(null)
+    const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window", setPasswordWindowOpen)
 
 

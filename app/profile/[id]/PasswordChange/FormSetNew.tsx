@@ -36,7 +36,11 @@ export default function FormSetNew({
     const buttonIsShown = passwordsMatch && !newAndCurrentAreIdentical
 
     useEffect(() => {
-        newAndCurrentAreIdentical ? setError("The current password and the new password can't be identical.") : setError("")
+        if (newAndCurrentAreIdentical) {
+            setError("The current password and the new password can't be identical.")
+        } else {
+            setError("")
+        }
     }, [newAndCurrentAreIdentical])
 
     async function setNewPassword(
@@ -64,7 +68,7 @@ export default function FormSetNew({
             }
             setProgressStage("success")
         } catch (error) {
-            // console.error("Network or server error: ", error)
+            console.error("Network or server error: ", error)
             setError("Creating new profiles is currently unavailable. Try again later.")
             setIsLoading(false)
         } finally {
@@ -120,7 +124,7 @@ export default function FormSetNew({
                     bothFieldsFilled && !newAndCurrentAreIdentical &&
                     (passwordsMatch
                         ? <p className="text-green-700 text-[1rem] mb-2">Passwords match</p>
-                        : <p className="text-red-700 text-[1rem] mb-2">Passwords don't match</p>)
+                        : <p className="text-red-700 text-[1rem] mb-2">Passwords don&apos;t match</p>)
                 }
 
                 {

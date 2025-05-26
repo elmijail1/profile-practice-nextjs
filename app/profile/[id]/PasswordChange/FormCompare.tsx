@@ -46,7 +46,7 @@ export default function FormCompare({
             setProgressStage("set-new")
             setPasswordDisplay("password")
         } catch (error) {
-            // console.error("Network or server error: ", error)
+            console.error("Network or server error: ", error)
             setError("Password checking is currently unavailable. Try again later.")
         } finally {
             setIsLoading(false)

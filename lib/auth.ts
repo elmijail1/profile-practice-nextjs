@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
 export const authOptions: NextAuthOptions = {
-    // @ts-expect-error: custom generated PrismaClient is compatible (should be at least)
+    // custom generated PrismaClient is compatible (should be at least)
     adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "email", placeholder: "Email" },
                 password: { label: "Password", type: "password", placeholder: "Password" }
             },
-            async authorize(credentials, request) {
+            async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
                     console.error("Missing email or password in credentials.")
                     throw new Error("Missing credentials.")
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid email or password.")
                 }
 
-                const { hashedPassword, ...safeUser } = user
+                const { hashedPassword: _, ...safeUser } = user
 
                 return {
                     ...safeUser,
