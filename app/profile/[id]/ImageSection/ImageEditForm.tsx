@@ -1,31 +1,32 @@
 "use client";
-// *0.1
-// general
-import { useState, useRef } from "react"
-// components
+import React, { useState, useRef, SetStateAction } from "react"
 import BGColorInput from "./BGColorInput"
 import CrossButton from "../CrossButton"
 import ImageInput from "./ImageInput"
 import PopupWindow from "../PopupWindow"
 import WideButton from "@/app/components/WideButton";
-// data
-// utilities
+import type { User } from "@/app/types/user";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import { useProfileContext } from "@/lib/ProfileContext";
 
 type ImageSectionProps = {
-    profileData: any,
-    setProfileData: any,
-    setOpenImageEditor: any
+    profileData: User,
+    setProfileData: React.Dispatch<SetStateAction<User>>,
+    setOpenImageEditor: React.Dispatch<SetStateAction<boolean>>
+}
+
+export type ImageInputType = {
+    bgColor: number[],
+    emoji: string
 }
 
 export default function ImageEditForm({
-    profileData, setProfileData, setOpenImageEditor // *0.2
+    profileData, setProfileData, setOpenImageEditor
 }: ImageSectionProps) {
 
     const { currentId } = useProfileContext()
 
-    const [inputData, setInputData] = useState({ // *0.3
+    const [inputData, setInputData] = useState<ImageInputType>({
         emoji: profileData.emoji,
         bgColor: profileData.bgColor,
     })
@@ -42,7 +43,6 @@ export default function ImageEditForm({
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
         event.preventDefault()
-        // const updatedProfileData = { ...profileData, ...inputData }
         const updatedProfileData = { ...inputData }
 
         try {
@@ -65,13 +65,13 @@ export default function ImageEditForm({
             setOpenImageEditor(false)
 
         } catch (error) {
-            // console.error("Error updating the profile's images: ", error)
+            console.error("Error updating the profile's images: ", error)
             setError("Updating is currently unavailable. Try again later.")
         }
     }
 
 
-    let popupWindowRef = useRef()
+    const popupWindowRef = useRef<HTMLDivElement | null>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window", () => setOpenImageEditor(false))
 
     return (
@@ -85,12 +85,12 @@ export default function ImageEditForm({
                 }
                 <form className="flex flex-col items-center w-4/5 gap-8 pb-4">
                     <ImageInput
-                        inputData={inputData}
+                        emoji={inputData.emoji}
                         setInputData={setInputData}
                     />
 
                     <BGColorInput
-                        inputData={inputData}
+                        bgColor={inputData.bgColor}
                         setInputData={setInputData}
                     />
 

@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react"
+import React, { SetStateAction, useState } from "react"
 import ImageEditForm from "./ImageEditForm"
 import { useProfileContext } from "@/lib/ProfileContext";
+import type { User } from "@/app/types/user";
 
 type ProfileProps = {
-    profileData: any,
-    setProfileData: any
+    profileData: User,
+    setProfileData: React.Dispatch<SetStateAction<User>>
 }
 
 export default function ImageSection({

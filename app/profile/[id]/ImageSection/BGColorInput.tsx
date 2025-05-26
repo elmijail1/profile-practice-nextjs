@@ -1,10 +1,16 @@
 // *0.1
+import { User } from "@/app/types/user"
 import { backgroundColorData } from "@/data/visualOptionsData"
 import { nanoid } from "nanoid"
+import React, { SetStateAction } from "react"
+import { ImageInputType } from "./ImageEditForm"
 
 export default function BGColorInput({
-    inputData, setInputData // *0.2
-}: { inputData: any, setInputData: any }) {
+    bgColor, setInputData
+}: {
+    bgColor: number[],
+    setInputData: React.Dispatch<SetStateAction<ImageInputType>>
+}) {
 
 
     return (
@@ -14,13 +20,13 @@ export default function BGColorInput({
             <div className="image-option-row">
                 {backgroundColorData.map((option) => {
 
-                    const isChosen = inputData.bgColor[0] === option.color[0] && inputData.bgColor[1] === option.color[1] && inputData.bgColor[2] === option.color[2]
+                    const isChosen = bgColor[0] === option.color[0] && bgColor[1] === option.color[1] && bgColor[2] === option.color[2]
 
                     return (
                         // *1.2.1. Label
                         <label
                             key={nanoid()}
-                            onClick={() => setInputData((prevData: any) => ({ ...prevData, bgColor: option.color }))}
+                            onClick={() => setInputData((prevData) => ({ ...prevData, bgColor: option.color }))}
                             htmlFor={`checkbox${option.color}`}
                             className={`image-option-option ${isChosen && "yellow-border-highlight"} xl:cursor-pointer xl:hover:brightness-95`}
                             style={{ backgroundColor: `hsl(${option.color[0]}, ${option.color[1]}%, ${option.color[2]}%)` }}
@@ -31,8 +37,8 @@ export default function BGColorInput({
                                 id={`checkbox${option.color}`}
                                 type="checkbox"
                                 className="hidden"
-                                checked={inputData.bgColor === option.color}
-                                onChange={() => setInputData((prevDat: any) => ({ ...prevData, emoji: option.color }))}
+                                checked={bgColor === option.color}
+                                onChange={() => setInputData((prevData) => ({ ...prevData, bgColor: option.color }))}
                             />
                         </label>
                     )

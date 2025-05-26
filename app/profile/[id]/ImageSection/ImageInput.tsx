@@ -1,14 +1,16 @@
 // *0.1
 import { profileImageData } from "@/data/visualOptionsData"
 import { nanoid } from "nanoid"
+import React, { SetStateAction } from "react"
+import { ImageInputType } from "./ImageEditForm"
 
 type ImageEditFormProps = {
-    inputData: any,
-    setInputData: any
+    emoji: string,
+    setInputData: React.Dispatch<SetStateAction<ImageInputType>>
 }
 
 export default function ImageInput({
-    inputData, setInputData // *0.2
+    emoji, setInputData // *0.2
 }: ImageEditFormProps) {
 
     return (
@@ -19,13 +21,13 @@ export default function ImageInput({
             <div className="image-option-row">
                 {profileImageData.map((image) => {
 
-                    const isChosen = inputData.emoji === image.emoji
+                    const isChosen = emoji === image.emoji
 
                     return (
                         // 1.2.1. Label
                         <label
                             key={nanoid()}
-                            onClick={() => setInputData((prevData: any) => ({ ...prevData, emoji: image.emoji }))}
+                            onClick={() => setInputData((prevData) => ({ ...prevData, emoji: image.emoji }))}
                             className={`image-option-option ${isChosen ? "yellow-border-highlight" : "xl:hover:bg-gray-100"} xl:cursor-pointer`}
                         >
 
@@ -33,8 +35,8 @@ export default function ImageInput({
                             <input
                                 type="checkbox"
                                 className="hidden"
-                                checked={inputData.emoji === image.emoji}
-                                onChange={() => setInputData((prevData: any) => ({ ...prevData, emoji: image.emoji }))}
+                                checked={emoji === image.emoji}
+                                onChange={() => setInputData((prevData) => ({ ...prevData, emoji: image.emoji }))}
                             />
 
                             {/* 1.2.1.2. Image */}
