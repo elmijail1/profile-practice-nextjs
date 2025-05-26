@@ -9,11 +9,12 @@ type WideButtonProps = {
     },
     disabledIf?: boolean,
     onClick?: React.MouseEventHandler<HTMLButtonElement>,
-    children: React.ReactNode
+    children: React.ReactNode,
+    type?: "submit" | "button" | "reset"
 }
 
 export default function WideButton(
-    { colors, disabledIf, onClick, children }: WideButtonProps
+    { colors, disabledIf, onClick, children, type = "button" }: WideButtonProps
 ) {
 
     const buttonFrontClass = "wide-button-front bg-white disabled:text-[hsl(265,50%,80%)] disabled:bg-[hsl(265,30%,60%)] xl:hover:brightness-95"
@@ -22,6 +23,7 @@ export default function WideButton(
     return (
         <div className="relative z-0 w-[90%] h-[2.5rem] xl:h-[3.5rem]">
             <button
+                type={type}
                 className={buttonFrontClass}
                 style={{
                     color: colors?.frontText,
