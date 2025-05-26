@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid email or password.")
                 }
 
-                const { hashedPassword: _, ...safeUser } = user
+                const { hashedPassword: _hashed, ...safeUser } = user
 
                 return {
                     ...safeUser,
