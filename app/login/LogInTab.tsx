@@ -105,7 +105,7 @@ export default function LogInTab() {
                         name="email"
                         value={inputData.email}
                         onChange={handleInput}
-                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name)}
+                        onFocus={(event: React.FocusEvent<HTMLInputElement>) => registerFocus(event.target.name as "email" | "password")}
 
                         validation={{
                             trigger: firstFocus.email,
