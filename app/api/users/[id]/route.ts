@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { partialUserSchema } from "../schema";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+    request: NextRequest,
+    context: {
+        params: { id: string }
+    }) {
     try {
-        const { id } = params
+        const { id } = context.params
         const user = await prisma.user.findUnique({
             where: { id: Number(id) },
             select: {
