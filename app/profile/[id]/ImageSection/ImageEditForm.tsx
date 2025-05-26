@@ -41,7 +41,7 @@ export default function ImageEditForm({
         setOpenImageEditor(false)
     }
 
-    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) { //*0.4
+    async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const updatedProfileData = { ...inputData }
 
@@ -83,7 +83,10 @@ export default function ImageEditForm({
                         {error}
                     </p>
                 }
-                <form className="flex flex-col items-center w-4/5 gap-8 pb-4">
+                <form
+                    className="flex flex-col items-center w-4/5 gap-8 pb-4"
+                    onSubmit={handleSubmission}
+                >
                     <ImageInput
                         emoji={inputData.emoji}
                         setInputData={setInputData}
@@ -98,7 +101,7 @@ export default function ImageEditForm({
                         {!error &&
                             <WideButton
                                 colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                                onClick={handleSubmission}
+                                type="submit"
                             >
                                 Save changes
                             </WideButton>
