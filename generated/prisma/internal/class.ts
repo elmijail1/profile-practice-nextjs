@@ -33,6 +33,10 @@ const config: runtime.GetPrismaClientConfig = {
         "fromEnvVar": null,
         "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -46,7 +50,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": true,
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -55,8 +59,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique @db.VarChar(100)\n  hashedPassword String\n  name           String   @default(\"New User\") @db.VarChar(20)\n  emoji          String   @default(\"🎃\") @db.VarChar(1)\n  bgColor        Int[]    @default([0, 0, 95])\n  joinedIn       DateTime @default(now())\n  aboutMe        String?  @default(\"\") @db.VarChar(100)\n  friends        Int[]    @default([])\n}\n",
-  "inlineSchemaHash": "eb34a357817f830eee9f7219b6d12a602da2680a02cf84e89661c5257e73f6da",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique @db.VarChar(100)\n  hashedPassword String\n  name           String   @default(\"New User\") @db.VarChar(20)\n  emoji          String   @default(\"🎃\") @db.VarChar(1)\n  bgColor        Int[]    @default([0, 0, 95])\n  joinedIn       DateTime @default(now())\n  aboutMe        String?  @default(\"\") @db.VarChar(100)\n  friends        Int[]    @default([])\n}\n",
+  "inlineSchemaHash": "2bd4e2ff6474db9984270f775483c0e5ad5b22337c3f080e477d80fec47d5065",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
