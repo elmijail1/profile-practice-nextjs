@@ -1,0 +1,7 @@
+{
+    "build": {
+        "env": {
+            "PRISMA_GENERATE_BINARY_TARGETS": "native,rhel-openssl-3.0.x"
+        }
+    }
+}
