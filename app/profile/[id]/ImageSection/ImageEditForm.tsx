@@ -101,7 +101,6 @@ export default function ImageEditForm({
                         {!error &&
                             <WideButton
                                 colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                                type="submit"
                             >
                                 Save changes
                             </WideButton>
