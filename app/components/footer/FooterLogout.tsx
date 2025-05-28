@@ -11,7 +11,7 @@ export default function FooterLogout() {
     }
 
     const linkClassMob = `h-full w-1/2 border-none uppercase no-underline tracking-[0.05rem] font-bold text-[1.1rem] flex justify-center items-center text-black`
-    const linkClassDesk = `xl:cursor-pointer xl:h-[2rem] xl:w-max xl:bg-transparent xl:border-b-1 xl:border-solid xl:border-white xl:hover:border-black`
+    const linkClassDesk = `cursor-pointer xl:h-[2rem] xl:w-max xl:bg-transparent xl:border-b-1 xl:border-solid xl:border-white xl:hover:border-black`
 
 
 
