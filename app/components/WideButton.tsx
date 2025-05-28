@@ -10,7 +10,6 @@ type WideButtonProps = {
     disabledIf?: boolean,
     onClick?: React.MouseEventHandler<HTMLButtonElement>,
     children: React.ReactNode,
-    // type?: "submit" | "button" | "reset"
 }
 
 export default function WideButton(
