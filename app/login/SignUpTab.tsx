@@ -60,7 +60,10 @@ export default function SignUpTab() {
 
     useEffect(() => {
         const email = inputData.email
-        if (!email) return
+        if (!email) {
+            setEmailStatus("idle")
+            return
+        }
 
         const emailIsValid = regex.email.test(inputData.email)
         if (!emailIsValid) {
