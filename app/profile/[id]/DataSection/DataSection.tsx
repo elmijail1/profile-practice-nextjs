@@ -15,7 +15,7 @@ type ProfileProps = {
 }
 
 export default function DataSection({
-    profileData, setProfileData // *0.2 Props
+    profileData, setProfileData
 }: ProfileProps) {
 
     const { session, currentId, isOwnProfile } = useProfileContext()
@@ -42,7 +42,7 @@ export default function DataSection({
         try {
 
             const res = await fetch("/api/account/friend-toggle", {
-                method: "POST", // shouldn't it be patch?
+                method: "POST",
                 body: JSON.stringify({ targetId: currentIdNumber })
             })
             if (res.ok) {
@@ -51,7 +51,7 @@ export default function DataSection({
                     return isFriend
                         ? list.filter(id => id !== currentIdNumber)
                         : [...list, currentIdNumber]
-                }, false)
+                }, { revalidate: false })
             }
         } catch (error) {
             console.error("Network or server error during friend toggle: ", error)
@@ -93,17 +93,29 @@ export default function DataSection({
                 {/* 1.5  Manage Friend button */}
                 {
                     (!isOwnProfile && isAuthenticated) &&
-                    <div className="w-full max-w-[18rem] flex justify-center">
-                        <WideButton
-                            colors={isFriend
-                                ? { frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }
-                                : { frontText: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }
+                    (
+                        <div className="w-full max-w-[18rem] flex justify-center">
+                            {
+                                typeof isFriend === "boolean"
+                                    ?
+                                    <WideButton
+                                        colors={isFriend
+                                            ? { frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }
+                                            : { frontText: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)", border: "hsl(130, 70%, 50%)" }
+                                        }
+                                        onClick={handleFriendAction}
+                                    >
+                                        {isFriend ? "Remove Friend" : "Add Friend"}
+                                    </WideButton>
+                                    :
+                                    <WideButton
+                                        colors={{ frontText: "hsl(0, 0%, 80%)", backBG: "hsl(0,0%,70%)", border: "hsl(0, 0%, 80%)" }}
+                                    >
+                                        Loading...
+                                    </WideButton>
                             }
-                            onClick={handleFriendAction}
-                        >
-                            {isFriend ? "Remove Friend" : "Add Friend"}
-                        </WideButton>
-                    </div>
+                        </div>
+                    )
                 }
 
             </section >
