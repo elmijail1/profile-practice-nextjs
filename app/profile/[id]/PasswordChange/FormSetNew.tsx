@@ -14,7 +14,7 @@ type FormSetNewProps = {
     currentPasswordInput: string,
     setProgressStage: React.Dispatch<SetStateAction<ProgressStageType>>,
     setPasswordWindowOpen: React.Dispatch<SetStateAction<boolean>>,
-    regex: RegExp
+    validatePassword: (password: string, isValid: boolean | null, setIsValid: React.Dispatch<SetStateAction<boolean | null>>) => void,
 }
 
 export default function FormSetNew({
@@ -29,21 +29,31 @@ export default function FormSetNew({
     currentPasswordInput,
     setProgressStage,
     setPasswordWindowOpen,
-    regex
+    validatePassword
 }: FormSetNewProps) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
     const bothFieldsFilled = newPasswordInput.length > 0 && repeatPasswordInput.length > 0
     const buttonIsShown = passwordsMatch && !newAndCurrentAreIdentical
+    const [passwordIsValid, setPasswordIsValid] = useState<boolean | null>(null)
 
     useEffect(() => {
-        if (newAndCurrentAreIdentical) {
+        validatePassword(newPasswordInput, passwordIsValid, setPasswordIsValid)
+        if (passwordIsValid === false) {
+            setError(
+                `Password must be 8+ symbols long and contain at least one:
+                    – uppercase letter (e.g. A, B, C)
+                    – lowercase letter (e.g. a, b, c)
+                    – digit (e.g. 1, 2, 3)
+                    – special symbol (e.g. _, !, ?)`
+            )
+        } else if (passwordIsValid && newAndCurrentAreIdentical) {
             setError("The current password and the new password can't be identical.")
-        } else {
+        } else if (passwordIsValid && !newAndCurrentAreIdentical) {
             setError("")
         }
-    }, [newAndCurrentAreIdentical])
+    }, [newPasswordInput, passwordIsValid, newAndCurrentAreIdentical])
 
     async function setNewPassword(
         event: React.FormEvent<HTMLFormElement>
@@ -79,7 +89,7 @@ export default function FormSetNew({
 
     return (
         <>
-            <p className="text-black text-lg">1. Password checked successfully</p>
+            <p className="text-black text-lg mb-[-2rem]">1. Password checked successfully</p>
             <form
                 onSubmit={setNewPassword}
                 className="w-[90%] text-lg flex flex-col items-center text-center"
@@ -131,7 +141,7 @@ export default function FormSetNew({
 
                 {
                     error &&
-                    <p className="text-red-700 mb-3 text-center text-[1rem]">
+                    <p className="text-red-700 mb-3 text-left text-[1rem] whitespace-pre-line">
                         {error}
                     </p>
                 }
