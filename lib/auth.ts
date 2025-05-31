@@ -4,9 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
+const INACTIVITY_LIMIT = 10 * 60
+
 export const authOptions: NextAuthOptions = {
     // custom generated PrismaClient is compatible (should be at least)
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma as any),
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -43,7 +45,17 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger }) {
+            const now = Math.floor(Date.now() / 1000)
+
+            if (!token.lastActive) {
+                token.lastActive = now
+            }
+            if (now - token.lastActive > INACTIVITY_LIMIT) {
+                return {}
+            }
+            token.lastActive = now
+
             if (user) {
                 token.id = user.id
             }
@@ -61,6 +73,13 @@ export const authOptions: NextAuthOptions = {
             return token
         },
         async session({ session, token }) {
+            if (!token?.lastActive) {
+                // return an empty session
+                return {
+                    user: { name: "", email: "", id: -1 },
+                    expires: ""
+                }
+            }
             if (token?.id) {
                 session.user.id = token.id as string
             }
@@ -75,6 +94,11 @@ export const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt" as const, // to show to TS that it's not just a string but an expected value of the strategy property
+        maxAge: 7 * 24 * 60 * 60,
+        updateAge: 60 * 5,
+    },
+    jwt: {
+        maxAge: 7 * 24 * 60 * 60,
     },
     pages: {
         signIn: "/login"
