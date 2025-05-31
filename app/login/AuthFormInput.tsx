@@ -11,8 +11,9 @@ type AuthFormInputProps = {
     validation?: {
         trigger: boolean,
         isValid: boolean,
+        status?: "idle" | "invalid" | "checking" | "available" | "unavailable",
         lastFocus: boolean,
-        errorText: string
+        errorText?: string
     }
 }
 
@@ -23,6 +24,24 @@ export default function AuthFormInput(
 
     const labelClass = "bg-white min-h-[6.5rem] w-[90%] rounded-[1rem] px-[1.5rem] pt-[1.5rem] pb-[0.5rem] flex flex-col items-start justify-start gap-[0.5rem] font-semibold text-[1.1rem] text-[hsl(0,0%,30%)] relative"
     const inputClass = "block w-full h-[1.8rem] rounded-[1rem] border-[2.5px] border-[hsl(0,0%,90%)] text-[1rem] px-[0.5rem]  pr-[2.4rem]"
+    const statusMessageClass = "text-[1rem] font-medium text-[hsl(0,0%,40%)] pb-2 whitespace-pre-line"
+
+    function determineStatusText() {
+        const status = validation?.status
+        if (status === "idle") {
+            return
+        } else if (status === "invalid") {
+            return `Email must be in the format:
+            something@domain.com`
+        } else if (status === "checking") {
+            return "Checking..."
+        } else if (status === "available") {
+            return "Available!"
+        } else if (status === "unavailable") {
+            return `This email is not available.
+            Try another.`
+        }
+    }
 
     return (
         <label className={labelClass}>
@@ -42,7 +61,7 @@ export default function AuthFormInput(
                 {
                     validation?.trigger &&
                     <ValidationIndicator
-                        isValid={validation?.isValid}
+                        isValid={validation.isValid}
                     />
                 }
 
@@ -50,9 +69,15 @@ export default function AuthFormInput(
 
             {/* error message if the field is invalid */}
             {
-                !validation?.isValid && validation?.lastFocus &&
-                <div className="text-[1rem] font-medium text-[hsl(0,0%,40%)] pb-2 whitespace-pre-line">
+                !validation?.isValid && validation?.lastFocus && !validation.status &&
+                <div className={statusMessageClass}>
                     {validation.errorText}
+                </div>
+            }
+            {
+                validation?.status && validation?.lastFocus &&
+                <div className={statusMessageClass}>
+                    {determineStatusText()}
                 </div>
             }
 
