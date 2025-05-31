@@ -102,4 +102,13 @@
   .yellow-border-highlight {
     @apply border-[4px] border-solid border-[hsl(50,90%,70%)] bg-[hsla(50,90%,70%,0.1)]
   }
+
+  @media (max-height: 650px){
+    .min-h-650\:full-screen {
+      @apply w-full h-screen justify-start overflow-y-scroll pb-[6rem]
+    }
+    .min-h-650\:no-padding {
+      @apply pt-[0]
+    }
+  }
 }
