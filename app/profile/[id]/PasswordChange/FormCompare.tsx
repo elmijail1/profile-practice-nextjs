@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { SetStateAction, useEffect, useState } from "react"
 import { PasswordDisplayType, ProgressStageType } from "./PasswordWindow"
 import SubmitButton from "./SubmitButton"
 
@@ -8,7 +8,7 @@ type FormCompareProps = {
     currentPasswordInput: string,
     setCurrentPasswordInput: React.Dispatch<React.SetStateAction<string>>,
     setProgressStage: React.Dispatch<React.SetStateAction<ProgressStageType>>,
-    regex: RegExp
+    validatePassword: (password: string, isValid: boolean | null, setIsValid: React.Dispatch<SetStateAction<boolean | null>>) => void,
 }
 
 export default function FormCompare({
@@ -17,27 +17,15 @@ export default function FormCompare({
     currentPasswordInput,
     setCurrentPasswordInput,
     setProgressStage,
-    regex
+    validatePassword
 }: FormCompareProps) {
 
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-
     const [passwordIsValid, setPasswordIsValid] = useState<boolean | null>(null)
 
-    function validatePassword() {
-        if (!currentPasswordInput) {
-            if (typeof passwordIsValid === "boolean") {
-                setPasswordIsValid(null)
-            }
-            return
-        }
-        console.log(regex.test(currentPasswordInput))
-        setPasswordIsValid(regex.test(currentPasswordInput))
-    }
-
     useEffect(() => {
-        validatePassword()
+        validatePassword(currentPasswordInput, passwordIsValid, setPasswordIsValid)
         if (passwordIsValid === false) {
             setError(
                 `Password must be 8+ symbols long and contain at least one:
@@ -127,9 +115,12 @@ export default function FormCompare({
                 </p>
             }
 
-            <SubmitButton disabledIf={!passwordIsValid || isLoading}>
-                {determineButtonText()}
-            </SubmitButton>
+            {
+                passwordIsValid &&
+                <SubmitButton disabledIf={!passwordIsValid || isLoading}>
+                    {determineButtonText()}
+                </SubmitButton>
+            }
         </form>
     )
 }
