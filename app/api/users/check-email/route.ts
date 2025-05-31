@@ -23,7 +23,11 @@ export async function POST(req: NextRequest) {
     })
 
     // the user with this email exists and it's not the current user
-    const isTaken = !!existingUser && existingUser.id.toString() !== userId
+    if (userId) {
+        var isTaken = !!existingUser && existingUser.id.toString() !== userId
+    } else {
+        var isTaken = !!existingUser
+    }
 
     // send a response that the email is already in use
     return NextResponse.json({ isTaken })
