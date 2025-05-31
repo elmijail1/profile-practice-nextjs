@@ -7,6 +7,7 @@ import WideButton from "../components/WideButton";
 import AuthFormInput from "./AuthFormInput";
 import ErrorPopup from "../components/ErrorPopup";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
+import debounce from "lodash.debounce"
 
 export default function SignUpTab() {
     // 1. input
@@ -23,8 +24,59 @@ export default function SignUpTab() {
         email: /\S+@\S+\.\S+/, // string + @ + string + . + string
         password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/, // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
     }
+
+    const [emailStatus, setEmailStatus] = useState<"idle" | "invalid" | "checking" | "available" | "unavailable">("idle")
+    const lastValidEmailRef = useRef<string | null>(null)
+    const checkEmailRef = useRef(debounce(checkEmailUniqueness, 1000))
+
+    async function checkEmailUniqueness(emailToCheck: string) {
+        if (!emailToCheck || !regex.email.test(emailToCheck)) return
+        try {
+            const res = await fetch("/api/users/check-email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: emailToCheck })
+            })
+
+            const data = await res.json()
+
+            if (lastValidEmailRef.current === emailToCheck) {
+                setEmailStatus(data.isTaken ? "unavailable" : "available")
+            }
+        } catch (error) {
+            console.error("Failed to check email", error)
+            if (lastValidEmailRef.current === emailToCheck) {
+                setEmailStatus("unavailable")
+            }
+        }
+    }
+
     useEffect(() => {
-        const isEmailValid = regex.email.test(inputData.email)
+        checkEmailRef.current = debounce(checkEmailUniqueness, 1000)
+        return () => checkEmailRef.current.cancel()
+    }, [])
+
+    useEffect(() => {
+        const email = inputData.email
+        if (!email) return
+
+        const emailIsValid = regex.email.test(inputData.email)
+        if (!emailIsValid) {
+            setEmailStatus("invalid")
+            lastValidEmailRef.current = null
+            return
+        }
+
+        setEmailStatus("checking")
+        lastValidEmailRef.current = email
+        checkEmailRef.current(email)
+
+    }, [inputData.email])
+
+    useEffect(() => {
+        const isEmailValid = !["invalid", "unavailable", "checking", "idle"].includes(emailStatus)
         const isPasswordValid = regex.password.test(inputData.password)
         const isPasswordRepeatValid =
             inputData.passwordRepeat.length > 0 &&
@@ -39,7 +91,7 @@ export default function SignUpTab() {
         })
 
         setValidatedFull(allValid)
-    }, [inputData])
+    }, [inputData, emailStatus])
 
 
     // 3. focus
@@ -49,6 +101,9 @@ export default function SignUpTab() {
         setLastFocus(name)
         if (firstFocus[name] === false) {
             setFirstFocus(prevFocus => ({ ...prevFocus, [name]: true }))
+            if (name === "email") {
+                setEmailStatus("invalid")
+            }
         }
     }
 
@@ -146,8 +201,8 @@ export default function SignUpTab() {
                         validation={{
                             trigger: firstFocus.email,
                             isValid: validatedData.email,
-                            lastFocus: lastFocus === "email",
-                            errorText: "Email must be in the format: something@domain.com"
+                            status: emailStatus,
+                            lastFocus: lastFocus === "email"
                         }}
                     >
                         Email
