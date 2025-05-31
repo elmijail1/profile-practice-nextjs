@@ -19,6 +19,8 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
 
     const [progressStage, setProgressStage] = useState<ProgressStageType>("compare")
 
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/ // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
+
     const [currentPasswordInput, setCurrentPasswordInput] = useState("")
     const [passwordDisplay, setPasswordDisplay] = useState<PasswordDisplayType>("password")
 
@@ -43,6 +45,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                     currentPasswordInput={currentPasswordInput}
                     setCurrentPasswordInput={setCurrentPasswordInput}
                     setProgressStage={setProgressStage}
+                    regex={regex}
                 />
             }
 
@@ -60,6 +63,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                         currentPasswordInput={currentPasswordInput}
                         setProgressStage={setProgressStage}
                         setPasswordWindowOpen={setPasswordWindowOpen}
+                        regex={regex}
                     />
                 </>
             }
