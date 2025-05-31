@@ -5,6 +5,7 @@ import { sortBy } from "@/utilities/sorting"
 import { useProfileContext } from "@/lib/ProfileContext";
 import React, { SetStateAction, useState } from "react";
 import type { User } from "@/app/types/user";
+import { mutate as globalMutate } from "swr"
 
 type FLWProps = {
     setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
@@ -42,6 +43,11 @@ export default function ListOfFriends({
                 friends: prev.friends.filter((id: number) => id !== friendId)
             }
         })
+
+        await globalMutate("/api/account/friend-list", (prev: number[] = []) =>
+            prev.filter(id => id !== friendId),
+            { revalidate: false }
+        )
 
         if (mutate) {
             await mutate()
