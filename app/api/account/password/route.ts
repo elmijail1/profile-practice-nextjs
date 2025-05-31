@@ -25,6 +25,14 @@ export async function PATCH(req: NextRequest) {
             )
         }
 
+        // 2.5. also make sure that both passwords are valid
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/ // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
+        // this regex must be the same as in profile/PasswordWindow
+
+        if (!regex.test(currentPassword) || !regex.test(newPassword)) {
+            return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 400 })
+        }
+
         // 3. retrieve the user's hashed password for comparison
         const user = await prisma.user.findUnique({
             where: { id: Number(session.user.id) },
