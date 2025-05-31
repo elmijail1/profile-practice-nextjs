@@ -1,7 +1,7 @@
 "use client"
 import CrossButton from "../CrossButton"
 import PopupWindow from "../PopupWindow"
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, SetStateAction } from "react"
 import FormCompare from "./FormCompare"
 import FormSetNew from "./FormSetNew"
 import SuccessMessage from "./SuccessMessage"
@@ -20,6 +20,19 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
     const [progressStage, setProgressStage] = useState<ProgressStageType>("compare")
 
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/ // 1+ lowercase alphabet ch; 1+ uppercase alphabet ch; 1+ digit; 1+ special character; total length = 8-15
+    function validatePassword(
+        password: string,
+        isValid: boolean | null,
+        setIsValid: React.Dispatch<SetStateAction<boolean | null>>
+    ) {
+        if (!password) {
+            if (typeof isValid === "boolean") {
+                setIsValid(null)
+            }
+            return
+        }
+        setIsValid(regex.test(password))
+    }
 
     const [currentPasswordInput, setCurrentPasswordInput] = useState("")
     const [passwordDisplay, setPasswordDisplay] = useState<PasswordDisplayType>("password")
@@ -45,7 +58,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                     currentPasswordInput={currentPasswordInput}
                     setCurrentPasswordInput={setCurrentPasswordInput}
                     setProgressStage={setProgressStage}
-                    regex={regex}
+                    validatePassword={validatePassword}
                 />
             }
 
@@ -63,7 +76,7 @@ export default function PasswordWindow({ setPasswordWindowOpen }: PropsFromProfi
                         currentPasswordInput={currentPasswordInput}
                         setProgressStage={setProgressStage}
                         setPasswordWindowOpen={setPasswordWindowOpen}
-                        regex={regex}
+                        validatePassword={validatePassword}
                     />
                 </>
             }
