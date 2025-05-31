@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PasswordDisplayType, ProgressStageType } from "./PasswordWindow"
 import SubmitButton from "./SubmitButton"
 
@@ -8,6 +8,7 @@ type FormCompareProps = {
     currentPasswordInput: string,
     setCurrentPasswordInput: React.Dispatch<React.SetStateAction<string>>,
     setProgressStage: React.Dispatch<React.SetStateAction<ProgressStageType>>,
+    regex: RegExp
 }
 
 export default function FormCompare({
@@ -15,11 +16,40 @@ export default function FormCompare({
     setPasswordDisplay,
     currentPasswordInput,
     setCurrentPasswordInput,
-    setProgressStage
+    setProgressStage,
+    regex
 }: FormCompareProps) {
 
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+
+    const [passwordIsValid, setPasswordIsValid] = useState<boolean | null>(null)
+
+    function validatePassword() {
+        if (!currentPasswordInput) {
+            if (typeof passwordIsValid === "boolean") {
+                setPasswordIsValid(null)
+            }
+            return
+        }
+        console.log(regex.test(currentPasswordInput))
+        setPasswordIsValid(regex.test(currentPasswordInput))
+    }
+
+    useEffect(() => {
+        validatePassword()
+        if (passwordIsValid === false) {
+            setError(
+                `Password must be 8+ symbols long and contain at least one:
+                – uppercase letter (e.g. A, B, C)
+                – lowercase letter (e.g. a, b, c)
+                – digit (e.g. 1, 2, 3)
+                – special symbol (e.g. _, !, ?)`
+            )
+        } else {
+            setError("")
+        }
+    }, [currentPasswordInput, passwordIsValid])
 
     async function comparePasswords(
         event: React.FormEvent<HTMLFormElement>
@@ -53,6 +83,16 @@ export default function FormCompare({
         }
     }
 
+    function determineButtonText() {
+        if (!passwordIsValid) {
+            return "Enter Valid Password"
+        } else if (passwordIsValid && !isLoading) {
+            return "Check Password"
+        } else if (passwordIsValid && isLoading) {
+            return "Checking..."
+        }
+    }
+
     return (
         <form
             onSubmit={(event) => comparePasswords(event)}
@@ -82,13 +122,13 @@ export default function FormCompare({
 
             {
                 error &&
-                <p className="text-red-700 mb-3 text-center text-[1rem]">
+                <p className="text-red-700 mb-3 text-left text-[1rem] whitespace-pre-line">
                     {error}
                 </p>
             }
 
-            <SubmitButton disabledIf={isLoading}>
-                {isLoading ? "Checking..." : "Check Password"}
+            <SubmitButton disabledIf={!passwordIsValid || isLoading}>
+                {determineButtonText()}
             </SubmitButton>
         </form>
     )
