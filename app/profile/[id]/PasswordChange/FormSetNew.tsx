@@ -13,7 +13,8 @@ type FormSetNewProps = {
     passwordsMatch: boolean,
     currentPasswordInput: string,
     setProgressStage: React.Dispatch<SetStateAction<ProgressStageType>>,
-    setPasswordWindowOpen: React.Dispatch<SetStateAction<boolean>>
+    setPasswordWindowOpen: React.Dispatch<SetStateAction<boolean>>,
+    regex: RegExp
 }
 
 export default function FormSetNew({
@@ -27,7 +28,8 @@ export default function FormSetNew({
     passwordsMatch,
     currentPasswordInput,
     setProgressStage,
-    setPasswordWindowOpen
+    setPasswordWindowOpen,
+    regex
 }: FormSetNewProps) {
 
     const [isLoading, setIsLoading] = useState(false)
