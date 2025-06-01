@@ -4,7 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
-const INACTIVITY_LIMIT = 10 * 60
+// CHANGE BACK TO 10 * 60
+const INACTIVITY_LIMIT = 0.5 * 60 // in seconds
 
 export const authOptions: NextAuthOptions = {
     // custom generated PrismaClient is compatible (should be at least)
@@ -45,41 +46,74 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({ token, user, trigger }) {
+        async jwt({ token, user }) {
+
+            // 1. Figuring out the current time
             const now = Math.floor(Date.now() / 1000)
 
-            if (!token.lastActive) {
+            // 2. Setting custom data to the token on the initial sign-in
+            if (user) {
+                // we take the ID from the user and save it to the token to avoid fetching it from the server every time we need it (NOT related to inactivity)
+                token.id = user.id
+                // we save the time of the token being last used which is now upong logging in
                 token.lastActive = now
+
+                // we also make sure to fetch the right name and email of the user with the specified ID
+                // for that we first attempt to find the user with that ID:
+                try {
+                    const dbUser = await prisma.user.findUnique({
+                        where: { id: Number(token.id) },
+                        select: { name: true, email: true }
+                    })
+                    // then, if successful, we save the user's data to the token:
+                    if (dbUser) {
+                        token.name = dbUser.name
+                        token.email = dbUser.email
+                    }
+                } catch (error) {
+                    console.error("Error fetching user data: ", error)
+                }
+
+                return token
             }
-            if (now - token.lastActive > INACTIVITY_LIMIT) {
+
+            // 3. Inactivity logic
+            // 3.1. When was the user last active?
+            const lastActive = token.lastActive ?? now
+
+            // 3.2. Did the user go beyond the inactivity limit?
+            const inactiveDuration = now - lastActive
+
+            // 3.3. If they did, strip them of their token!
+            if (inactiveDuration > INACTIVITY_LIMIT) {
+                // force token expiration by returning an empty object
                 return {}
             }
+
+            // 3.4. If they didn't, extend the allowed inactivity period
             token.lastActive = now
 
-            if (user) {
-                token.id = user.id
-            }
+            // 4. Current name & email fetch
+            // to avoid stale data after updating either in the profile edit
+            if (token.id) {
+                try {
 
-            const dbUser = await prisma.user.findUnique({
-                where: { id: Number(token.id) },
-                select: { name: true, email: true }
-            })
-
-            if (dbUser) {
-                token.name = dbUser.name
-                token.email = dbUser.email
+                    const dbUser = await prisma.user.findUnique({
+                        where: { id: Number(token.id) },
+                        select: { name: true, email: true }
+                    })
+                    if (dbUser) {
+                        token.name = dbUser.name
+                        token.email = dbUser.email
+                    }
+                } catch (error) {
+                    console.error("Error refreshign user data: ", error)
+                }
             }
 
             return token
         },
         async session({ session, token }) {
-            if (!token?.lastActive) {
-                // return an empty session
-                return {
-                    user: { name: "", email: "", id: -1 },
-                    expires: ""
-                }
-            }
             if (token?.id) {
                 session.user.id = token.id as string
             }
@@ -94,11 +128,10 @@ export const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt" as const, // to show to TS that it's not just a string but an expected value of the strategy property
-        maxAge: 7 * 24 * 60 * 60,
-        updateAge: 60 * 5,
+        maxAge: 24 * 60 * 60
     },
     jwt: {
-        maxAge: 7 * 24 * 60 * 60,
+        maxAge: 24 * 60 * 60,
     },
     pages: {
         signIn: "/login"
