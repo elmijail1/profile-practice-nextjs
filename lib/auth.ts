@@ -114,6 +114,17 @@ export const authOptions: NextAuthOptions = {
             return token
         },
         async session({ session, token }) {
+            // if the token is invalid, return a dummy session
+            // cause TS freaks out when you try returning null
+            if (!token?.lastActive || !token?.id) {
+                return {
+                    user: { name: "", email: "", id: -1 },
+                    expires: ""
+                }
+            }
+
+            // saving data from the token to the session
+            // ID is custom, the other two are default
             if (token?.id) {
                 session.user.id = token.id as string
             }
@@ -128,10 +139,11 @@ export const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt" as const, // to show to TS that it's not just a string but an expected value of the strategy property
-        maxAge: 24 * 60 * 60
+        maxAge: 24 * 60 * 60, // in seconds, hence it's 24 hours
+        updateAge: 0 // don't refresh session automatically on useSession()
     },
     jwt: {
-        maxAge: 24 * 60 * 60,
+        maxAge: 24 * 60 * 60, // also in seconds
     },
     pages: {
         signIn: "/login"
