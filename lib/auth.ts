@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
-// CHANGE BACK TO 10 * 60
 const INACTIVITY_LIMIT = 30 * 60 // in seconds
 
 export const authOptions: NextAuthOptions = {
