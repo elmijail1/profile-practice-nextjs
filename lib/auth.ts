@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
 // CHANGE BACK TO 10 * 60
-const INACTIVITY_LIMIT = 0.5 * 60 // in seconds
+const INACTIVITY_LIMIT = 30 * 60 // in seconds
 
 export const authOptions: NextAuthOptions = {
     // custom generated PrismaClient is compatible (should be at least)
@@ -97,7 +97,6 @@ export const authOptions: NextAuthOptions = {
             // to avoid stale data after updating either in the profile edit
             if (token.id) {
                 try {
-
                     const dbUser = await prisma.user.findUnique({
                         where: { id: Number(token.id) },
                         select: { name: true, email: true }
@@ -118,7 +117,7 @@ export const authOptions: NextAuthOptions = {
             // cause TS freaks out when you try returning null
             if (!token?.lastActive || !token?.id) {
                 return {
-                    user: { name: "", email: "", id: -1 },
+                    user: { name: "", email: "", id: "" },
                     expires: ""
                 }
             }
@@ -139,11 +138,11 @@ export const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt" as const, // to show to TS that it's not just a string but an expected value of the strategy property
-        maxAge: 24 * 60 * 60, // in seconds, hence it's 24 hours
-        updateAge: 0 // don't refresh session automatically on useSession()
+        maxAge: INACTIVITY_LIMIT, // in seconds, hence it's 24 hours
+        updateAge: 0 // don't refresh session automatically on useSession(), since we manually do it on each render
     },
     jwt: {
-        maxAge: 24 * 60 * 60, // also in seconds
+        maxAge: INACTIVITY_LIMIT, // also in seconds
     },
     pages: {
         signIn: "/login"
