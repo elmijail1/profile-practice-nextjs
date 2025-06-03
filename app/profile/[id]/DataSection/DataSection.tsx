@@ -18,11 +18,11 @@ export default function DataSection({
     profileData, setProfileData
 }: ProfileProps) {
 
-    const { session, currentId, isOwnProfile } = useProfileContext()
+    const { session, status, currentId, isOwnProfile } = useProfileContext()
     const currentIdNumber = Number(currentId)
 
     const [openFriendList, setOpenFriendList] = useState(false)
-    const isAuthenticated = !!session
+    const isAuthenticated = !!session && status === "authenticated"
 
     const months = ["January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
