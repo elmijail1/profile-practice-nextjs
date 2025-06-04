@@ -3,7 +3,7 @@ import { z } from "zod"
 const userSchema = z.object({
     id: z.number(),
     email: z.string().email(),
-    name: z.string().max(20),
+    name: z.string().min(1).max(20),
     emoji: z.string().min(1).max(2),
     bgColor: z.array(z.number()).length(3),
     joinedIn: z.preprocess((arg) => {
