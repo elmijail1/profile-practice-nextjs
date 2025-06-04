@@ -9,6 +9,7 @@ import { useProfileContext } from "@/lib/ProfileContext";
 import WideButton from "@/app/components/WideButton";
 import { useSession } from "next-auth/react";
 import { User } from "@/app/types/user";
+import { useRouter } from "next/navigation";
 
 type TextEditFormProps = {
     profileData: User,
@@ -94,6 +95,7 @@ export default function TextEditForm({
 
 
     const { update } = useSession()
+    const router = useRouter()
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         if (["invalid", "unavailable", "checking"].includes(emailStatus)) {
@@ -113,7 +115,11 @@ export default function TextEditForm({
             })
 
             if (!response.ok) {
-                // console.error("Failed to update user")
+                const res = await response.json()
+                if (res.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
                 setError("Updating is currently unavailable. Try again later.")
                 return
             }
@@ -196,7 +202,7 @@ export default function TextEditForm({
                     (
                         <div className="w-full flex flex-col items-center gap-4">
                             {
-                                !error &&
+                                !error && inputData.name && inputData.email &&
                                 <WideButton
                                     colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
                                 >

@@ -8,6 +8,7 @@ import WideButton from "@/app/components/WideButton";
 import type { User } from "@/app/types/user";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import { useProfileContext } from "@/lib/ProfileContext";
+import { useRouter } from "next/navigation";
 
 type ImageSectionProps = {
     profileData: User,
@@ -41,6 +42,8 @@ export default function ImageEditForm({
         setOpenImageEditor(false)
     }
 
+    const router = useRouter()
+
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const updatedProfileData = { ...inputData }
@@ -55,7 +58,11 @@ export default function ImageEditForm({
             })
 
             if (!response.ok) {
-                // console.error("Failed to update user")
+                const res = await response.json()
+                if (res.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
                 setError("Updating is currently unavailable. Try again later.")
                 return
             }
