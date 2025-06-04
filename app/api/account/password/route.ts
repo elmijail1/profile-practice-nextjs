@@ -9,10 +9,7 @@ export async function PATCH(req: NextRequest) {
         // 1. retrieve the session's ID
         const session = await getServerSession(authOptions)
         if (!session?.user?.id) {
-            return NextResponse.json(
-                { success: false, message: "Error accessing session" },
-                { status: 401 }
-            )
+            return NextResponse.json({ error: "Session expired" }, { status: 401 })
         }
 
         // 2. make sure that the body contains both the current & new password

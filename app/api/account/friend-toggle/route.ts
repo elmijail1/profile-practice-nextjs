@@ -8,8 +8,9 @@ export async function POST(req: NextRequest) {
         // 1. retrieve the session ID (current user)
         const session = await getServerSession(authOptions)
         if (!session?.user?.id) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+            return NextResponse.json({ error: "Session expired" }, { status: 401 })
         }
+
         const userId = Number(session.user.id)
 
         // 2. retrieve the current page profile's ID (the user you want to add / remove to your friend list)

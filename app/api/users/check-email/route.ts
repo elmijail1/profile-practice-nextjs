@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 export async function POST(req: NextRequest) {
 
@@ -10,6 +12,12 @@ export async function POST(req: NextRequest) {
     // const userId = req.nextUrl.searchParams.get("userId")
 
     // ...request's body (the POST approach)
+    // validate if the user's session is active
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.id) {
+        return NextResponse.json({ error: "Session expired" }, { status: 401 })
+    }
+
     const { email, userId } = await req.json()
 
     // validating that there's email in the request

@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) {
-        return NextResponse.json({ success: false }, { status: 401 })
+        return NextResponse.json({ error: "Session expired" }, { status: 401 })
     }
 
     const { password } = await req.json()

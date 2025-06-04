@@ -7,9 +7,11 @@ export async function PATCH(req: NextRequest) {
     try {
         // 1. Retrieve current user's ID from the session (who wants to delete a friend?)
         const session = await getServerSession(authOptions)
-        if (!session) {
-            return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
+        if (!session?.user?.id) {
+            return NextResponse.json({ error: "Session expired" }, { status: 401 })
         }
+
+
         const userId = Number(session.user.id)
 
         // 2. Retrieve the target user's ID from the request (whom do you want to delete?)
