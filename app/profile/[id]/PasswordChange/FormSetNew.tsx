@@ -1,6 +1,7 @@
 import React, { SetStateAction, useEffect, useState } from "react"
 import { PasswordDisplayType, ProgressStageType } from "./PasswordWindow"
 import SubmitButton from "./SubmitButton"
+import { useRouter } from "next/navigation"
 
 type FormSetNewProps = {
     newPasswordInput: string,
@@ -35,8 +36,8 @@ export default function FormSetNew({
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
     const bothFieldsFilled = newPasswordInput.length > 0 && repeatPasswordInput.length > 0
-    const buttonIsShown = passwordsMatch && !newAndCurrentAreIdentical
     const [passwordIsValid, setPasswordIsValid] = useState<boolean | null>(null)
+    const buttonIsShown = passwordsMatch && !newAndCurrentAreIdentical && passwordIsValid
 
     useEffect(() => {
         validatePassword(newPasswordInput, passwordIsValid, setPasswordIsValid)
@@ -55,6 +56,8 @@ export default function FormSetNew({
         }
     }, [newPasswordInput, passwordIsValid, newAndCurrentAreIdentical])
 
+    const router = useRouter()
+
     async function setNewPassword(
         event: React.FormEvent<HTMLFormElement>
     ) {
@@ -71,6 +74,16 @@ export default function FormSetNew({
                 headers: { "Content-Type": "application/json" }
             })
 
+            if (!res.ok) {
+                const response = await res.json()
+                if (response.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
+                setError("Updating in currently unavailable. Try again later.")
+                setIsLoading(false)
+            }
+
             const result = await res.json()
 
             if (!result.success) {
@@ -83,7 +96,6 @@ export default function FormSetNew({
             console.error("Network or server error: ", error)
             setError("Creating new profiles is currently unavailable. Try again later.")
             setIsLoading(false)
-        } finally {
         }
     }
 

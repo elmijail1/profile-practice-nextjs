@@ -8,6 +8,7 @@ import { useFriendList } from "../useFriendList";
 import WideButton from "@/app/components/WideButton";
 import { useProfileContext } from "@/lib/ProfileContext";
 import type { User } from "@/app/types/user";
+import { useRouter } from "next/navigation";
 
 type ProfileProps = {
     profileData: User,
@@ -34,6 +35,7 @@ export default function DataSection({
 
     const friendListButtonText = `${profileData.friends?.length} ${profileData.friends?.length !== 1 ? "Friends" : "Friend"}`
 
+    const router = useRouter()
 
     const shouldFetch = !!session && !isOwnProfile
     const { friends, mutate } = useFriendList(shouldFetch)
@@ -45,6 +47,15 @@ export default function DataSection({
                 method: "POST",
                 body: JSON.stringify({ targetId: currentIdNumber })
             })
+
+            if (!res.ok) {
+                const response = await res.json()
+                if (response.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
+            }
+
             if (res.ok) {
                 mutate(prev => {
                     const list = prev ?? []

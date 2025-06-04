@@ -37,6 +37,7 @@ export default function TextEditForm({
         return /^(?=.{5,100}$)[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
+    const router = useRouter()
 
     async function checkEmail(emailToCheck: string) {
         if (!emailToCheck || !validateEmail(emailToCheck)) return
@@ -48,6 +49,16 @@ export default function TextEditForm({
                 },
                 body: JSON.stringify({ email: emailToCheck, userId: currentId })
             })
+
+            if (!res.ok) {
+                const response = await res.json()
+                if (response.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
+                setError("Checking is currently unavailable. Try again later.")
+                return
+            }
 
             const data = await res.json()
 
@@ -93,9 +104,7 @@ export default function TextEditForm({
 
     }, [inputData.email, profileData.email])
 
-
     const { update } = useSession()
-    const router = useRouter()
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         if (["invalid", "unavailable", "checking"].includes(emailStatus)) {

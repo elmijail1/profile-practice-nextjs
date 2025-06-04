@@ -1,6 +1,7 @@
 import React, { SetStateAction, useEffect, useState } from "react"
 import { PasswordDisplayType, ProgressStageType } from "./PasswordWindow"
 import SubmitButton from "./SubmitButton"
+import { useRouter } from "next/navigation"
 
 type FormCompareProps = {
     passwordDisplay: PasswordDisplayType,
@@ -39,6 +40,8 @@ export default function FormCompare({
         }
     }, [currentPasswordInput, passwordIsValid])
 
+    const router = useRouter()
+
     async function comparePasswords(
         event: React.FormEvent<HTMLFormElement>
     ) {
@@ -54,15 +57,28 @@ export default function FormCompare({
                 }
             })
 
+            if (!res.ok) {
+                const response = await res.json()
+                if (response.error === "Session expired") {
+                    router.push("/login?reason=expired")
+                    return
+                }
+                setError("Checking in currently unavailable. Try again later.")
+                setIsLoading(false)
+            }
+
             const result = await res.json()
 
             if (!result.success) {
                 setError("The password is wrong. Try again.")
+                setIsLoading(false)
                 return
             }
 
             setProgressStage("set-new")
             setPasswordDisplay("password")
+            setIsLoading(false)
+
         } catch (error) {
             if (process.env.NODE_ENV === "development") {
                 console.error("Server error: ", error)
@@ -70,7 +86,6 @@ export default function FormCompare({
                 console.error("Server error")
             }
             setError("Password checking is currently unavailable. Try again later.")
-        } finally {
             setIsLoading(false)
         }
     }

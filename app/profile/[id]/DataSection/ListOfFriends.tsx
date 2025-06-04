@@ -6,6 +6,7 @@ import { useProfileContext } from "@/lib/ProfileContext";
 import React, { SetStateAction, useState } from "react";
 import type { User } from "@/app/types/user";
 import { mutate as globalMutate } from "swr"
+import { useRouter } from "next/navigation";
 
 type FLWProps = {
     setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
@@ -23,6 +24,7 @@ export default function ListOfFriends({
     const { isOwnProfile } = useProfileContext()
 
     const [error, setError] = useState("")
+    const router = useRouter()
 
     async function removeFriend(friendId: number, mutate?: () => Promise<User | undefined>) {
         const res = await fetch("/api/account/friend-remove", {
@@ -32,6 +34,11 @@ export default function ListOfFriends({
         })
 
         if (!res.ok) {
+            const response = await res.json()
+            if (response.error === "Session expired") {
+                router.push("/login?reason=expired")
+                return
+            }
             setError("Removing friends in currently unavailable. Try again later.")
             throw new Error("Failed to remove friend")
         }
