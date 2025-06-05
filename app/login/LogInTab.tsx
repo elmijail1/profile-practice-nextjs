@@ -6,6 +6,7 @@ import AuthFormInput from "./AuthFormInput";
 import WideButton from "../components/WideButton";
 import ErrorPopup from "../components/ErrorPopup";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
+import { authState } from "@/utilities/authState";
 
 export default function LogInTab() {
 
@@ -82,6 +83,8 @@ export default function LogInTab() {
                 return
             }
 
+            // Set authentication flag after successful login
+            authState.setAuthenticated()
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
             console.error("Error while logging in a user: ", error)

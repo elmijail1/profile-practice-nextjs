@@ -8,6 +8,7 @@ import AuthFormInput from "./AuthFormInput";
 import ErrorPopup from "../components/ErrorPopup";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 import debounce from "lodash.debounce"
+import { authState } from "@/utilities/authState";
 
 export default function SignUpTab() {
     // 1. input
@@ -167,6 +168,8 @@ export default function SignUpTab() {
                 return
             }
 
+            // Set authentication flag after successful signup and login
+            authState.setAuthenticated()
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
             console.error("Error while logging in a user: ", error)
