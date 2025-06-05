@@ -56,7 +56,7 @@ export default function SignUpTab() {
     useEffect(() => {
         checkEmailRef.current = debounce(checkEmailUniqueness, 1000)
         return () => checkEmailRef.current.cancel()
-    }, [])
+    }, [inputData.email])
 
     useEffect(() => {
         const email = inputData.email
