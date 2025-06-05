@@ -1,5 +1,5 @@
-import Link from "next/link"
 import type { User } from "../types/user"
+import ProtectedLink from "@/components/ProtectedLink"
 
 type PeopleProps = {
     user: User,
@@ -25,10 +25,9 @@ export default function ListRow(
     return (
         <li className={listRowClass}>
 
-            <Link
+            <ProtectedLink
                 href={`/profile/${user.id}`}
                 className={deleteOnClick ? "list-row-regular justify-start w-[85%]" : "list-row-regular"}
-                onClick={extraActionOnClick}
                 style={
                     self
                         ? { color: "hsl(50, 90%, 70%)", fontWeight: 800 }
@@ -42,7 +41,7 @@ export default function ListRow(
                     {user.emoji}
                 </div>
                 <div className={nameClass}>{user.name}</div>
-            </Link>
+            </ProtectedLink>
 
             {
                 deleteOnClick &&

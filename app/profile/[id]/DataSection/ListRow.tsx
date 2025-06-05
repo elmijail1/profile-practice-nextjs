@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 import type { User } from "@/app/types/user";
+import ProtectedLink from "@/components/ProtectedLink";
 
 type ListRowProps = {
     user: User,
@@ -20,10 +20,9 @@ export default function ListRow({
         <li className="flex items-center justify-between w-full h-12 text-[1.3rem] font-semibold">
 
             {/* 1.1. Profile Representation */}
-            <Link
+            <ProtectedLink
                 href={`/profile/${user.id}`}
                 className={`friendlist-row ${deleteOnClick && "justify-start w-[85%]"}`}
-                onClick={extraActionOnClick ? extraActionOnClick : undefined}
                 style={{ color: `hsl(${textColor})` }}
             >
                 <div className="mr-[-0.3rem]">
@@ -38,7 +37,7 @@ export default function ListRow({
                 <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
                     {user.name}
                 </div>
-            </Link>
+            </ProtectedLink>
 
             {/* 1.2. Delete Button */}
             {

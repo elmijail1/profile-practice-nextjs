@@ -1,5 +1,5 @@
-import Link from "next/link"
 import { ReactNode } from "react"
+import ProtectedLink from "@/components/ProtectedLink"
 
 type FooterLinkProps = {
     children: ReactNode,
@@ -19,11 +19,11 @@ export default function FooterLink(
     const linkClassDesk = `xl:cursor-pointer xl:h-[2rem] xl:w-max xl:bg-transparent xl:border-b-1 xl:border-solid ${isActive() ? "xl:border-black" : "xl:border-white"} xl:hover:border-black`
 
     return (
-        <Link
+        <ProtectedLink
             href={targetPath}
             className={`${linkClassMob} ${linkClassDesk}`}
         >
             {children}
-        </Link>
+        </ProtectedLink>
     )
 }
