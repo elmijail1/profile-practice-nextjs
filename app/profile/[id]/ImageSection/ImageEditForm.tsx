@@ -26,7 +26,7 @@ export default function ImageEditForm({
     profileData, setProfileData, setOpenImageEditor
 }: ImageSectionProps) {
 
-    const { currentId, update } = useProfileContext()
+    const { currentId } = useProfileContext()
 
     const [inputData, setInputData] = useState<ImageInputType>({
         emoji: profileData.emoji,
