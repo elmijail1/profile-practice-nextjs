@@ -4,21 +4,17 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
 export async function POST(req: NextRequest) {
-
     // extracting email & id from...
+    const { email, userId } = await req.json()
 
-    // ...query params (the GET approach)
-    // const email = req.nextUrl.searchParams.get("email")
-    // const userId = req.nextUrl.searchParams.get("userId")
-
-    // ...request's body (the POST approach)
     // validate if the user's session is active
-    const session = await getServerSession(authOptions)
-    if (!session?.user?.id) {
-        return NextResponse.json({ error: "Session expired" }, { status: 401 })
+    if (userId) {
+        const session = await getServerSession(authOptions)
+        if (!session?.user?.id) {
+            return NextResponse.json({ error: "Session expired" }, { status: 401 })
+        }
     }
 
-    const { email, userId } = await req.json()
 
     // validating that there's email in the request
     if (!email) {
