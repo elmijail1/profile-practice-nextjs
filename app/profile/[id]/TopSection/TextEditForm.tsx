@@ -7,7 +7,7 @@ import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import debounce from "lodash.debounce"
 import { useProfileContext } from "@/lib/ProfileContext";
 import WideButton from "@/app/components/WideButton";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { User } from "@/app/types/user";
 import { useRouter } from "next/navigation";
 
@@ -53,6 +53,7 @@ export default function TextEditForm({
             if (!res.ok) {
                 const response = await res.json()
                 if (response.error === "Session expired") {
+                    await signOut({ redirect: false })
                     router.push("/login?reason=expired")
                     return
                 }
@@ -126,6 +127,7 @@ export default function TextEditForm({
             if (!response.ok) {
                 const res = await response.json()
                 if (res.error === "Session expired") {
+                    await signOut({ redirect: false })
                     router.push("/login?reason=expired")
                     return
                 }

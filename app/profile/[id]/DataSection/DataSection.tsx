@@ -9,6 +9,7 @@ import WideButton from "@/app/components/WideButton";
 import { useProfileContext } from "@/lib/ProfileContext";
 import type { User } from "@/app/types/user";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react"
 
 type ProfileProps = {
     profileData: User,
@@ -51,6 +52,7 @@ export default function DataSection({
             if (!res.ok) {
                 const response = await res.json()
                 if (response.error === "Session expired") {
+                    await signOut({ redirect: false })
                     router.push("/login?reason=expired")
                     return
                 }

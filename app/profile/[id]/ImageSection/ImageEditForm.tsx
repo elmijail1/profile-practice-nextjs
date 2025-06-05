@@ -9,6 +9,7 @@ import type { User } from "@/app/types/user";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick"
 import { useProfileContext } from "@/lib/ProfileContext";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 type ImageSectionProps = {
     profileData: User,
@@ -25,7 +26,7 @@ export default function ImageEditForm({
     profileData, setProfileData, setOpenImageEditor
 }: ImageSectionProps) {
 
-    const { currentId } = useProfileContext()
+    const { currentId, update } = useProfileContext()
 
     const [inputData, setInputData] = useState<ImageInputType>({
         emoji: profileData.emoji,
@@ -34,7 +35,7 @@ export default function ImageEditForm({
 
     const [error, setError] = useState("")
 
-    function discardChanges() { // *0.4
+    function discardChanges() {
         setInputData({
             emoji: profileData.emoji,
             bgColor: profileData.bgColor,
@@ -60,6 +61,7 @@ export default function ImageEditForm({
             if (!response.ok) {
                 const res = await response.json()
                 if (res.error === "Session expired") {
+                    await signOut({ redirect: false })
                     router.push("/login?reason=expired")
                     return
                 }

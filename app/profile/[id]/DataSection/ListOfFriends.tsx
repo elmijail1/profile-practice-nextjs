@@ -7,6 +7,7 @@ import React, { SetStateAction, useState } from "react";
 import type { User } from "@/app/types/user";
 import { mutate as globalMutate } from "swr"
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react"
 
 type FLWProps = {
     setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
@@ -36,6 +37,7 @@ export default function ListOfFriends({
         if (!res.ok) {
             const response = await res.json()
             if (response.error === "Session expired") {
+                await signOut({ redirect: false })
                 router.push("/login?reason=expired")
                 return
             }

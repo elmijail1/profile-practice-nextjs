@@ -2,6 +2,7 @@ import React, { SetStateAction, useEffect, useState } from "react"
 import { PasswordDisplayType, ProgressStageType } from "./PasswordWindow"
 import SubmitButton from "./SubmitButton"
 import { useRouter } from "next/navigation"
+import { signOut } from "next-auth/react"
 
 type FormSetNewProps = {
     newPasswordInput: string,
@@ -77,6 +78,7 @@ export default function FormSetNew({
             if (!res.ok) {
                 const response = await res.json()
                 if (response.error === "Session expired") {
+                    await signOut({ redirect: false })
                     router.push("/login?reason=expired")
                     return
                 }
