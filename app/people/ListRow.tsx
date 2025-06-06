@@ -6,12 +6,11 @@ type PeopleProps = {
     listOrder: number,
     self: boolean,
     deleteOnClick?: (id: number) => void,
-    extraActionOnClick?: (event: React.MouseEvent) => void,
     textColor?: number[]
 }
 
 export default function ListRow(
-    { user, listOrder = 0, self = false, deleteOnClick, extraActionOnClick, textColor = [0, 0, 100] }: PeopleProps
+    { user, listOrder = 0, self = false, deleteOnClick, textColor = [0, 0, 100] }: PeopleProps
 ) {
 
     function arrayToHSL(array: number[]) {

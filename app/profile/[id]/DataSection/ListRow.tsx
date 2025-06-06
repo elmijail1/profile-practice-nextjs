@@ -7,12 +7,11 @@ type ListRowProps = {
     listOrder?: number,
     self?: boolean,
     deleteOnClick?: (() => void) | null,
-    extraActionOnClick?: () => void,
     textColor?: string
 }
 
 export default function ListRow({
-    user, listOrder = 0, deleteOnClick = undefined, extraActionOnClick = undefined, textColor = "0, 0%, 100%"
+    user, listOrder = 0, deleteOnClick = undefined, textColor = "0, 0%, 100%"
 }: ListRowProps) {
 
     return (
