@@ -35,6 +35,10 @@ export default function ImageEditForm({
 
     const [error, setError] = useState("")
 
+    const emojiChanged = inputData.emoji !== profileData.emoji
+    const bgColorChanged = inputData.bgColor[0] !== profileData.bgColor[0] || inputData.bgColor[1] !== profileData.bgColor[1] || inputData.bgColor[2] !== profileData.bgColor[2]
+    const dataChanged = emojiChanged || bgColorChanged
+
     function discardChanges() {
         setInputData({
             emoji: profileData.emoji,
@@ -106,22 +110,25 @@ export default function ImageEditForm({
                         setInputData={setInputData}
                     />
 
-                    <div className="w-full flex flex-col items-center gap-4">
-                        {!error &&
-                            <WideButton
-                                colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
-                            >
-                                Save changes
-                            </WideButton>
-                        }
+                    {
+                        dataChanged &&
+                        <div className="w-full flex flex-col items-center gap-4">
+                            {!error &&
+                                <WideButton
+                                    colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                >
+                                    Save changes
+                                </WideButton>
+                            }
 
-                        <WideButton
-                            colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
-                            onClick={discardChanges}
-                        >
-                            Discard changes
-                        </WideButton>
-                    </div>
+                            <WideButton
+                                colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
+                                onClick={discardChanges}
+                            >
+                                Discard changes
+                            </WideButton>
+                        </div>
+                    }
 
                     <CrossButton onClickAction={discardChanges} />
 

@@ -165,6 +165,9 @@ export default function TextEditForm({
     const popupWindowRef = useRef<HTMLDivElement | null>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window", discardChanges)
 
+    const nameChanged = inputData.name !== profileData.name
+    const aboutMeChanged = inputData.aboutMe !== profileData.aboutMe
+    const dataChanged = nameChanged || aboutMeChanged || emailStatus !== "idle"
 
 
     return (
@@ -210,6 +213,7 @@ export default function TextEditForm({
 
                 {
                     (!["checking", "invalid", "unavailable"].includes(emailStatus)) &&
+                    dataChanged &&
                     (
                         <div className="w-full flex flex-col items-center gap-4">
                             {
