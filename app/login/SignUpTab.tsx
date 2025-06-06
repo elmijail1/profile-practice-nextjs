@@ -191,6 +191,8 @@ export default function SignUpTab() {
     const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window-error", setError)
 
+    const [passwordDisplay, setPasswordDisplay] = useState<"password" | "text">("password")
+
     return (
         <>
             <div className="auth-tab">
@@ -215,7 +217,7 @@ export default function SignUpTab() {
                     </AuthFormInput>
 
                     <AuthFormInput
-                        type="password"
+                        type={passwordDisplay}
                         name="password"
                         value={inputData.password}
                         onChange={handleInput}
@@ -224,20 +226,21 @@ export default function SignUpTab() {
                             trigger: firstFocus.password,
                             isValid: validatedData.password,
                             lastFocus: lastFocus === "password",
-                            errorText: `
-                                Password must be 8+ symbols long and contain at least one:
+                            errorText: `Password must be 8+ symbols long and contain at least one:
                                 · uppercase letter (e.g. A, B, C)
                                 · lowercase letter (e.g. a, b, c)
                                 · digit (e.g. 1, 2, 3)
                                 · special symbol (e.g. _, !, ?)
                             `
                         }}
+                        setPasswordDisplay={setPasswordDisplay}
+                        passwordAutocomplete={"new-password"}
                     >
                         Password
                     </AuthFormInput>
 
                     <AuthFormInput
-                        type="password"
+                        type={passwordDisplay}
                         name="passwordRepeat"
                         value={inputData.passwordRepeat}
                         onChange={handleInput}
@@ -248,6 +251,8 @@ export default function SignUpTab() {
                             lastFocus: lastFocus === "passwordRepeat",
                             errorText: "Passwords must match and be 8+ symbols long."
                         }}
+                        setPasswordDisplay={setPasswordDisplay}
+                        passwordAutocomplete={"new-password"}
                     >
                         Repeat Password
                     </AuthFormInput>
