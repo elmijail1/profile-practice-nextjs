@@ -7,7 +7,6 @@ import type { Session } from "next-auth"
 type ProfileContextType = {
     session: Session | null,
     status: string,
-    update: () => Promise<Session | null>,
     currentId: string,
     isOwnProfile: boolean
 }
