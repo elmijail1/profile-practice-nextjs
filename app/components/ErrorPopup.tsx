@@ -4,7 +4,7 @@ type SetError<T> = React.Dispatch<React.SetStateAction<T>>
 
 type ErrorProps<T extends boolean | string> = {
     error: string,
-    setError: SetError<T>,
+    setError: SetError<T> | ((newStateValue: T) => void),
     windowReference?: React.Ref<HTMLDivElement> | null
 }
 
