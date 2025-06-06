@@ -11,7 +11,6 @@ import { signOut } from "next-auth/react"
 
 type FLWProps = {
     setProfileData: React.Dispatch<SetStateAction<User | undefined>>,
-    setOpenFriendList: React.Dispatch<SetStateAction<boolean>>,
     friendsList: number[],
     mutate?: () => Promise<User | undefined>,
     page: number,
@@ -19,7 +18,7 @@ type FLWProps = {
 }
 
 export default function ListOfFriends({
-    setProfileData, setOpenFriendList, friendsList, mutate, page, limit
+    setProfileData, friendsList, mutate, page, limit
 }: FLWProps) {
 
     const { isOwnProfile } = useProfileContext()
@@ -84,7 +83,6 @@ export default function ListOfFriends({
                             user={user}
                             listOrder={((page - 1) * limit) + index + 1}
                             deleteOnClick={isOwnProfile && !error ? () => removeFriend(user.id, mutate) : null}
-                            extraActionOnClick={() => setOpenFriendList(false)}
                             textColor="0, 0%, 0%"
                         />
                     )

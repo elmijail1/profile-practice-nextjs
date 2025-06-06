@@ -104,7 +104,6 @@ export default function FriendListWindow({
                             ?
                             <ListOfFriends
                                 setProfileData={setProfileData}
-                                setOpenFriendList={setOpenFriendList}
                                 friendsList={friendsList}
                                 mutate={mutate}
                                 page={renderPage}
