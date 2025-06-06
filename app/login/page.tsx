@@ -3,7 +3,7 @@ import AuthTabButton from "./AuthTabButton";
 import LogInTab from "./LogInTab"
 import SignUpTab from "./SignUpTab"
 import { useEffect, useRef, useState } from "react"
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 import ErrorPopup from "../components/ErrorPopup";
 
@@ -23,6 +23,12 @@ export default function Auth() {
     const popupWindowRef = useRef<HTMLDivElement>(null)
     useHandleElsewhereClick(popupWindowRef, "popup-window-error", setExpiredRedirect)
 
+    const router = useRouter()
+
+    function setErrorAndClearParams(newStateValue: boolean) {
+        router.replace("/login", { scroll: false })
+        setExpiredRedirect(newStateValue)
+    }
 
     const pageClassMob = `w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative pb-20 ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`
     const pageClassDesk = `xl:h-screen xl:pt-[3rem] xl:pb-5`
@@ -57,7 +63,7 @@ export default function Auth() {
                 expiredRedirect &&
                 <ErrorPopup
                     error={"You were logged out due to inactivity. Please log in again"}
-                    setError={setExpiredRedirect}
+                    setError={setErrorAndClearParams}
                     windowReference={popupWindowRef}
                 />
             }
