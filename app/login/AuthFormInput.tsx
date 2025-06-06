@@ -71,13 +71,17 @@ export default function AuthFormInput(
                     }
                 </div>
                 {
-                    name === "password" && value &&
+                    name === "password" && setPasswordDisplay && value &&
                     <button
                         type="button"
                         onClick={() => {
-                            type === "password"
-                                ? setPasswordDisplay!("text")
-                                : setPasswordDisplay!("password")
+                            if (type === "password") {
+                                setPasswordDisplay("text")
+                                return
+                            } else if (type === "text") {
+                                setPasswordDisplay("password")
+                                return
+                            }
                         }}
                         className="text-[1rem] mt-[0.3rem] w-full text-center underline"
                     >
