@@ -7,7 +7,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 const INACTIVITY_LIMIT = 30 * 60 // in seconds
 
 export const authOptions: NextAuthOptions = {
-    // custom generated PrismaClient is compatible (should be at least)
+    // Type assertion needed due to @auth/prisma-adapter type constraints
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     adapter: PrismaAdapter(prisma as any),
     providers: [
         CredentialsProvider({
