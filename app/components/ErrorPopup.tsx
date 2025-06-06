@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react"
 
-type SetError<T> = React.Dispatch<React.SetStateAction<T>>
+type SetError<T> = React.Dispatch<SetStateAction<T>>
 
 type ErrorProps<T extends boolean | string> = {
     error: string,
