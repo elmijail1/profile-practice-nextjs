@@ -1,9 +1,11 @@
+import { authState } from "@/utilities/authState";
 import { signOut } from "next-auth/react";
 
 export default function FooterLogout() {
 
     async function logoutUser() {
         try {
+            authState.clearAuthenticated()
             await signOut({ callbackUrl: "/login" })
         } catch (error) {
             console.error("Error signing out: ", error)
