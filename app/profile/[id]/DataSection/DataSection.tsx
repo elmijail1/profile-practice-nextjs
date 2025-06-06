@@ -1,7 +1,7 @@
 "use client";
 
 
-import React, { SetStateAction, useState } from "react"
+import React, { SetStateAction, useEffect, useState } from "react"
 import AboutSection from "./AboutSection"
 import FriendListWindow from "./FriendListWindow"
 import { useFriendList } from "../useFriendList";
@@ -30,6 +30,11 @@ export default function DataSection({
         "August", "September", "October", "November", "December"
     ]
 
+    useEffect(() => {
+        if (profileData.friends.length === 0) {
+            setOpenFriendList(false)
+        }
+    }, [profileData.friends])
 
     const joinedInMonth = months[new Date(profileData.joinedIn).getMonth()]
     const joinedInYear = new Date(profileData.joinedIn).getFullYear()
@@ -135,7 +140,7 @@ export default function DataSection({
 
             {/* 2. Friend List window */}
             {
-                openFriendList && profileData.friends.length > 0 &&
+                openFriendList &&
                 <FriendListWindow
                     profileData={profileData}
                     setProfileData={setProfileData}
