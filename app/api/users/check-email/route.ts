@@ -27,12 +27,12 @@ export async function POST(req: NextRequest) {
     })
 
     // the user with this email exists and it's not the current user
+    // if the check takes place on sign up, then no need to check what user has the same email
     if (userId) {
-        var isTaken = !!existingUser && existingUser.id.toString() !== userId
+        const isTaken = !!existingUser && existingUser.id.toString() !== userId
+        return NextResponse.json({ isTaken })
     } else {
-        var isTaken = !!existingUser
+        const isTaken = !!existingUser
+        return NextResponse.json({ isTaken })
     }
-
-    // send a response that the email is already in use
-    return NextResponse.json({ isTaken })
 }
