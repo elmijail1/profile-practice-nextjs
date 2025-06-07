@@ -2,12 +2,15 @@
 import AuthTabButton from "./AuthTabButton";
 import LogInTab from "./LogInTab"
 import SignUpTab from "./SignUpTab"
-import { useEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation";
 import useHandleElsewhereClick from "@/utilities/useHandleElsewhereClick";
 import ErrorPopup from "../components/ErrorPopup";
 
-export default function Auth() {
+const pageClassMob = `w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative pb-20`
+const pageClassDesk = `xl:h-screen xl:pt-[3rem] xl:pb-5`
+
+export function AuthContent() {
     const [activeTab, setActiveTab] = useState<"login" | "signup">("login")
     const [expiredRedirect, setExpiredRedirect] = useState(false)
 
@@ -30,15 +33,12 @@ export default function Auth() {
         setExpiredRedirect(newStateValue)
     }
 
-    const pageClassMob = `w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative pb-20 ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`
-    const pageClassDesk = `xl:h-screen xl:pt-[3rem] xl:pb-5`
-
     const tabButtonsMob = `h-20 w-full flex justify-center items-center border-solid border-b-[0.2rem] border-white fixed z-20 ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`
     const tabButtonsDesk = `xl:max-w-[30rem] xl:gap-[1rem] xl:items-end xl:border-none xl:absolute`
 
     return (
         <main>
-            <div className={`${pageClassMob} ${pageClassDesk}`}>
+            <div className={`${pageClassMob} ${pageClassDesk} ${activeTab === "login" ? "bg-auth-login" : "bg-auth-signup"}`}>
                 <section className={`${tabButtonsMob} ${tabButtonsDesk}`}>
                     <AuthTabButton
                         isActive={activeTab === "login"}
@@ -68,5 +68,23 @@ export default function Auth() {
                 />
             }
         </main>
+    )
+}
+
+export function AuthLoading() {
+    return (
+        <main>
+            <div className={`${pageClassMob} ${pageClassDesk}`}>
+                <div className="text-white text-lg">Loading...</div>
+            </div>
+        </main>
+    )
+}
+
+export default function Auth() {
+    return (
+        <Suspense fallback={<AuthLoading />}>
+            <AuthContent />
+        </Suspense>
     )
 }
