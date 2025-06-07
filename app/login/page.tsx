@@ -10,7 +10,7 @@ import ErrorPopup from "../components/ErrorPopup";
 const pageClassMob = `w-full min-h-max h-[calc(100vh-80px)] flex flex-col items-center relative pb-20`
 const pageClassDesk = `xl:h-screen xl:pt-[3rem] xl:pb-5`
 
-export function AuthContent() {
+function AuthContent() {
     const [activeTab, setActiveTab] = useState<"login" | "signup">("login")
     const [expiredRedirect, setExpiredRedirect] = useState(false)
 
@@ -71,7 +71,7 @@ export function AuthContent() {
     )
 }
 
-export function AuthLoading() {
+function AuthLoading() {
     return (
         <main>
             <div className={`${pageClassMob} ${pageClassDesk}`}>
