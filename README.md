@@ -28,14 +28,17 @@ And this app became a playground for several essential web development concepts,
 ## 📖 Pages
 ### 1. Authentication
 - Sign up or log in via tabbed interface
+
 ![Profile Practice Authentication](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmJ2aGtqdzFobGN0dXNobTJsN3o2dHZ0NWYxbDNhNHB1aGhib2N2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AMoqMKXnyccJVWDtHG/giphy.gif)
 
 ### 2. People
 - Browse and sort users
+
 ![Profile Practice People](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExamR6NXkzZjhtbWpuZWEyc2R5Z2N2MTJjNzdvdjU2N2NnaGp4bHFxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OmZqtDgoKkIHe6bBQd/giphy.gif)
 
 ### 3. Profile
 - View others' profiles, update your own, manage yor friend list
+
 ![Profile Practice Profile](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2dnNjZjMnNxamppZTN0a2dsbG5yam0xN25yMDBpNjh5enVsa2dzNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TDlwHA2a8sGLdNtZrP/giphy.gif)
 
 
