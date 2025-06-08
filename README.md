@@ -1,9 +1,9 @@
 # Profile Practice
 
 ## 📖 Description
-This web app lets you authenticate, see other users, add them to a friend-list, and edit your profile.
+This is a fullstack web app that lets users sign up, manage their profile, add friends, and view other users.
 
-Obviously, it's a practice-oriented project that doesn't go beyond dedactic purposes and in its current form can't be a standalone commercial app. But by no means it should suggest that it's not important – it's a significant stepping stone for me as a developer.
+Please note that it's a learning-focused project – hence, in its current form it's not a standalone commercial app. Yet though it's built for practice, it features real-world functionality – and shows what solutions I've come up with during development.
 
 ## 🚀 Quick start
 
@@ -77,7 +77,7 @@ Perhaps, the least straightforward part of my app's development. NextAuth requir
 Clone this repo:
 
 ```
-git clone https://github.com/chalupa-bazooka/georgian-transliterator.git
+git@github.com:elmijail1/profile-practice-nextjs.git
 ```
 
 By no means this app is perfect. Neither it's a _tour de force_ of an experienced developer. Yet it doesn't mean that this app is bad: I spent a lot of time on it, working on all its features to make them do the right thing. So it does what you expect. But it can be improved – at least in terms of optimization, UI, and UX. So always feel free to suggest improvements, I'll be happy to revisit this app.
