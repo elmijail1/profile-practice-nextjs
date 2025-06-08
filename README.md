@@ -1,6 +1,6 @@
 # Profile Practice
 
-## 📖 Description
+## ℹ️ Description
 This is a fullstack web app that lets users sign up, manage their profile, add friends, and view other users.
 
 Please note that it's a learning-focused project – hence, in its current form it's not a standalone commercial app. Yet though it's built for practice, it features real-world functionality – and shows what solutions I've come up with during development.
@@ -11,66 +11,59 @@ Find Profile Practice live by following this link:
 https://profile-practice-nextjs-production.up.railway.app/
 
 ## 🤔 Why did I make this app?
-Ever since I finished my first app ([Georgian Transilterator](https://github.com/elmijail1/georgian-transliterator)), I was wondering what it's like to make an app that lets you authenticate users. Before I started working on it, I didn't even realize that it needed a server part – you live and learn 🤷‍♂️
+After finishing my first app ([Georgian Transilterator](https://github.com/elmijail1/georgian-transliterator)), I wanted to explore user authentication – a powerful and widespread feature I barely knew how to implement. To be honest, at first I didn't even realize that it required a backend – you live and learn 🤷‍♂️
 
-And this app does indeed live for me to learn: it's my playground for several basic web-dev concepts that I, as a beginner, found both exciting in functionality and mysterious in implementation.
+And this app became a playground for several essential web development concepts, like authentication, session expiration, database callbacks, etc. I believe that it's safe to say that it helped me transition from a frontend-only mindset to actually building a fullstack app. The learning curve was steep and at times it wasn't easy to carry on, but the result was well worth it.
 
-When I started it I thought of myself as a purely frontend developer. Now that I've finished it, I realize that I can do fullstack. It helped me grow a lot.
+## ⚙️ Features
+- 🚪 User sign-up and login
+- ⚙️ Profile editing (name, email, password, image, about me)
+- 🤝 Add / remove friends
+- 🗂 User list with sorting & pagination
+- ✅ Real-time email availability check
+- ⏳ Auto-logout after inactivity with redirect
 
-## ⚙️ What does this app do?
-This app lets you:
-1. Create an account or log into an existing one
-2. Change your profile's data: name, email, about me, image, and password
-3. View other people's profiles and add them to your friend list – or remove them from it
-
-Minor yet important features:
-- Real-time email uniqueness check for signing up or updating email
-- Pagination and sorting for user lists
-- Automatic user session logout due to inactivity with redirecting
-
-### Pages
-After all the work I've done, I was surprised to realize that the app actually has only three full-fledged pages (not counting dynamic ones, that is):
-1. **Authentication screen**: log in or sign up by choose one of two tabs available here.
-2. **People list**: view all the users registered in the app and sort them.
-3. **Profile**: view users' details and update yours. Also add / remove friends.
-
-Brief showcase of each:
-#### 1. Authentication
+## 📖 Pages
+### 1. Authentication
+- Sign up or log in via tabbed interface
 gif
 
-#### 2. People
+### 2. People
+- Browse and sort users
 gif
 
-#### 3. Profile
+### 3. Profile
+- View others' profiles, update your own, manage yor friend list
 gif
 
 
-## 🛠 What did I use in this app?
+## 🛠 Tech stack
 1. Next.js
 2. TypeScript
 3. PostgresQL
 4. Prisma
 5. NextAuth
 
-### 1. Next.js
-At first the idea of the stack inlcuded just React, then it evolved to include Express. I've learned about Next.js after my entire frontend part was finished and I had to start working on the server side (which I was absolutely clueless about and had only little experience with previously). I found Next to be convenient and straightforward for a beginner, so I moved my app to it. I didn't regret it. Well, maybe just once, when Next's aggressive caching prevented my user session from expiring properly on the client which I couldn't find an explanation for for several days. But then again, nothing is perfect.
+### Development notes
+#### 1. Next.js
+At first, I planned to use React and Firebase. I switched to Next.js after deciding to have more control over my backend. With time I've come to appreciate how beginner-friendly and powerful Next is. The only notable issue with it was debugging session expiration behavior on the client – its aggessive cache prevented my solution from working properly. Figuring out what the problem was and how to fix it was truly a learning opportunity in disguise!
 
-### 2. TypeScript
-At first the app used regular JavaScript. But as I was learning to use Next with a tutorial that used TypeScript, I decided that it wouldn't hurt to move to it, as well. Certainly, it led to numerous linting errors on my first builds which I wasn't very happy to discover – but it was great practice and I don't regret it. Now I use TypeScript more or less confidently for basic tasks and find it very hepful.
+#### 2. TypeScript
+I started in plain JS, but decided to adopt TypeScript after seeing it in a Next tutorial. It slowed me down at some moments (all those linting errors...) but in the long run it definitely improved my code's precision.
 
-### 3. PostgresQL
-My first experience with a relational database. Loved it, so far haven't had any issues with it. But speaking of issues...
+#### 3. PostgresQL
+My first time using a relational database in an app. Smooth experience overall, so far haven't had any notable issues with it. And speaking of issues...
 
-### 4. Prisma
-Now if something did annoy me during the development, it was Prisma. I was lucky to start using it right after they had a major update so at first I couldn't understand how to set it up properly for quite some time. After that, things went more or less smoothly until deployment. Since my app's built on Next, it was natural for me to try deploying it on Vercel – but Prisma made it almost impossible with errors that I failed to resolve, so I had to move to Railway which didn't have anything of that kind. It's not a bad ORM and it does its job fine, but its documentation and compatibility could be better. Thankfully, the devs added a chatbot to their website, so it should be less frustrating now – props to them!
+#### 4. Prisma
+Prisma gave me headache a couple of times. Its setup wasn't smooth sailing, as I was "lucky" to start using Prisma after it got a major update – the docs had conflicting information probably because of that. Another issue was with deployment on Vercel – seems to be a compatibility issue. Popular solutions didn't work for me, so I just moved to Railway which worked fine. Overall, Prisma does its job well, but the guidelines could be clearer. However, it's also worth noting that its developers added a chatbot on their website – props to them for that!
 
-### 5. NextAuth
-Perhaps, the least straightforward part of my app's development. NextAuth requires lots of learning and since it was my first app with authentication, I didn't have it easy with it. I certainly want to make a couple more apps with it to get a better command of it.
+#### 5. NextAuth
+Authentication was the most challenging part. NextAuth seems to be pretty poewrful, but also has a steep learning curve. I'm definitely planning to revisit in future projects to get a better command of it.
 
 ## ❤️ Acknowledgements
-- **Mosh Hamedani** (CodeWithMosh) for introducing me to Next.js and making me enthusiastic about TypeScript with [his course](https://codewithmosh.com/p/ultimate-nextjs-series)
-- **Luke Barousse** for a great introduction to PostgresQL and SQL in general in [his YouTube course](https://www.youtube.com/watch?v=7mz73uXD9DA)
-- **Duolingo Team** for design inspiration – [check them out](https://www.duolingo.com/) if you haven't seen their language-learning app yet
+- **[Mosh Hamedani](https://codewithmosh.com/)** (CodeWithMosh) – for introducing me to Next.js and making me enthusiastic about TypeScript with [his Next.js course](https://codewithmosh.com/p/ultimate-nextjs-series)
+- **[Luke Barousse](https://www.lukebarousse.com/)** – for a great introduction to PostgresQL and SQL in general in [his YouTube course](https://www.youtube.com/watch?v=7mz73uXD9DA)
+- **[Duolingo](https://www.duolingo.com/)** – for design inspiration from a decent language-learning app
 
 ## 🤝 Contributing
 
@@ -80,4 +73,5 @@ Clone this repo:
 git@github.com:elmijail1/profile-practice-nextjs.git
 ```
 
-By no means this app is perfect. Neither it's a _tour de force_ of an experienced developer. Yet it doesn't mean that this app is bad: I spent a lot of time on it, working on all its features to make them do the right thing. So it does what you expect. But it can be improved – at least in terms of optimization, UI, and UX. So always feel free to suggest improvements, I'll be happy to revisit this app.
+This app isn't perfect – and that's okay. I built it to learn.
+Still, there's room for improvement (performance, UX, design), and I'm always open to feedback. Feel ree to fork, play around, or suggest changes – I'll be happy to revisit it!
