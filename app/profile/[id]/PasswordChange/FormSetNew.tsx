@@ -63,6 +63,7 @@ export default function FormSetNew({
         event: React.FormEvent<HTMLFormElement>
     ) {
         event.preventDefault()
+        if (isLoading) return
         setIsLoading(true)
 
         try {
@@ -89,8 +90,7 @@ export default function FormSetNew({
             const result = await res.json()
 
             if (!result.success) {
-                // console.error("Password change failed: ", result.message)
-                setError("Creating new profiles is currently unavailable. Try again later.")
+                setError("Updating is currently unavailable. Try again later.")
                 return
             }
             setProgressStage("success")

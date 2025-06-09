@@ -39,7 +39,10 @@ export default function ImageEditForm({
     const bgColorChanged = inputData.bgColor[0] !== profileData.bgColor[0] || inputData.bgColor[1] !== profileData.bgColor[1] || inputData.bgColor[2] !== profileData.bgColor[2]
     const dataChanged = emojiChanged || bgColorChanged
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     function discardChanges() {
+        if (isSubmitting) return
         setInputData({
             emoji: profileData.emoji,
             bgColor: profileData.bgColor,
@@ -51,6 +54,9 @@ export default function ImageEditForm({
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
+        if (isSubmitting) return
+        setIsSubmitting(true)
+
         const updatedProfileData = { ...inputData }
 
         try {
@@ -70,16 +76,19 @@ export default function ImageEditForm({
                     return
                 }
                 setError("Updating is currently unavailable. Try again later.")
+                setIsSubmitting(false)
                 return
             }
 
             const updatedUser = await response.json()
             setProfileData(updatedUser.user)
             setOpenImageEditor(false)
+            setIsSubmitting(false)
 
         } catch (error) {
             console.error("Error updating the profile's images: ", error)
             setError("Updating is currently unavailable. Try again later.")
+            setIsSubmitting(false)
         }
     }
 
@@ -116,17 +125,22 @@ export default function ImageEditForm({
                             {!error &&
                                 <WideButton
                                     colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                    disabledIf={!dataChanged || !!error || isSubmitting}
                                 >
-                                    Save changes
+                                    {isSubmitting ? "Saving..." : "Save changes"}
                                 </WideButton>
                             }
 
-                            <WideButton
-                                colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
-                                onClick={discardChanges}
-                            >
-                                Discard changes
-                            </WideButton>
+                            {
+                                !isSubmitting &&
+                                <WideButton
+                                    colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
+                                    onClick={discardChanges}
+                                    disabledIf={isSubmitting}
+                                >
+                                    Discard changes
+                                </WideButton>
+                            }
                         </div>
                     }
 
