@@ -47,6 +47,7 @@ export default function FormCompare({
         event: React.FormEvent<HTMLFormElement>
     ) {
         event.preventDefault()
+        if (isLoading) return
         setIsLoading(true)
 
         try {
@@ -65,13 +66,6 @@ export default function FormCompare({
                     router.push("/login?reason=expired")
                     return
                 }
-                setError("Checking in currently unavailable. Try again later.")
-                setIsLoading(false)
-            }
-
-            const result = await res.json()
-
-            if (!result.success) {
                 setError("The password is wrong. Try again.")
                 setIsLoading(false)
                 return
@@ -89,16 +83,6 @@ export default function FormCompare({
             }
             setError("Password checking is currently unavailable. Try again later.")
             setIsLoading(false)
-        }
-    }
-
-    function determineButtonText() {
-        if (!passwordIsValid) {
-            return "Enter Valid Password"
-        } else if (passwordIsValid && !isLoading) {
-            return "Check Password"
-        } else if (passwordIsValid && isLoading) {
-            return "Checking..."
         }
     }
 
@@ -139,7 +123,7 @@ export default function FormCompare({
             {
                 passwordIsValid &&
                 <SubmitButton disabledIf={!passwordIsValid || isLoading}>
-                    {determineButtonText()}
+                    {isLoading ? "Checking..." : "Check Password"}
                 </SubmitButton>
             }
         </form>
