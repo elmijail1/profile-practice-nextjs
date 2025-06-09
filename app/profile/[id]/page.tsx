@@ -9,6 +9,7 @@ import PasswordWindow from "./PasswordChange/PasswordWindow";
 import { useSession } from "next-auth/react";
 import { ProfileContextProvider } from "@/lib/ProfileContext";
 import Loader from "@/app/components/Loader";
+import ProtectedLink from "@/components/ProtectedLink";
 
 export default function Profile() {
 
@@ -48,7 +49,17 @@ export default function Profile() {
         return (
             <main>
                 <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
-                    <div>Error fetching user.</div>
+                    <div className="w-full h-screen flex items-start pt-[3rem] justify-center">
+                        <div className="w-max-[30rem] w-[70%] flex flex-col gap-2 items-center text-[1.2rem] font-semibold">
+                            <p>Sorry, this user doesn't exist.</p>
+                            <ProtectedLink
+                                href={"/people"}
+                                className="text-green-500 bg-white px-5 rounded-2xl hover:brightness-95"
+                            >
+                                See all users
+                            </ProtectedLink>
+                        </div>
+                    </div>
                 </div>
             </main>
         )
