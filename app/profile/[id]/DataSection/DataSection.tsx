@@ -46,9 +46,15 @@ export default function DataSection({
     const shouldFetch = !!session && !isOwnProfile
     const { friends, mutate } = useFriendList(shouldFetch)
     const isFriend = friends?.includes(currentIdNumber)
-    async function handleFriendAction() {
-        try {
 
+    const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+
+    async function handleFriendAction() {
+        if (isLoading) return
+        setIsLoading(true)
+
+        try {
             const res = await fetch("/api/account/friend-toggle", {
                 method: "POST",
                 body: JSON.stringify({ targetId: currentIdNumber })
@@ -61,6 +67,9 @@ export default function DataSection({
                     router.push("/login?reason=expired")
                     return
                 }
+                setError("Unavailable")
+                setIsLoading(false)
+                return
             }
 
             if (res.ok) {
@@ -70,9 +79,12 @@ export default function DataSection({
                         ? list.filter(id => id !== currentIdNumber)
                         : [...list, currentIdNumber]
                 }, { revalidate: false })
+                setIsLoading(false)
             }
         } catch (error) {
-            console.error("Network or server error during friend toggle: ", error)
+            console.error("Error during friend toggle: ", error)
+            setError("Unavailable")
+            setIsLoading(false)
         }
     }
 
@@ -114,7 +126,7 @@ export default function DataSection({
                     (
                         <div className="w-full max-w-[18rem] flex justify-center">
                             {
-                                typeof isFriend === "boolean"
+                                (typeof isFriend === "boolean" && !isLoading)
                                     ?
                                     <WideButton
                                         colors={isFriend
@@ -122,13 +134,12 @@ export default function DataSection({
                                             : { frontText: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)", border: "hsl(130, 70%, 50%)" }
                                         }
                                         onClick={handleFriendAction}
+                                        disabledIf={!!error || isLoading}
                                     >
                                         {isFriend ? "Remove Friend" : "Add Friend"}
                                     </WideButton>
                                     :
-                                    <WideButton
-                                        colors={{ frontText: "hsl(0, 0%, 80%)", backBG: "hsl(0,0%,70%)", border: "hsl(0, 0%, 80%)" }}
-                                    >
+                                    <WideButton disabledIf={isLoading}>
                                         Loading...
                                     </WideButton>
                             }
