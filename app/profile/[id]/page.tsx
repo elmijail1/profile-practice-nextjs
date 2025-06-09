@@ -51,7 +51,7 @@ export default function Profile() {
                 <div className={`${mainDivClassMob} ${mainDivClassDesk}`}>
                     <div className="w-full h-screen flex items-start pt-[3rem] justify-center">
                         <div className="w-max-[30rem] w-[70%] flex flex-col gap-2 items-center text-[1.2rem] font-semibold">
-                            <p>Sorry, this user doesn't exist.</p>
+                            <p>Sorry, this user doesn&apos;t exist.</p>
                             <ProtectedLink
                                 href={"/people"}
                                 className="text-green-500 bg-white px-5 rounded-2xl hover:brightness-95"
