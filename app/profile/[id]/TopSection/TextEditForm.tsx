@@ -107,12 +107,17 @@ export default function TextEditForm({
 
     const { update } = useSession()
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         if (["invalid", "unavailable", "checking"].includes(emailStatus)) {
             return
         }
 
         event.preventDefault()
+        if (isSubmitting) return
+        setIsSubmitting(true)
+
         const updatedProfileData = { ...inputData }
 
         try {
@@ -132,17 +137,20 @@ export default function TextEditForm({
                     return
                 }
                 setError("Updating is currently unavailable. Try again later.")
+                setIsSubmitting(false)
                 return
             }
 
             const updatedUser = await response.json()
             await update()
             setProfileData(updatedUser.user)
+            setIsSubmitting(false)
             setOpenTextEditor(false)
 
         } catch (error) {
             console.error("Error updating the profile's texts: ", error)
             setError("Updating is currently unavailable. Try again later.")
+            setIsSubmitting(false)
         }
     }
 
@@ -154,6 +162,7 @@ export default function TextEditForm({
     }
 
     function discardChanges() {
+        if (isSubmitting) return
         setInputData({
             name: profileData?.name,
             email: profileData?.email,
@@ -220,17 +229,26 @@ export default function TextEditForm({
                                 !error && inputData.name && inputData.email &&
                                 <WideButton
                                     colors={{ frontBG: "hsl(130, 70%, 50%)", backBG: "hsl(130, 70%, 80%)" }}
+                                    disabledIf={isSubmitting || !!error || !dataChanged}
                                 >
-                                    Save changes
+                                    {
+                                        isSubmitting
+                                            ? "Saving..."
+                                            : "Save changes"
+                                    }
                                 </WideButton>
                             }
 
-                            <WideButton
-                                colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
-                                onClick={discardChanges}
-                            >
-                                Discard changes
-                            </WideButton>
+                            {
+                                !isSubmitting &&
+                                <WideButton
+                                    colors={{ frontText: "hsl(0, 70%, 80%)", backBG: "hsl(0, 80%, 90%)", border: "hsl(0, 70%, 80%)" }}
+                                    onClick={discardChanges}
+                                    disabledIf={isSubmitting}
+                                >
+                                    Discard changes
+                                </WideButton>
+                            }
                         </div>
                     )
                 }
