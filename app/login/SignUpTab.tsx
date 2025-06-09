@@ -19,7 +19,11 @@ export default function SignUpTab() {
     }
 
     // 2. validation
-    const [validatedData, setValidatedData] = useState({ email: false, password: false, passwordRepeat: false })
+    const [validatedData, setValidatedData] = useState({
+        email: false,
+        password: false,
+        passwordRepeat: false
+    })
     const [validatedFull, setValidatedFull] = useState(false)
     const regex = {
         email: /\S+@\S+\.\S+/, // string + @ + string + . + string
@@ -119,6 +123,9 @@ export default function SignUpTab() {
 
     async function handleSubmission(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
+        
+        // Prevent multiple submissions
+        if (isSubmitting) return
         setIsSubmitting(true)
 
         // create a user
@@ -132,48 +139,44 @@ export default function SignUpTab() {
             })
 
             if (!response.ok) {
-                // const errorData = await response.json()
-                // console.error("Failed to create a user: ", errorData)
-                setError("Our app is curently unavailable. Try again.")
+                setError("Registration failed. Please try again.")
                 setIsSubmitting(false)
                 return
+            }
+
+            // sign in the user
+            try {
+                const response = await signIn("credentials", {
+                    redirect: false,
+                    email: inputData.email,
+                    password: inputData.password
+                })
+
+                if (!response?.ok) {
+                    setError("Login after registration failed. Please try logging in manually.")
+                    setIsSubmitting(false)
+                    return
+                }
+
+                const session = await getSession()
+
+                if (!session?.user.id) {
+                    setError("Session creation failed. Please try logging in manually.")
+                    setIsSubmitting(false)
+                    return
+                }
+
+                // Set authentication flag after successful signup and login
+                authState.setAuthenticated()
+                router.push(`/profile/${session.user.id}`)
+            } catch (error) {
+                console.error("Login after registration error:", error)
+                setError("Registration successful but login failed. Please try logging in manually.")
+                setIsSubmitting(false)
             }
         } catch (error) {
-            console.error("Error while creating a user: ", error)
-            setError("Our app is curently unavailable. Try again.")
-            setIsSubmitting(false)
-        }
-
-        // sign in the user
-        try {
-            const response = await signIn("credentials", {
-                redirect: false,
-                email: inputData.email,
-                password: inputData.password
-            })
-
-            if (!response?.ok) {
-                // console.error("Login failed")
-                setError("Our app is curently unavailable. Try again.")
-                setIsSubmitting(false)
-                return
-            }
-
-            const session = await getSession()
-
-            if (!session?.user.id) {
-                // console.error("Session missing user ID")
-                setError("Our app is curently unavailable. Try again.")
-                setIsSubmitting(false)
-                return
-            }
-
-            // Set authentication flag after successful signup and login
-            authState.setAuthenticated()
-            router.push(`/profile/${session.user.id}`)
-        } catch (error) {
-            console.error("Error while logging in a user: ", error)
-            setError("Our app is curently unavailable. Try again.")
+            console.error("Registration error:", error)
+            setError("Registration failed. Please try again.")
             setIsSubmitting(false)
         }
     }
@@ -259,7 +262,7 @@ export default function SignUpTab() {
 
                     <WideButton
                         colors={{ backBG: "hsl(300, 25%, 55%)" }}
-                        disabledIf={!validatedFull || isSubmitting}
+                        disabledIf={!validatedFull || isSubmitting || !!error}
                     >
                         {determineButtonText()}
                     </WideButton>
