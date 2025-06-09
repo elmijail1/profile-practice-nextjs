@@ -29,6 +29,7 @@ export default function ListOfFriends({
     const router = useRouter()
 
     async function removeFriend(friendId: number, mutate?: () => Promise<User | undefined>) {
+        if (isDeleting) return
         setWhosDeleted(friendId)
         setIsDeleting(true)
         const res = await fetch("/api/account/friend-remove", {
@@ -64,9 +65,9 @@ export default function ListOfFriends({
 
         if (mutate) {
             await mutate()
+            setWhosDeleted(null)
+            setIsDeleting(false)
         }
-        setWhosDeleted(null)
-        setIsDeleting(false)
     }
 
     if (!friendsList || friendsList.length === 0) {
