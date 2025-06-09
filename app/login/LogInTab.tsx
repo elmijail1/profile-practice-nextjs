@@ -58,6 +58,10 @@ export default function LogInTab() {
 
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
+
+        // Prevent multiple submissions
+        if (isSubmitting) return
+
         setIsSubmitting(true)
 
         try {
@@ -68,8 +72,7 @@ export default function LogInTab() {
             })
 
             if (!response?.ok) {
-                // console.error("Login failed")
-                setError("Invalid email or password. Try again.")
+                setError("Invalid email or password.")
                 setIsSubmitting(false)
                 return
             }
@@ -77,8 +80,7 @@ export default function LogInTab() {
             const session = await getSession()
 
             if (!session?.user.id) {
-                // console.error("Session missing user ID")
-                setError("The app is unavailable. Try again later.")
+                setError("Login failed. Please try again.")
                 setIsSubmitting(false)
                 return
             }
@@ -87,8 +89,8 @@ export default function LogInTab() {
             authState.setAuthenticated()
             router.push(`/profile/${session.user.id}`)
         } catch (error) {
-            console.error("Error while logging in a user: ", error)
-            setError("The app is unavailable. Try again later.")
+            console.error("Login error:", error)
+            setError("Login failed. Please try again.")
             setIsSubmitting(false)
         }
     }
@@ -146,7 +148,7 @@ export default function LogInTab() {
                     </AuthFormInput>
 
                     <div className="w-full flex justify-center xl:max-w-[35rem]">
-                        <WideButton disabledIf={!validatedFull || isSubmitting}>
+                        <WideButton disabledIf={!validatedFull || isSubmitting || !!error}>
                             {determineButtonText()}
                         </WideButton>
                     </div>
